@@ -1,0 +1,44 @@
+name: Build tvOS IPA
+
+# Builds an unsigned Apple TV IPA on GitHub's hosted Xcode 27 Mac.
+# The IPA is re-signed in Signulous for the house Apple TV.
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths-ignore:
+      - '**.md'
+      - 'docs/**'
+
+concurrency:
+  group: build-tvos
+  cancel-in-progress: true
+
+jobs:
+  ipa:
+    runs-on: xcode-27
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Install Tuist (version pinned in mise.toml)
+        run: |
+          brew install mise
+          mise trust --yes mise.toml
+          mise install
+          mise exec -- tuist version
+
+      - name: Build unsigned IPA
+        run: |
+          xcodebuild -version
+          mise exec -- bash scripts/build-ipa.sh
+
+      - name: Upload IPA
+        uses: actions/upload-artifact@v4
+        with:
+          name: chao-tv-ipa
+          path: build-ipa/*-unsigned-release.ipa
+          retention-days: 30
+          if-no-files-found: error
