@@ -50,11 +50,20 @@ Send them as `{"cmd": "...", "args": {...}}`.
 | `search` | `query` | Opens Search with the query typed in |
 | `tab` / `home` / `back` | `name` for `tab` | Navigates |
 | `continue` | | Lists Continue Watching |
+| `library` | optional `action` (`add` default, `remove`, `toggle`) | Adds "this" (the title on screen or playing) to Library |
+| `watched` / `unwatched` | optional `scope` (`title`, `episode`, `season`, `upto`), `season`, `episode` | Marks "this" title, the playing episode, a season, or everything up to an episode |
+| `forget` | | Removes "this" from Continue Watching |
+| `tracks` | | Lists audio and subtitle tracks of what's playing |
+| `audio` / `subtitle` | `id` or `language` (`subtitle id=off` turns them off) | Switches tracks |
+| `next` | | Next episode |
+| `setting` | `key`, optional `value` | Reads or writes one app setting |
+| `toast` | `text` | Shows a popup on the TV |
+| `screen` / `press` | `label` for `press` | Fallback: reads the on-screen accessibility labels, or presses a button by name |
 | `sync` | | Forces a Chao Sync pull and push |
 | `addon` | `url` | Installs or re-enables an add-on by manifest URL |
 | `addons` | | Lists installed add-ons and whether catalogs (Cinemeta) are on |
 
-Ids are IMDb ids (`tt...`); `type` is `movie` or `series`.
+Ids are IMDb ids (`tt...`); `type` is `movie` or `series`. "This" is the title on the open details page, or what is playing; any of those commands also accepts an explicit `id` and `type`. Every action shows a small "done" popup on the TV, such as "Added Blue Planet II to Library".
 
 ## Building
 
@@ -68,7 +77,14 @@ The `upstream` remote is `bobsupra/NuvioTVOS`. Chao TV's changes are kept small 
 
 ## Changelog
 
-### Build 5 (in progress)
+### Build 6 (in progress)
+- **Do-it commands on "this":** add to or remove from Library, mark the title, episode, season or "up to here" watched or unwatched, remove from Continue Watching. These act on whatever is open or playing, with no button pressing.
+- **Player control:** list and switch audio and subtitle tracks (including subtitles off) and skip to the next episode.
+- **On-TV popups:** every agent action shows a short confirmation in the top corner.
+- **Settings:** read or write a single app setting.
+- **Fallback:** `screen` and `press` read on-screen labels and press a button by name, for anything without a direct command.
+
+### Build 5
 - **Full rebrand:** every on-screen "Nuvio" is now "Chao TV" (132 strings in code, 1,549 translations), with an original icon, Top Shelf banner and wordmark.
 - **Settings slimmed down:**
   - Account & Profiles page removed.

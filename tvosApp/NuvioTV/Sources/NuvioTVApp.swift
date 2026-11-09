@@ -775,6 +775,7 @@ struct ContentView: View {
             creatingParty = false; choosingPartySource = false
         }
         .onOpenURL(perform: handleDeepLink)
+        .overlay(alignment: .topTrailing) { ChaoToastView() }  // Chao TV: agent "done" popups
         .onReceive(NotificationCenter.default.publisher(for: UIApplication.willResignActiveNotification)) { _ in
             watchPartyOwner.suspendForInactivity()
         }
@@ -13662,6 +13663,40 @@ extension ContentView {
         ChaoSync.shared.start()
     }
 
+    fileprivate struct ChaoTarget {
+        let meta: NuvioMeta
+        let season: Int?
+        let episode: Int?
+    }
+
+    /// "This": an explicit id/type from the agent, else what is playing, else
+    /// the details page on screen.
+    fileprivate func chaoTarget(_ command: ChaoLink.Command) async -> ChaoTarget? {
+        if let id = command.string("id") {
+            let type = command.string("type") ?? (command.int("season") != nil ? "series" : "movie")
+            let lookup = await ContinueWatchingBuilder.lookupMetadata(
+                id: id, type: type, needsVideos: true, repository: CinemetaCatalogRepository())
+            return lookup.meta.map { ChaoTarget(meta: $0, season: nil, episode: nil) }
+        }
+        switch activeScreen {
+        case let .player(_, meta, _, _, _, _):
+            let episode = playbackCurrentEpisode
+            var full = meta
+            if meta.isSeries, meta.videos?.isEmpty ?? true {
+                let lookup = await ContinueWatchingBuilder.lookupMetadata(
+                    id: meta.id, type: meta.type, needsVideos: true, repository: CinemetaCatalogRepository())
+                full = lookup.meta ?? meta
+            }
+            return ChaoTarget(meta: full, season: episode?.season, episode: episode?.episode)
+        case let .details(id, type):
+            let lookup = await ContinueWatchingBuilder.lookupMetadata(
+                id: id, type: type, needsVideos: true, repository: CinemetaCatalogRepository())
+            return lookup.meta.map { ChaoTarget(meta: $0, season: nil, episode: nil) }
+        default:
+            return nil
+        }
+    }
+
     fileprivate func chaoStateSnapshot() -> [String: Any] {
         var state: [String: Any] = ["tab": selectedTab.rawValue]
         switch activeScreen {
@@ -13759,6 +13794,7 @@ extension ContentView {
                     meta: meta, streamUrl: "", position: 0, duration: 0,
                     lastWatchedAt: Date(), season: season, episode: episode)
                 resumePlayback(item, startFromBeginning: command.args["fromStart"] as? Bool ?? false)
+                ChaoToast.shared.show("Playing \(meta.name) S\(season)E\(episode)", symbol: "play.circle.fill")
                 return .ok(["title": meta.name, "season": season, "episode": episode])
             }
             openDetailsRoot(id: id, type: type, startPlayback: true)
@@ -13822,10 +13858,136 @@ extension ContentView {
             await ChaoSync.shared.syncNow()
             return .ok()
 
+        case "library", "watched", "unwatched", "forget":
+            // Act on "this": the title on screen (details or player) unless
+            // args name another. A popup on the TV confirms it.
+            guard let target = await chaoTarget(command) else {
+                return .fail("nothing on screen to act on - give id and type")
+            }
+            let meta = target.meta
+            switch command.name {
+            case "library":
+                let action = (command.string("action") ?? "add").lowercased()
+                let inLibrary = LibraryStore.contains(metaId: meta.id, type: meta.type)
+                let add = action == "toggle" ? !inLibrary : action != "remove"
+                if add { LibraryStore.add(meta) } else { LibraryStore.remove(metaId: meta.id, type: meta.type) }
+                ChaoToast.shared.show(add ? "Added \(meta.name) to Library" : "Removed \(meta.name) from Library",
+                                      symbol: add ? "plus.circle.fill" : "minus.circle.fill")
+                return .ok(["title": meta.name, "inLibrary": add])
+            case "watched", "unwatched":
+                let watched = command.name == "watched"
+                let season = command.int("season") ?? target.season
+                let episode = command.int("episode") ?? target.episode
+                let scope = (command.string("scope") ?? (episode != nil ? "episode" : "title")).lowercased()
+                var what = meta.name
+                switch scope {
+                case "season":
+                    guard let season else { return .fail("season required") }
+                    let episodes = (meta.videos ?? []).filter { $0.season == season }.map(\.episode)
+                    _ = WatchedStore.setSeasonWatched(meta: meta, season: season, episodes: episodes, isWatched: watched)
+                    what = "\(meta.name) season \(season)"
+                case "episode":
+                    guard let season, let episode else { return .fail("season and episode required") }
+                    if watched {
+                        _ = WatchedStore.markWatched(meta, season: season, episode: episode)
+                    } else {
+                        _ = WatchedStore.removeEpisode(meta: meta, season: season, episode: episode)
+                    }
+                    what = "\(meta.name) S\(season)E\(episode)"
+                case "upto":
+                    guard watched, let season, let episode else { return .fail("season and episode required") }
+                    _ = WatchedStore.markWatchedUpTo(meta: meta, season: season, episode: episode)
+                    what = "\(meta.name) up to S\(season)E\(episode)"
+                default:
+                    if watched { _ = WatchedStore.markWatched(meta) } else { _ = WatchedStore.remove(meta: meta) }
+                }
+                ChaoToast.shared.show(watched ? "Marked \(what) watched" : "Marked \(what) unwatched",
+                                      symbol: watched ? "checkmark.circle.fill" : "arrow.uturn.backward.circle.fill")
+                return .ok(["title": what, "watched": watched])
+            default: // forget
+                ContinueWatchingStore.remove(metaId: meta.id)
+                ChaoToast.shared.show("Removed \(meta.name) from Continue Watching", symbol: "xmark.circle.fill")
+                return .ok(["title": meta.name])
+            }
+
+        case "toast":
+            ChaoToast.shared.show(command.string("text") ?? "Done", symbol: command.string("symbol") ?? "checkmark.circle.fill")
+            return .ok()
+
+        case "screen":
+            // What is on screen: labelled elements + focus (no screenshot).
+            var info = ChaoScreen.snapshot(limit: command.int("limit") ?? 150)
+            info["state"] = chaoStateSnapshot()
+            return .ok(info)
+
+        case "press", "tap":
+            // Press any visible button by its label, without moving focus to it.
+            guard let label = command.string("label") else { return .fail("label required") }
+            guard let pressed = ChaoScreen.activate(label: label, index: command.int("index") ?? 0) else {
+                return .fail("nothing on screen labelled \(label)")
+            }
+            return .ok(["pressed": pressed])
+
+        case "tracks":
+            guard let player = PlayerViewModel.current, case .player = activeScreen else {
+                return .fail("nothing playing")
+            }
+            let audio: [[String: Any]] = player.audioTracks.map {
+                ["id": $0.id, "name": $0.name, "language": $0.language, "selected": $0.isSelected]
+            }
+            let subtitles: [[String: Any]] = player.subtitles.map {
+                ["id": $0.id, "name": $0.name, "language": $0.language, "selected": $0.isSelected]
+            }
+            return .ok(["audio": audio, "subtitles": subtitles])
+
+        case "audio", "subtitle":
+            guard let player = PlayerViewModel.current, case .player = activeScreen else {
+                return .fail("nothing playing")
+            }
+            guard let wanted = command.string("id") ?? command.string("language") else {
+                return .fail("id or language required")
+            }
+            if command.name == "audio" {
+                guard let track = player.audioTracks.first(where: { $0.id == wanted })
+                        ?? player.audioTracks.first(where: { $0.language.lowercased() == wanted.lowercased() }) else {
+                    return .fail("no audio track \(wanted)")
+                }
+                player.selectAudio(track)
+                ChaoToast.shared.show("Audio: \(track.name)", symbol: "speaker.wave.2.fill")
+                return .ok(["audio": track.name])
+            }
+            guard let track = player.subtitles.first(where: { $0.id == wanted })
+                    ?? player.subtitles.first(where: { $0.language.lowercased() == wanted.lowercased() }) else {
+                return .fail("no subtitle track \(wanted)")
+            }
+            player.selectSubtitle(track)
+            ChaoToast.shared.show("Subtitles: \(track.name)", symbol: "captions.bubble.fill")
+            return .ok(["subtitle": track.name])
+
+        case "next":
+            guard let player = PlayerViewModel.current, case .player = activeScreen else {
+                return .fail("nothing playing")
+            }
+            player.playNextEpisode()
+            return .ok()
+
+        case "setting":
+            // Read or write one app setting (nuvio.tv.* keys only).
+            guard let key = command.string("key"), key.hasPrefix("nuvio.tv.") else {
+                return .fail("key must start with nuvio.tv.")
+            }
+            let store = ProfileSettings.current
+            if let value = command.args["value"], !(value is NSNull) {
+                store.set(value, forKey: key)
+            }
+            let current = store.object(forKey: key)
+            return .ok(["key": key, "value": current.map { "\($0)" } ?? "unset"])
+
         case "addon":
             // Install (or re-enable) an add-on by manifest URL.
             guard let url = command.string("url") else { return .fail("url required") }
             guard CommunityAddonCatalog.install(manifestURL: url) else { return .fail("not a valid manifest URL") }
+            ChaoToast.shared.show("Add-on installed", symbol: "puzzlepiece.extension.fill")
             return .ok(["installed": url])
 
         case "addons":
