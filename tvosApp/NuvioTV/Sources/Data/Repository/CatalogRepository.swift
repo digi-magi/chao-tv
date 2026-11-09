@@ -1553,6 +1553,17 @@ final class CinemetaCatalogRepository: CatalogRepository {
             defaults.set(profileID, forKey: "nuvio.tv.profile.settings.profileID")
         }
         let previous = configuredStreamAddonPreferences(in: defaults)
+        var preferences = preferences
+        // Chao TV fix: with no saved list Cinemeta counts as enabled, but once
+        // any list exists an unlisted Cinemeta counts as disabled. Installing
+        // the first add-on therefore silently switched Cinemeta (search,
+        // posters, metadata) off. Keep it explicitly enabled in that case.
+        let cinemetaURL = "https://v3-cinemeta.strem.io/manifest.json"
+        if previous.isEmpty,
+           !defaults.bool(forKey: SettingsKey.cinemetaDisabled),
+           !preferences.contains(where: { normalizedManifestURL(from: $0.url)?.absoluteString == cinemetaURL }) {
+            preferences.insert(StreamAddonPreference(url: cinemetaURL, enabled: true), at: 0)
+        }
         let normalized = normalizedPreferences(preferences)
         let enabledURLs = normalized
             .filter(\.enabled)

@@ -39,7 +39,7 @@ Send them as `{"cmd": "...", "args": {...}}`.
 
 | Command | Args | Does |
 |---|---|---|
-| `status` | | Returns screen, tab, title and player position |
+| `status` | | Returns screen, tab, title, player position, search results, Continue Watching and catalog state |
 | `play` | `id`, `type`, optional `season` + `episode`, optional `fromStart` | Plays a movie, the next-up episode, or a specific episode |
 | `resume` | optional `id` | Resumes a Continue Watching title, or unpauses the player |
 | `pause` / `stop` | | Pauses or closes the player |
@@ -49,6 +49,8 @@ Send them as `{"cmd": "...", "args": {...}}`.
 | `tab` / `home` / `back` | `name` for `tab` | Navigates |
 | `continue` | | Lists Continue Watching |
 | `sync` | | Forces a Chao Sync pull and push |
+| `addon` | `url` | Installs or re-enables an add-on by manifest URL |
+| `addons` | | Lists installed add-ons and whether catalogs (Cinemeta) are on |
 
 Ids are IMDb ids (`tt...`); `type` is `movie` or `series`.
 
@@ -63,6 +65,11 @@ On a Mac you can build locally with Xcode 27, [mise](https://mise.jdx.dev) and [
 The `upstream` remote is `bobsupra/NuvioTVOS`. Chao TV's changes are kept small and mostly confined to `Core/ChaoTV*` plus a few marked hooks (search for `Chao TV`), so upstream fixes can be merged in.
 
 ## Changelog
+
+### Build 4 (in progress)
+- **Fix (upstream bug):** installing the first add-on switched Cinemeta off silently, which emptied search ("No searchable catalogs") and dropped metadata. Cinemeta now stays on unless it is turned off explicitly.
+- **Agent link:** new `addon` and `addons` commands, and `status` now reports what's on screen (search results, Continue Watching, catalog state), so the agent doesn't need screenshots.
+- **First install without any navigation:** `chaotv://addon?url=<manifest>` adds the first add-on. The agent link then connects by itself, because it finds the hub through that add-on.
 
 ### Build 3 (2026-11-09, `08633243e`)
 - **Agent link (back door):** the app keeps a live connection to the house hub. The agent can `play` (including a specific season and episode), `resume`, `pause`, `seek`, `stop`, `open`, `search`, switch tabs, list Continue Watching and read the current screen and player state.

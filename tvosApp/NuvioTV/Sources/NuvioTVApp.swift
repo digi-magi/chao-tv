@@ -13686,7 +13686,26 @@ extension ContentView {
                 "title": player.title
             ] as [String: Any]
         }
-        if selectedTab == .search { state["search"] = netflixSearchViewModel.searchText }
+        if selectedTab == .search {
+            let search = netflixSearchViewModel
+            var info: [String: Any] = [
+                "query": search.searchText,
+                "loading": search.isLoading,
+                "count": search.results.count,
+                "results": search.results.prefix(12).map { ["id": $0.id, "type": $0.type, "title": $0.name] }
+            ]
+            if let error = search.error { info["error"] = error }
+            if let reason = search.emptyStateReason { info["empty"] = String(describing: reason) }
+            state["search"] = info
+        }
+        let continueWatching = ContinueWatchingStore.items().prefix(8).map { item -> [String: Any] in
+            var row: [String: Any] = ["id": item.meta.id, "title": item.meta.name]
+            if let season = item.season { row["season"] = season }
+            if let episode = item.episode { row["episode"] = episode }
+            return row
+        }
+        if !continueWatching.isEmpty { state["continueWatching"] = continueWatching }
+        state["catalogsOn"] = CinemetaCatalogRepository.isCinemetaEnabled
         if isResolvingContinueWatchingStream { state["resolving"] = true }
         return state
     }
@@ -13802,6 +13821,18 @@ extension ContentView {
         case "sync":
             await ChaoSync.shared.syncNow()
             return .ok()
+
+        case "addon":
+            // Install (or re-enable) an add-on by manifest URL.
+            guard let url = command.string("url") else { return .fail("url required") }
+            guard CommunityAddonCatalog.install(manifestURL: url) else { return .fail("not a valid manifest URL") }
+            return .ok(["installed": url])
+
+        case "addons":
+            let list: [[String: Any]] = CinemetaCatalogRepository.configuredStreamAddonPreferences.map {
+                ["url": $0.url, "enabled": $0.enabled]
+            }
+            return .ok(["addons": list, "cinemeta": CinemetaCatalogRepository.isCinemetaEnabled])
 
         default:
             return .fail("unknown command \(command.name)")
