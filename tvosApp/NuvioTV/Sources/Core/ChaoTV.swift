@@ -10,4 +10,15 @@ enum ChaoTV {
     /// No Nuvio account sign-in screen on launch.
     static let skipsLoginGate = true
     static let showsCalendar = false
+
+    /// Household defaults applied once (only where the user never chose):
+    /// Auto Select Stream on, so resume / agent "play" start immediately
+    /// instead of opening the source picker.
+    static func applyHouseDefaults(profileId: String?) {
+        for store in [ProfileSettings.store(for: profileId), ProfileSettings.current] {
+            if store.object(forKey: SettingsKey.smartStreamSelection) == nil {
+                store.set(true, forKey: SettingsKey.smartStreamSelection)
+            }
+        }
+    }
 }

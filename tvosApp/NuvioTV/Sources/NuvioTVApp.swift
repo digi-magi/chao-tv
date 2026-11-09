@@ -782,6 +782,7 @@ struct ContentView: View {
             watchPartyOwner.resumeAfterForeground()
         }
         .onAppear {
+            installChaoLink()
             Task { await releaseUpdateService.checkIfNeeded() }
             Task { await announcementService.checkIfNeeded() }
             if WatchPartyConfiguration.isEnabled {
@@ -876,7 +877,10 @@ struct ContentView: View {
                 syncManager.flushPendingPushes()
                 TopShelfLibraryFeed.write()
                 TopShelfBackgroundRefresh.schedule()
+                ChaoLink.shared.stop()
             case .active:
+                ChaoLink.shared.start()
+                Task { await ChaoSync.shared.syncNow() }
                 TopShelfLibraryFeed.prefetchRemoteLibraryIfNeeded()
                 if backgroundedAt != nil {
                     releaseUpdateService.beginForegroundSession()
@@ -1236,7 +1240,7 @@ struct ContentView: View {
 
         // nuvio://meta?type=&id=  |  nuvio-tv://details?…  |  nuvio-tv://continue-watching?…
         // Also accepts com.nuvio.app.tv and path-style /meta/… /details/…
-        guard ["nuvio", "nuvio-tv", "com.nuvio.app.tv"].contains(scheme) else { return }
+        guard ["chaotv", "nuvio", "nuvio-tv", "com.nuvio.app.tv"].contains(scheme) else { return }
 
         // Infuse returns here after its player closes. Keep this before the
         // generic id guard: callback URLs intentionally carry only a session
@@ -13643,5 +13647,164 @@ extension String {
             index += n
         }
         return lines.joined(separator: "\n")
+    }
+}
+
+// MARK: - Chao TV link (agent back door)
+
+extension ContentView {
+    /// Wires the house agent link and Chao Sync to this root view.
+    fileprivate func installChaoLink() {
+        ChaoTV.applyHouseDefaults(profileId: profileViewModel.activeProfile?.id)
+        ChaoLink.shared.handler = { command in await self.handleChaoCommand(command) }
+        ChaoLink.shared.stateProvider = { self.chaoStateSnapshot() }
+        ChaoLink.shared.start()
+        ChaoSync.shared.start()
+    }
+
+    fileprivate func chaoStateSnapshot() -> [String: Any] {
+        var state: [String: Any] = ["tab": selectedTab.rawValue]
+        switch activeScreen {
+        case .login: state["screen"] = "login"
+        case .profileSelection: state["screen"] = "profileSelection"
+        case .main: state["screen"] = "main"
+        case let .details(id, type):
+            state["screen"] = "details"; state["id"] = id; state["type"] = type
+        case let .player(_, meta, subtitle, _, _, _):
+            state["screen"] = "player"; state["id"] = meta.id; state["title"] = meta.name
+            state["subtitle"] = subtitle
+        case .cloudLibrary: state["screen"] = "cloudLibrary"
+        case .collectionFolder: state["screen"] = "collectionFolder"
+        case .productionBrowse: state["screen"] = "productionBrowse"
+        case .personBrowse: state["screen"] = "personBrowse"
+        }
+        if case .player = activeScreen, let player = PlayerViewModel.current {
+            state["player"] = [
+                "status": String(describing: player.status),
+                "position": (player.time.current * 10).rounded() / 10,
+                "duration": (player.time.duration * 10).rounded() / 10,
+                "title": player.title
+            ] as [String: Any]
+        }
+        if selectedTab == .search { state["search"] = netflixSearchViewModel.searchText }
+        if isResolvingContinueWatchingStream { state["resolving"] = true }
+        return state
+    }
+
+    fileprivate func handleChaoCommand(_ command: ChaoLink.Command) async -> ChaoLink.Result {
+        switch command.name {
+        case "status":
+            return .ok(chaoStateSnapshot())
+
+        case "tab", "home":
+            let name = (command.name == "home" ? "home" : command.string("name") ?? "home").lowercased()
+            let tab: TVTab
+            switch name {
+            case "home": tab = .home
+            case "search": tab = .search
+            case "library": tab = .library
+            case "settings": tab = .settings
+            default: return .fail("unknown tab \(name)")
+            }
+            if activeScreen != .main { dismissOverlay() }
+            selectedTab = tab
+            return .ok()
+
+        case "back":
+            if activeScreen == .main { return .fail("already on the main screen") }
+            dismissOverlay()
+            return .ok()
+
+        case "open":
+            guard let id = command.string("id") else { return .fail("id required") }
+            openDetailsRoot(id: id, type: command.string("type") ?? "movie")
+            return .ok()
+
+        case "search":
+            guard let query = command.string("query") else { return .fail("query required") }
+            if activeScreen != .main { dismissOverlay() }
+            selectedTab = .search
+            netflixSearchViewModel.searchText = query
+            return .ok()
+
+        case "play":
+            guard let id = command.string("id") else { return .fail("id required") }
+            let type = command.string("type") ?? (command.int("season") != nil ? "series" : "movie")
+            if let season = command.int("season"), let episode = command.int("episode") {
+                let lookup = await ContinueWatchingBuilder.lookupMetadata(
+                    id: id, type: type, needsVideos: true, repository: CinemetaCatalogRepository())
+                guard let meta = lookup.meta else {
+                    return .fail(lookup.failureReason ?? "no metadata for \(id)")
+                }
+                let item = ContinueWatchingItem(
+                    meta: meta, streamUrl: "", position: 0, duration: 0,
+                    lastWatchedAt: Date(), season: season, episode: episode)
+                resumePlayback(item, startFromBeginning: command.args["fromStart"] as? Bool ?? false)
+                return .ok(["title": meta.name, "season": season, "episode": episode])
+            }
+            openDetailsRoot(id: id, type: type, startPlayback: true)
+            return .ok()
+
+        case "resume":
+            // Resume a Continue Watching entry, or the paused player.
+            if let id = command.string("id") {
+                guard let item = ContinueWatchingStore.item(for: id) else {
+                    return .fail("\(id) is not in Continue Watching")
+                }
+                resumePlayback(item)
+                return .ok(["title": item.meta.name])
+            }
+            guard let player = PlayerViewModel.current, case .player = activeScreen else {
+                return .fail("nothing playing")
+            }
+            player.play()
+            return .ok()
+
+        case "pause":
+            guard let player = PlayerViewModel.current, case .player = activeScreen else {
+                return .fail("nothing playing")
+            }
+            player.pause()
+            return .ok()
+
+        case "seek":
+            guard let player = PlayerViewModel.current, case .player = activeScreen else {
+                return .fail("nothing playing")
+            }
+            if let seconds = command.double("seconds") {
+                player.seek(to: max(0, seconds))
+            } else if let delta = command.double("by") {
+                player.seek(to: max(0, player.time.current + delta))
+            } else {
+                return .fail("seconds or by required")
+            }
+            return .ok()
+
+        case "stop":
+            guard case let .player(_, meta, subtitle, _, _, _) = activeScreen else {
+                return .fail("nothing playing")
+            }
+            dismissPlayer(meta: meta, subtitle: subtitle)
+            return .ok()
+
+        case "continue":
+            let items: [[String: Any]] = ContinueWatchingStore.items().prefix(20).map { item in
+                var row: [String: Any] = [
+                    "id": item.meta.id, "type": item.meta.type, "title": item.meta.name,
+                    "position": item.position.rounded(), "duration": item.duration.rounded()
+                ]
+                if let season = item.season { row["season"] = season }
+                if let episode = item.episode { row["episode"] = episode }
+                return row
+            }
+            return .ok(["items": items])
+
+        case "sync":
+            await ChaoSync.shared.syncNow()
+            return .ok()
+
+        default:
+            return .fail("unknown command \(command.name)")
+        }
     }
 }

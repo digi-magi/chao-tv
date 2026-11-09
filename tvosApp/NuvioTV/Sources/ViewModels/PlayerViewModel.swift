@@ -190,6 +190,9 @@ struct PlayerToastItem: Equatable, Sendable, ExpressibleByStringLiteral {
 
 @MainActor
 class PlayerViewModel: ObservableObject {
+    /// Chao TV link: the player currently on screen (set by `load`).
+    static weak var current: PlayerViewModel?
+
     enum AutomaticSubtitlePolicy: Equatable {
         case preferredLanguages([String])
         case forced(language: String)
@@ -1172,6 +1175,7 @@ class PlayerViewModel: ObservableObject {
         currentEpisode: NuvioVideo? = nil,
         isActionPlaybackSession: Bool = false
     ) {
+        PlayerViewModel.current = self  // Chao TV link: remember the player on screen
         PlaybackTimelineRecorder.record(.playbackLoadRequested)
         let isTrailerPlayback = subtitle == PlaybackMarkers.trailerSubtitle
         self.isActionPlaybackSession = isActionPlaybackSession
