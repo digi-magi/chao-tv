@@ -88,7 +88,8 @@ final class AuthManager: ObservableObject {
     /// Whether the login gate should be shown on launch (not signed in and the
     /// user hasn't previously chosen to continue without an account).
     var shouldShowLoginGate: Bool {
-        !isAuthenticated && !store.didSkipLogin
+        if ChaoTV.skipsLoginGate { return false }
+        return !isAuthenticated && !store.didSkipLogin
     }
 
     /// Present in UserDefaults for as long as this install exists. UserDefaults

@@ -3,7 +3,7 @@ import Foundation
 /// Global feature configuration for Watch Party capabilities.
 enum WatchPartyConfiguration {
     /// Enables Watch Party capabilities across tvOS tabs, details, and player.
-    static let isEnabled = true
+    static let isEnabled = false  // Chao TV: Watch Party removed
 }
 
 // Sync semantics adapted from NuvioMedia/NuvioTV (GPL-3.0),

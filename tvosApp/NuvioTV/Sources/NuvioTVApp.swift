@@ -302,7 +302,8 @@ enum TVTab: Hashable, Identifiable, CaseIterable {
 
     /// Settings → Appearance → Sidebar → Calendar (on unless turned off).
     static var isCalendarEnabled: Bool {
-        ProfileSettings.current.object(forKey: SettingsKey.showCalendarTab) as? Bool ?? true
+        guard ChaoTV.showsCalendar else { return false }
+        return ProfileSettings.current.object(forKey: SettingsKey.showCalendarTab) as? Bool ?? true
     }
 
     /// Settings → Appearance → Sidebar → Watch Party (on unless turned off).
@@ -595,6 +596,12 @@ struct ContentView: View {
                             // an ungated background pull behind the Guest card.
                             if syncManager.profileSyncError == nil {
                                 syncManager.refreshProfilesForSelectionIfNeeded()
+                            }
+                            // Chao TV: one shared household profile. Enter it
+                            // straight away instead of asking who's watching.
+                            if ChaoTV.sharedProfileOnly,
+                               let shared = profileViewModel.profiles.first(where: { !$0.isPinProtected }) {
+                                profileViewModel.requestSwitch(to: shared)
                             }
                         }
                         // Navigate only on an explicit pick. Listening to
@@ -4448,7 +4455,7 @@ private struct TVMainTabView: View {
         Group {
             if #available(tvOS 18.0, *) {
                 tabs
-                    .tabViewStyle(.sidebarAdaptable)
+                    .tabViewStyle(.tabBarOnly)  // Chao TV: Omni-style top tabs
             } else {
                 tabs
             }
@@ -4667,7 +4674,6 @@ private struct TVMainTabView: View {
     // Compatibility shell for systems predating native tab sections.
     private var standardTabs: some View {
         TabView(selection: $selectedTab) {
-            Color.clear.tabItem { profileTabLabel }.tag(TVTab.profile)
             homeTabContent
                 .tabItem { Label(TVTab.home.title, systemImage: TVTab.home.symbol) }
                 .tag(TVTab.home)
@@ -4682,7 +4688,7 @@ private struct TVMainTabView: View {
             libraryTabContent
                 .tabItem { Label(TVTab.library.title, systemImage: TVTab.library.symbol) }
                 .tag(TVTab.library)
-            if showCalendarTab {
+            if ChaoTV.showsCalendar && showCalendarTab {
                 calendarTabContent
                     .tabItem { Label(TVTab.calendar.title, systemImage: TVTab.calendar.symbol) }
                     .tag(TVTab.calendar)
@@ -4716,9 +4722,6 @@ private struct TVMainTabView: View {
     @available(tvOS 18.0, *)
     private var groupedCollectionTabs: some View {
         TabView(selection: $selectedTab) {
-            if #unavailable(tvOS 27.0) {
-                Tab(value: TVTab.profile) { Color.clear } label: { profileTabLabel }
-            }
             Tab(TVTab.home.title, systemImage: TVTab.home.symbol, value: TVTab.home) {
                 homeTabContent
             }
@@ -4733,7 +4736,7 @@ private struct TVMainTabView: View {
             Tab(TVTab.library.title, systemImage: TVTab.library.symbol, value: TVTab.library) {
                 libraryTabContent
             }
-            if showCalendarTab {
+            if ChaoTV.showsCalendar && showCalendarTab {
                 Tab(TVTab.calendar.title, systemImage: TVTab.calendar.symbol, value: TVTab.calendar) {
                     calendarTabContent
                 }

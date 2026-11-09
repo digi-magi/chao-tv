@@ -68,7 +68,7 @@ final class ReleaseUpdateService: ObservableObject {
     static let lastAttemptKey = "releaseUpdatesLastAttempt"
     static let cachedReleaseKey = "releaseUpdatesCachedRelease"
     static let skippedTagKey = "releaseUpdatesSkippedTag"
-    static let latestReleaseEndpoint = URL(string: "https://api.github.com/repos/bobsupra/NuvioTVOS/releases/latest")!
+    static let latestReleaseEndpoint = URL(string: "https://api.github.com/repos/digi-magi/chao-tv/releases/latest")!
 
     private struct GitHubRelease: Decodable {
         let tagName: String
