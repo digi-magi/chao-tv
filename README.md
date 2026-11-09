@@ -64,13 +64,23 @@ The `upstream` remote is `bobsupra/NuvioTVOS`. Chao TV's changes are kept small 
 
 ## Changelog
 
-- **2026-11-09**
-  - Forked from NuvioTVOS 3.5.0 (build 81).
-  - CI builds unsigned IPAs.
-  - Rebranded to Chao TV.
-  - Top tab bar.
-  - No sign-in, profiles, Watch Party or Calendar.
-  - Added the agent link and Chao Sync (in testing).
+### Build 3 (2026-11-09, `08633243e`)
+- **Agent link (back door):** the app keeps a live connection to the house hub. The agent can `play` (including a specific season and episode), `resume`, `pause`, `seek`, `stop`, `open`, `search`, switch tabs, list Continue Watching and read the current screen and player state.
+- **Chao Sync:** watch progress is shared across every Chao TV in the house. The newest progress wins, removals sync too, and it runs on launch, when the app comes back to the foreground and every 60 s.
+- **Auto Select Stream** is on by default, so play and resume start without the source picker.
+- **`chaotv://` deep links** work like the `nuvio://` ones.
+
+### Build 2 (2026-11-09, `e96a291f6`)
+- Renamed to **Chao TV** (bundle id `com.digimagi.chaotv`).
+- Omni-style **top tab bar** instead of the sidebar.
+- **No sign-in screen** and **no profile picker**: one shared household profile.
+- **Watch Party and Calendar removed.**
+- Update and announcement checks point at this repo.
+
+### Build 1 (2026-11-09, `4d5e7f5c0`)
+- Forked from NuvioTVOS 3.5.0 (build 81).
+- GitHub Actions builds an unsigned IPA on the Xcode 27 runner.
+- Stock app verified on the Apple TV playing a 1080p MKV from the house cache.
 
 ## License
 
