@@ -1,136 +1,77 @@
-<p align="center"><a href="https://discord.gg/2YnNr2xmnJ"><img src="https://img.shields.io/badge/Discord-Join%20the%20community-5865F2?logo=discord&logoColor=white&style=for-the-badge" alt="Join the NuvioTVOS Discord" /></a><br />Chat, get help, report bugs, and share feature ideas.</p>
+# Chao TV
 
-<div align="center">
+A house-built Apple TV streaming app: simple, Omni-style, and made for one household's setup. Chao TV is a fork of [NuvioTVOS](https://github.com/bobsupra/NuvioTVOS), which is GPL-3.0, so this fork is GPL-3.0 too. The upstream project's README is kept at [docs/UPSTREAM-README.md](docs/UPSTREAM-README.md).
 
-  <img src="https://github.com/tapframe/NuvioTV/blob/main/assets/brand/app_logo_wordmark.png" alt="Nuvio" width="300" />
-  <br />
-  <br />
+It plays from Stremio-compatible add-ons, mainly a self-hosted local-cache add-on. The house agent ("Chao") can drive it directly through a built-in agent link, with no remote-control button presses and no screenshots.
 
-  <h1>Nuvio TV for tvOS</h1>
+## How it differs from upstream
 
-  <p>
-    A modern Apple TV media player for browsing catalogs and playing user-configured sources.
-    <br />
-    SwiftUI tvOS shell - catalog browsing - AetherEngine / MPVKit playback
-  </p>
+| Area | Chao TV |
+|---|---|
+| Name / bundle id | Chao TV, `com.digimagi.chaotv`, URL scheme `chaotv://` |
+| Navigation | Top tab bar (Home, Search, Library, Settings), not the sidebar |
+| Accounts | No sign-in screen; one shared household profile, entered automatically |
+| Removed | Watch Party, Calendar, profile picker |
+| Playback | Auto Select Stream on by default, so play and resume start immediately |
+| Progress | **Chao Sync**: watch progress shared by every Chao TV in the house |
+| Agent link | **ChaoLink**: the house agent can open, play, pause, seek and read state |
+| Updates | Update and announcement checks point at this repo, not upstream |
 
-  <p>
-    <a href="https://github.com/bobsupra/NuvioTVOS/releases/latest">
-      <img src="https://img.shields.io/github/v/release/bobsupra/NuvioTVOS?include_prereleases&sort=date&label=Download%20.ipa&logo=apple&logoColor=white&color=0A84FF&style=for-the-badge" alt="Download the latest tvOS .ipa" />
-    </a>
-  </p>
+The house switches live in [`tvosApp/NuvioTV/Sources/Core/ChaoTV.swift`](tvosApp/NuvioTV/Sources/Core/ChaoTV.swift). The new code lives in [`Core/ChaoTV/`](tvosApp/NuvioTV/Sources/Core/ChaoTV/).
 
-  <p>
-    <a href="https://github.com/bobsupra/NuvioTVOS/graphs/contributors">
-      <img src="https://img.shields.io/github/contributors/bobsupra/NuvioTVOS?style=for-the-badge&color=44CC11" alt="Contributors" />
-    </a>
-    <a href="https://github.com/bobsupra/NuvioTVOS/forks">
-      <img src="https://img.shields.io/github/forks/bobsupra/NuvioTVOS?style=for-the-badge&color=0A84FF" alt="Forks" />
-    </a>
-    <a href="https://github.com/bobsupra/NuvioTVOS/stargazers">
-      <img src="https://img.shields.io/github/stars/bobsupra/NuvioTVOS?style=for-the-badge&color=0A84FF" alt="Stars" />
-    </a>
-    <a href="https://github.com/bobsupra/NuvioTVOS/issues">
-      <img src="https://img.shields.io/github/issues/bobsupra/NuvioTVOS?style=for-the-badge&color=E5C100" alt="Open issues" />
-    </a>
-    <a href="https://github.com/bobsupra/NuvioTVOS/releases">
-      <img src="https://img.shields.io/github/downloads/bobsupra/NuvioTVOS/total?style=for-the-badge&label=Total%20downloads&color=F47732" alt="Total downloads" />
-    </a>
-  </p>
+## The house hub
 
-</div>
+Chao Sync and ChaoLink talk to a small hub at `/chaotv` on the same server as the stream add-on. The app finds the hub itself by trying each installed add-on's origin, so no address is built into the app. The hub runs inside the self-hosted cache add-on, which is not part of this repo.
 
+| Endpoint | Used by | Purpose |
+|---|---|---|
+| `GET /chaotv/progress?since=<ms>` | app | Pull progress changed since the last pull |
+| `PUT /chaotv/progress` | app | Push changed progress rows (newest `lastWatchedAt` wins; deletes are tombstones) |
+| `GET /chaotv/link/poll?device=<name>` | app | Long-poll (25 s) for agent commands |
+| `POST /chaotv/link/result` | app | Report a command's outcome |
+| `POST /chaotv/link/state` | app | Report what is on screen (after each command and every 15 s) |
+| `POST /chaotv/cmd` | agent | Send a command to a device, optionally waiting for the result |
+| `GET /chaotv/devices` | agent | List connected devices and their last state |
 
-Download the latest Apple TV `.ipa` from [Releases](https://github.com/bobsupra/NuvioTVOS/releases), then sideload it with Xcode, Apple Configurator, or your preferred tool. See the release notes for known issues.
+### Agent commands
 
-> **AltStore / SideStore / Feather Source:** Add `https://raw.githubusercontent.com/bobsupra/NuvioTVOS/main/apps.json` · [Add to AltStore](altstore://source?url=https://raw.githubusercontent.com/bobsupra/NuvioTVOS/main/apps.json) · [Add to SideStore](sidestore://source?url=https://raw.githubusercontent.com/bobsupra/NuvioTVOS/main/apps.json)
+Send them as `{"cmd": "...", "args": {...}}`.
 
-> **New beta alerts:** [Manage notifications](https://github.com/bobsupra/NuvioTVOS/subscription) → choose **Custom → Releases**.
+| Command | Args | Does |
+|---|---|---|
+| `status` | | Returns screen, tab, title and player position |
+| `play` | `id`, `type`, optional `season` + `episode`, optional `fromStart` | Plays a movie, the next-up episode, or a specific episode |
+| `resume` | optional `id` | Resumes a Continue Watching title, or unpauses the player |
+| `pause` / `stop` | | Pauses or closes the player |
+| `seek` | `seconds` (absolute) or `by` (relative) | Moves the playhead |
+| `open` | `id`, `type` | Opens a title's details page |
+| `search` | `query` | Opens Search with the query typed in |
+| `tab` / `home` / `back` | `name` for `tab` | Navigates |
+| `continue` | | Lists Continue Watching |
+| `sync` | | Forces a Chao Sync pull and push |
 
-## Latest tvOS Beta
+Ids are IMDb ids (`tt...`); `type` is `movie` or `series`.
 
-<!-- BEGIN LATEST_BETA -->
-**Beta 3.5.0** is the latest tvOS release.
+## Building
 
-[Quick download (.ipa)](https://github.com/bobsupra/NuvioTVOS/releases/download/tvos-beta-3.5.0/NuvioTV-3.5.0-unsigned-release.ipa) · [Read the release notes](https://github.com/bobsupra/NuvioTVOS/releases/tag/tvos-beta-3.5.0) · [Report a bug or suggest an idea](https://github.com/bobsupra/NuvioTVOS/issues/new/choose)
-<!-- END LATEST_BETA -->
+There is no local Mac. Every push to `main` that touches code builds an **unsigned IPA** on GitHub's hosted Xcode 27 runner ([`.github/workflows/build-tvos.yml`](.github/workflows/build-tvos.yml), about 18 minutes). The workflow runs [`scripts/build-ipa.sh`](scripts/build-ipa.sh) and uploads the IPA as the `chao-tv-ipa` artifact. The IPA is then signed for the Apple TV with a sideload-signing service and installed.
 
-The IPA requires a compatible tvOS development or sideloading signing workflow before installation.
+On a Mac you can build locally with Xcode 27, [mise](https://mise.jdx.dev) and [Tuist](https://tuist.dev): run `mise install`, then `bash scripts/build-ipa.sh`.
 
-### New in Beta 3.5.0
+## Keeping up with upstream
 
-- **AutoSubSync & Sync by Audio:** Lines add-on subtitles up with the video automatically using embedded MKV Cues index range requests. When no embedded subtitle reference exists, Sync by Audio listens to speech patterns through AetherEngine's shared audio tap to dynamically line lines up and track delay.
-- **Siri Remote Custom Gestures & Expert Mode:** Gesture recognition in the player (enabled in the player's **•••** settings panel under **Gestures**) with 8 ready-made shortcuts (chapter skips, intro/outro jump, -30s rewind, subtitle toggle, audio track switch, and next episode), plus an Expert Mode to record custom gestures and draw touchpad shapes for 11 actions.
-- **Watch Party Sidebar Toggle:** Customizable setting in **Settings → General** to show or hide the Watch Party tab in the sidebar navigation.
-- **MDBList Integration & Filters:** Direct MDBList catalog sources and dynamic filtering support across Collections.
-- **Profile Cloud Sync:** Synchronizes custom profile background art and add-on names to your cloud account.
-- **Native IMDb Trailer Streams:** Directly resolves high-definition trailer playback sources from IMDb on Details screens.
-- **Top Shelf & Focus Hardening:** Remote library items on Apple TV Top Shelf, focus-safe Back routing in Calendar, day panel scroll stabilization, and clamped episode guide index on long series.
+The `upstream` remote is `bobsupra/NuvioTVOS`. Chao TV's changes are kept small and mostly confined to `Core/ChaoTV*` plus a few marked hooks (search for `Chao TV`), so upstream fixes can be merged in.
 
-### Built-in Player
+## Changelog
 
-Nuvio's free built-in **AetherEngine** is the default in Auto mode. **MPVKit** is the one-way fallback, and either engine can be selected in Settings.
+- **2026-11-09**
+  - Forked from NuvioTVOS 3.5.0 (build 81).
+  - CI builds unsigned IPAs.
+  - Rebranded to Chao TV.
+  - Top tab bar.
+  - No sign-in, profiles, Watch Party or Calendar.
+  - Added the agent link and Chao Sync (in testing).
 
-- **Playback:** Native tvOS and Siri Remote controls, precise seeking and resume, saved audio and subtitle tracks, audio delay, frame-rate and dynamic-range matching, direct HTTPS and HLS streams, and custom HTTP headers.
-- **Video:** HDR10, HDR10+, HLG, Dolby Vision P5/P8, experimental full Dolby Vision P7 FEL, and optional MetalFX upscaling of sub-1080p SDR toward the display's resolution, with VideoToolbox/Neural Engine super-resolution when supported on compatible devices running tvOS 27.1+.
-- **Audio:** Dolby Atmos passthrough (E-AC3+JOC), channel fold-down, night-mode compression, and up to +12 dB dialogue lift with peak limiting. The optional lossless audio bridge converts supported non-streamable surround audio (TrueHD, DTS-HD MA, Opus) to up to 7.1-channel LPCM (24-bit for lossless sources; lossy inputs may be 16-bit) for compatible AVRs and eARC soundbars. When disabled, multichannel audio is bridged to Dolby Digital Plus with up to 5.1 channels for ARC compatibility.
-- **Subtitles and seeking:** Embedded and add-on text/PGS subtitles, authored ASS/SSA through AetherEngine's custom renderer, and thumbnail previews while scrubbing. Optional Seekr storyboards provide extra preview frames when configured. MPVKit handles separate audio/video URLs, audio amplification, and complex ASS/SSA typesetting.
+## License
 
-For supported 48 kHz TrueHD Atmos and DTS:X VOD, **Settings → Playback → Player → Atmos & DTS:X Spatial Audio (Beta)** opts into a fixed 9.1.6 render on tvOS 26+. It is off by default. The engine delivers 24-bit PCM to the system for HDMI and AirPods Spatial Audio, or lossy APAC for AirPlay; this is not TrueHD or DTS-HD bitstream passthrough. See [the spatial audio notes](docs/truehd-spatial-audio.md) for supported sources and fallback behavior.
-
-### Supported Tracking Services
-
-[Trakt](https://trakt.tv) · [Simkl](https://simkl.com) · [WeTrakr](https://wetrakr.com) · [MDBList](https://mdblist.com)
-
-### Notes
-
-- Content availability depends on your configured sources and their upstream services.
-- The Apple TV Simulator cannot play AV1.
-
-## About
-
-This project began with the Nuvio mobile app as its foundation. Since then, the tvOS version has grown into one of the best user-configured media players for Apple TV: a native SwiftUI app with catalog browsing, profiles, search, library and watchlist features, and playback controls designed for the Siri Remote.
-
-The shared mobile code remains in [composeApp](./composeApp), alongside the iOS app in [iosApp](./iosApp). Active tvOS development happens in [tvosApp/NuvioTV](./tvosApp/NuvioTV).
-
-## Current tvOS App
-
-Native SwiftUI Apple TV app with configurable catalogs; profile-scoped Nuvio libraries, Jellyfin libraries, and SMB shares; Calendar and follows; and Watch Party. Top Shelf supports configurable content in carousel, landscape, and poster layouts. Optional Seekr seek previews show frames near the playhead. Playback uses AetherEngine, with MPVKit for demanding cases; the app also supports native Usenet/NNTP playback and opt-in P2P torrent streaming. See the [tvOS source](./tvosApp/NuvioTV) and [Tuist project](./tvosApp/Project.swift).
-
-## Contributing
-
-Contributions are welcome; see [CONTRIBUTING.md](./CONTRIBUTING.md).
-
-## Development
-
-Requires macOS, Xcode with an Apple TV simulator runtime, tvOS 18 or later, [mise](https://mise.jdx.dev) (tool version pinned in `mise.toml`), [Tuist](https://tuist.dev), and network access. The Xcode project is generated from [tvosApp/Project.swift](./tvosApp/Project.swift).
-
-Clone with submodules and generate the workspace:
-
-```bash
-git clone --recurse-submodules <repository-url> NuvioTVOS
-cd NuvioTVOS
-mise install
-(cd tvosApp && tuist generate)
-```
-
-With an Apple TV simulator booted, run `./scripts/run-mobile.sh tvos s` or build the `NuvioTV` scheme in Xcode.
-
-## Configuration & Tests
-
-Login is optional during development; the default Nuvio backend is configured for QR and email login. Unit tests are in [NuvioTVTests](./tvosApp/NuvioTVTests) and run with `scripts/test-tvos.sh`; UI tests use the separate `NuvioTV-UI` scheme. See the [UI validation notes](./tvosApp/NuvioTVUITests/README.md).
-
-## Built With
-
-- SwiftUI and UIKit focus/input bridging for tvOS
-- AetherEngine and MPVKit playback engines
-- Configurable catalog, source, and subtitle APIs
-- Kotlin Multiplatform / Compose Multiplatform code from the original mobile app
-
-## Legal & DMCA
-
-Nuvio functions solely as a client-side interface for browsing metadata and playing media provided by user-configured sources. It is intended for content the user owns or is otherwise authorized to access.
-
-Nuvio is not affiliated with any third-party extensions, catalogs, sources, or content providers. It does not host, store, or distribute any media content.
-
-For comprehensive legal information, including the full disclaimer, third-party extension policy, and DMCA/Copyright information, visit the [Legal & Disclaimer Page](https://nuvioapp.space/legal).
+GPL-3.0, see [LICENSE](LICENSE). Original work © the NuvioTVOS and Nuvio contributors; Chao TV changes © 2026 digi-magi.
