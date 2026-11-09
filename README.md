@@ -11,7 +11,9 @@ It plays from Stremio-compatible add-ons, mainly a self-hosted local-cache add-o
 | Name / bundle id | Chao TV, `com.digimagi.chaotv`, URL scheme `chaotv://` |
 | Navigation | Top tab bar (Home, Search, Library, Settings), not the sidebar |
 | Accounts | No sign-in screen; one shared household profile, entered automatically |
-| Removed | Watch Party, Calendar, profile picker |
+| Removed | Watch Party, Calendar, profile picker, Account settings, third-party integrations (Simkl, MDBList, WeTrakr, Trakt, AI subtitles, metadata providers, Debrid, P2P, SMB, Usenet, Jellyfin) |
+| Streams | Only via the house cache add-on, whose upstream resolves through Real-Debrid; the in-app BitTorrent engine is hard-disabled |
+| Branding | Original Chao TV icon, Top Shelf and wordmark; "Nuvio" replaced by "Chao TV" in every UI string and all translations |
 | Playback | Auto Select Stream on by default, so play and resume start immediately |
 | Progress | **Chao Sync**: watch progress shared by every Chao TV in the house |
 | Agent link | **ChaoLink**: the house agent can open, play, pause, seek and read state |
@@ -66,7 +68,14 @@ The `upstream` remote is `bobsupra/NuvioTVOS`. Chao TV's changes are kept small 
 
 ## Changelog
 
-### Build 4 (in progress)
+### Build 5 (in progress)
+- **Full rebrand:** every on-screen "Nuvio" is now "Chao TV" (132 strings in code, 1,549 translations), with an original icon, Top Shelf banner and wordmark.
+- **Settings slimmed down:**
+  - Account & Profiles page removed.
+  - Integrations now shows only Add-ons. Simkl, MDBList, WeTrakr, Trakt, AI subtitles, metadata providers (TMDB/MDBList keys), Debrid, P2P, SMB, Usenet and Jellyfin are hidden.
+- **No P2P from the TV:** the in-app BitTorrent engine is hard-disabled (`ChaoTV.allowsP2P`).
+
+### Build 4
 - **Fix (upstream bug):** installing the first add-on switched Cinemeta off silently, which emptied search ("No searchable catalogs") and dropped metadata. Cinemeta now stays on unless it is turned off explicitly.
 - **Agent link:** new `addon` and `addons` commands, and `status` now reports what's on screen (search results, Continue Watching, catalog state), so the agent doesn't need screenshots.
 - **First install without any navigation:** `chaotv://addon?url=<manifest>` adds the first add-on. The agent link then connects by itself, because it finds the hub through that add-on.

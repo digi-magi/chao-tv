@@ -5,6 +5,7 @@ enum TorrentSettings {
     static let defaultMaxPeers: Int = 80
 
     static func isEnabled(store: UserDefaults = ProfileSettings.current) -> Bool {
+        guard ChaoTV.allowsP2P else { return false }  // Chao TV: never P2P from the TV
         let enabled = store.object(forKey: SettingsKey.p2pEnabled) as? Bool ?? false
         return enabled && hasConsent(store: store)
     }

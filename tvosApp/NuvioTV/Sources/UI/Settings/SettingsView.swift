@@ -28,6 +28,12 @@ enum SettingsCategory: String, CaseIterable, Identifiable {
 
     var id: String { rawValue }
 
+    /// Chao TV: no Account & Profiles page (no accounts, one shared profile).
+    static var allCases: [SettingsCategory] {
+        let all: [SettingsCategory] = [.account, .appearance, .layout, .integrations, .playback, .subtitles, .advanced, .about]
+        return ChaoTV.showsAccountSettings ? all : all.filter { $0 != .account }
+    }
+
     /// Localized category title. `rawValue` stays English for stable identity.
     var title: String {
         switch self {
@@ -2145,7 +2151,7 @@ private struct AccountSettingsView: View {
     let onSignOut: (() -> Void)?
     let onPresentPin: (ProfilePinSheetMode) -> Void
 
-    @AppStorage(SettingsKey.profileName) private var profileName = "Nuvio User"
+    @AppStorage(SettingsKey.profileName) private var profileName = "Chao TV"
     @AppStorage(SettingsKey.profileAutoSelectLast, store: .standard) private var autoSelectLastProfile = true
     @AppStorage(SettingsKey.profileRequireSelectionAfterBackground, store: .standard)
     private var requireProfileSelectionAfterBackground = false
@@ -2230,7 +2236,7 @@ private struct AccountSettingsView: View {
                     title: L10n.string("profile_choose_avatar", fallback: "Choose Avatar"),
                     subtitle: L10n.string(
                         "tvos_profile_avatar_subtitle",
-                        fallback: "Choose the avatar shown across Nuvio"
+                        fallback: "Choose the avatar shown across Chao TV"
                     ),
                     value: L10n.string("profile_edit_label", fallback: "Edit"),
                     accentColor: accentColor
@@ -2287,7 +2293,7 @@ private struct AccountSettingsView: View {
                     ),
                     subtitle: L10n.string(
                         "profile_select_on_return_subtitle",
-                        fallback: "Ask who's watching whenever Nuvio returns from the background"
+                        fallback: "Ask who's watching whenever Chao TV returns from the background"
                     ),
                     isOn: $requireProfileSelectionAfterBackground,
                     accentColor: accentColor
@@ -2385,7 +2391,7 @@ private struct AccountSettingsView: View {
                         title: L10n.string("tvos_account_sign_out", fallback: "Sign Out"),
                         subtitle: L10n.string(
                             "tvos_account_sign_out_subtitle",
-                            fallback: "Remove this Nuvio account from this Apple TV"
+                            fallback: "Remove this Chao TV account from this Apple TV"
                         ),
                         value: L10n.string("action_disconnect", fallback: "Disconnect"),
                         accentColor: Color(red: 1.0, green: 0.43, blue: 0.43)
@@ -2399,7 +2405,7 @@ private struct AccountSettingsView: View {
                         title: L10n.string("tvos_account_sign_in", fallback: "Sign In"),
                         subtitle: L10n.string(
                             "tvos_account_sign_in_subtitle",
-                            fallback: "Connect a Nuvio account to sync profiles, add-ons, and progress"
+                            fallback: "Connect a Chao TV account to sync profiles, add-ons, and progress"
                         ),
                         value: L10n.string("action_connect", fallback: "Connect"),
                         accentColor: accentColor
@@ -2467,7 +2473,7 @@ private struct AccountSettingsView: View {
     }
 
     private var displayProfileName: String {
-        if !isAuthenticated, activeProfile == nil { return L10n.string("tvos_settings_nuvio_guest", fallback: "Nuvio Guest") }
+        if !isAuthenticated, activeProfile == nil { return L10n.string("tvos_settings_nuvio_guest", fallback: "Chao TV") }
         return ProfileDisplayName.resolve(profile: activeProfile, settingsName: profileName)
     }
 
@@ -4774,7 +4780,7 @@ private struct TopShelfSettingsGroup: View {
             title: L10n.string("tvos_settings_topshelf_group", fallback: "Top Shelf"),
             subtitle: L10n.string(
                 "tvos_settings_topshelf_group_subtitle",
-                fallback: "What the Apple TV home screen shows when Nuvio is in the top row of the Dock"
+                fallback: "What the Apple TV home screen shows when Chao TV is in the top row of the Dock"
             )
         ) {
             if !TopShelfFeedStore.isAvailable {
@@ -4788,7 +4794,7 @@ private struct TopShelfSettingsGroup: View {
                 title: L10n.string("tvos_settings_topshelf_enabled", fallback: "Home Screen Cards"),
                 subtitle: L10n.string(
                     "tvos_settings_topshelf_enabled_subtitle",
-                    fallback: "Show dynamic cards above Nuvio on the Apple TV Home Screen"),
+                    fallback: "Show dynamic cards above Chao TV on the Apple TV Home Screen"),
                 isOn: Binding(
                     get: { configuration.isEnabled },
                     set: { enabled in
@@ -5085,7 +5091,7 @@ private struct TopShelfSettingsGroup: View {
             return
                 "\(L10n.string("tvos_settings_topshelf_library_active", fallback: "Active Library")) (\(effective.label))"
         case .local:
-            return L10n.string("library_source_saved", fallback: "Nuvio Library")
+            return L10n.string("library_source_saved", fallback: "Chao TV Library")
         case .simkl:
             return "Simkl"
         case .trakt:
@@ -5495,6 +5501,8 @@ private struct IntegrationSettingsView: View {
                 showingAddonsSettings = true
             }
 
+            // Chao TV: one cache add-on via Real-Debrid on the house server does all of this.
+            if ChaoTV.showsThirdPartyIntegrations {
             SettingsGroup(
                 title: L10n.string("tvos_settings_watch_progress_title", fallback: "Continue Watching & Scrobbling"),
                 subtitle: L10n.string(
@@ -5514,7 +5522,7 @@ private struct IntegrationSettingsView: View {
                 )
 
                 SettingsToggleRow(
-                    title: L10n.string("tvos_settings_nuvio_sync_scrobble", fallback: "Nuvio Sync"),
+                    title: L10n.string("tvos_settings_nuvio_sync_scrobble", fallback: "Chao Sync"),
                     subtitle: L10n.string(
                         "tvos_settings_nuvio_sync_scrobble_subtitle",
                         fallback: "Also save playback progress and watched episodes when another source is selected."
@@ -5843,6 +5851,7 @@ private struct IntegrationSettingsView: View {
             UsenetSettingsSection(accentColor: accentColor)
 
             JellyfinSettingsSection(accentColor: accentColor)
+            }  // ChaoTV.showsThirdPartyIntegrations
         }
         .onAppear {
             currentCacheSizeText = TorrentSettings.cacheSizeFormatted()
@@ -7450,7 +7459,7 @@ private struct DebridDeviceAuthorizationSheet: View {
                     .frame(height: 380)
                 statusText
             } else if let authorization = viewModel.authorization {
-                Text(L10n.string("debrid_device_auth_instructions", fallback: "Scan the QR and enter this code to approve Nuvio."))
+                Text(L10n.string("debrid_device_auth_instructions", fallback: "Scan the QR and enter this code to approve Chao TV."))
                     .font(.system(size: 25, weight: .medium))
                     .foregroundColor(.white.opacity(0.68))
                     .multilineTextAlignment(.center)
@@ -7715,7 +7724,7 @@ private struct TraktConnectedSettingsSheet: View {
 
                         SettingsGroup(
                             title: L10n.string("tvos_settings_trakt_features", fallback: "Trakt Features"),
-                            subtitle: L10n.string("tvos_settings_trakt_features_subtitle", fallback: "Choose how Trakt is used throughout Nuvio")
+                            subtitle: L10n.string("tvos_settings_trakt_features_subtitle", fallback: "Choose how Trakt is used throughout Chao TV")
                         ) {
                             SettingsToggleRow(
                                 title: L10n.string("tvos_settings_trakt_scrobble", fallback: "Scrobble Playback"),
@@ -7784,7 +7793,7 @@ private struct TraktConnectedSettingsSheet: View {
 
                         SettingsGroup(
                             title: L10n.string("account_login", fallback: "Account Login"),
-                            subtitle: L10n.string("tvos_settings_trakt_account_login_subtitle", fallback: "Manage the Trakt connection for this Nuvio profile")
+                            subtitle: L10n.string("tvos_settings_trakt_account_login_subtitle", fallback: "Manage the Trakt connection for this Chao TV profile")
                         ) {
                             SettingsActionRow(
                                 title: L10n.string("debrid_disconnect", fallback: "Disconnect"),
@@ -8456,7 +8465,7 @@ private struct MdbListConnectedSettingsSheet: View {
 
                             SettingsChoiceRow(
                                 title: L10n.string("trakt_library_source_dialog_title", fallback: "Library Source"),
-                                subtitle: L10n.string("tvos_settings_mdblist_library_source_subtitle", fallback: "Use MDBList collection and watchlist as your Nuvio library"),
+                                subtitle: L10n.string("tvos_settings_mdblist_library_source_subtitle", fallback: "Use MDBList collection and watchlist as your Chao TV library"),
                                 selection: librarySourceSelection,
                                 options: RemoteTrackingState.availableLibrarySources().map(\.label),
                                 accentColor: accentColor
@@ -8473,7 +8482,7 @@ private struct MdbListConnectedSettingsSheet: View {
 
                         SettingsGroup(
                             title: L10n.string("account_login", fallback: "Account Login"),
-                            subtitle: L10n.string("tvos_settings_mdblist_account_login_subtitle", fallback: "Manage the MDBList connection for this Nuvio profile")
+                            subtitle: L10n.string("tvos_settings_mdblist_account_login_subtitle", fallback: "Manage the MDBList connection for this Chao TV profile")
                         ) {
                             SettingsActionRow(
                                 title: L10n.string("debrid_disconnect", fallback: "Disconnect"),
@@ -8762,7 +8771,7 @@ private struct SimklConnectedSettingsSheet: View {
 
                         SettingsGroup(
                             title: L10n.string("tvos_settings_simkl_features", fallback: "Simkl Features"),
-                            subtitle: L10n.string("tvos_settings_simkl_features_subtitle", fallback: "Choose how Simkl is used throughout Nuvio")
+                            subtitle: L10n.string("tvos_settings_simkl_features_subtitle", fallback: "Choose how Simkl is used throughout Chao TV")
                         ) {
                             SettingsToggleRow(
                                 title: L10n.string("tvos_settings_simkl_scrobble", fallback: "Scrobble Playback"),
@@ -8779,7 +8788,7 @@ private struct SimklConnectedSettingsSheet: View {
 
                             SettingsChoiceRow(
                                 title: L10n.string("trakt_library_source_dialog_title", fallback: "Library Source"),
-                                subtitle: L10n.string("tvos_settings_simkl_library_source_subtitle", fallback: "Use Simkl Plan to Watch as your Nuvio library"),
+                                subtitle: L10n.string("tvos_settings_simkl_library_source_subtitle", fallback: "Use Simkl Plan to Watch as your Chao TV library"),
                                 selection: librarySourceSelection,
                                 options: RemoteTrackingState.availableLibrarySources().map(\.label),
                                 accentColor: accentColor
@@ -8830,7 +8839,7 @@ private struct SimklConnectedSettingsSheet: View {
                         ) {
                             SettingsActionRow(
                                 title: L10n.string("tvos_settings_simkl_transfer_to_simkl", fallback: "Transfer to Simkl"),
-                                subtitle: L10n.string("tvos_settings_simkl_transfer_source_subtitle", fallback: "Choose Nuvio Sync or a connected Trakt account as the source"),
+                                subtitle: L10n.string("tvos_settings_simkl_transfer_source_subtitle", fallback: "Choose Chao Sync or a connected Trakt account as the source"),
                                 value: viewModel.isTransferringHistory
                                     ? "\(viewModel.historyTransferProgress ?? 1)%"
                                     : L10n.string("tvos_settings_choose_source", fallback: "Choose Source"),
@@ -8872,7 +8881,7 @@ private struct SimklConnectedSettingsSheet: View {
                         ) {
                             SettingsActionRow(
                                 title: L10n.string("tvos_settings_simkl_transfer_to_plan_to_watch", fallback: "Transfer to Simkl Plan to Watch"),
-                                subtitle: L10n.string("tvos_settings_simkl_transfer_library_source_subtitle", fallback: "Choose Nuvio Library or a connected Trakt account as the source"),
+                                subtitle: L10n.string("tvos_settings_simkl_transfer_library_source_subtitle", fallback: "Choose Chao TV Library or a connected Trakt account as the source"),
                                 value: viewModel.isTransferringLibrary
                                     ? "\(viewModel.libraryTransferProgress ?? 1)%"
                                     : L10n.string("tvos_settings_choose_source", fallback: "Choose Source"),
@@ -8914,7 +8923,7 @@ private struct SimklConnectedSettingsSheet: View {
                         ) {
                             SettingsActionRow(
                                 title: L10n.string("tvos_settings_simkl_transfer_progress_to_simkl", fallback: "Transfer Progress to Simkl"),
-                                subtitle: L10n.string("tvos_settings_simkl_transfer_source_subtitle", fallback: "Choose Nuvio Sync or a connected Trakt account as the source"),
+                                subtitle: L10n.string("tvos_settings_simkl_transfer_source_subtitle", fallback: "Choose Chao Sync or a connected Trakt account as the source"),
                                 value: viewModel.isTransferringProgress
                                     ? "\(viewModel.progressTransferProgress ?? 1)%"
                                     : L10n.string("tvos_settings_choose_source", fallback: "Choose Source"),
@@ -8952,7 +8961,7 @@ private struct SimklConnectedSettingsSheet: View {
 
                         SettingsGroup(
                             title: L10n.string("account_login", fallback: "Account Login"),
-                            subtitle: L10n.string("tvos_settings_simkl_account_login_subtitle", fallback: "Manage the Simkl connection for this Nuvio profile")
+                            subtitle: L10n.string("tvos_settings_simkl_account_login_subtitle", fallback: "Manage the Simkl connection for this Chao TV profile")
                         ) {
                             if viewModel.isLegacyV1, let onReconnect {
                                 SettingsActionRow(
@@ -9036,7 +9045,7 @@ private struct SimklConnectedSettingsSheet: View {
             isPresented: $showingHistoryTransferSources,
             titleVisibility: .visible
         ) {
-            Button("From Nuvio Sync") {
+            Button("From Chao Sync") {
                 viewModel.transferWatchHistory(from: .nuvioSync)
             }
             if viewModel.isTraktTransferAvailable {
@@ -9053,7 +9062,7 @@ private struct SimklConnectedSettingsSheet: View {
             isPresented: $showingLibraryTransferSources,
             titleVisibility: .visible
         ) {
-            Button("From Nuvio Library") {
+            Button("From Chao TV Library") {
                 viewModel.transferLibrary(from: .nuvioLibrary)
             }
             if viewModel.isTraktTransferAvailable {
@@ -9070,7 +9079,7 @@ private struct SimklConnectedSettingsSheet: View {
             isPresented: $showingProgressTransferSources,
             titleVisibility: .visible
         ) {
-            Button("From Nuvio Sync") {
+            Button("From Chao Sync") {
                 viewModel.transferProgress(from: .nuvioSync)
             }
             if viewModel.isTraktTransferAvailable {
@@ -9674,7 +9683,7 @@ private struct WeTrakrConnectedSettingsSheet: View {
 
                         SettingsGroup(
                             title: L10n.string("tvos_settings_wetrakr_features", fallback: "WeTrakr Features"),
-                            subtitle: L10n.string("tvos_settings_wetrakr_features_subtitle", fallback: "Choose how WeTrakr is used throughout Nuvio")
+                            subtitle: L10n.string("tvos_settings_wetrakr_features_subtitle", fallback: "Choose how WeTrakr is used throughout Chao TV")
                         ) {
                             SettingsToggleRow(
                                 title: L10n.string("tvos_settings_wetrakr_scrobble", fallback: "Scrobble Playback"),
@@ -9691,7 +9700,7 @@ private struct WeTrakrConnectedSettingsSheet: View {
 
                             SettingsChoiceRow(
                                 title: L10n.string("trakt_library_source_dialog_title", fallback: "Library Source"),
-                                subtitle: L10n.string("tvos_settings_wetrakr_library_source_subtitle", fallback: "Use WeTrakr tracking lists as your Nuvio library"),
+                                subtitle: L10n.string("tvos_settings_wetrakr_library_source_subtitle", fallback: "Use WeTrakr tracking lists as your Chao TV library"),
                                 selection: librarySourceSelection,
                                 options: RemoteTrackingState.availableLibrarySources().map(\.label),
                                 accentColor: accentColor
@@ -9708,7 +9717,7 @@ private struct WeTrakrConnectedSettingsSheet: View {
 
                         SettingsGroup(
                             title: L10n.string("account_login", fallback: "Account Login"),
-                            subtitle: L10n.string("tvos_settings_wetrakr_account_login_subtitle", fallback: "Manage the WeTrakr connection for this Nuvio profile")
+                            subtitle: L10n.string("tvos_settings_wetrakr_account_login_subtitle", fallback: "Manage the WeTrakr connection for this Chao TV profile")
                         ) {
                             SettingsActionRow(
                                 title: L10n.string("debrid_disconnect", fallback: "Disconnect"),
@@ -9963,7 +9972,7 @@ private struct PlaybackSettingsView: View {
         case unchecked, checking, valid, invalid, unreachable
     }
 
-    /// The key's check after "Saved in your Nuvio account.", colored: green accepted, red not.
+    /// The key's check after "Saved in your Chao TV account.", colored: green accepted, red not.
     private var seekrKeyStatus: (text: String, color: Color)? {
         switch seekrKeyCheck {
         case .unchecked:
@@ -10288,7 +10297,7 @@ private struct PlaybackSettingsView: View {
                     title: L10n.string("tvos_settings_seekr_api_key", fallback: "Seekr API Key"),
                     subtitle: L10n.string(
                         "tvos_settings_seekr_api_key_subtitle",
-                        fallback: "Get your API key at seekr.tv/join. Saved in your Nuvio account."
+                        fallback: "Get your API key at seekr.tv/join. Saved in your Chao TV account."
                     ),
                     placeholder: L10n.string("debrid_not_set", fallback: "Not set"),
                     text: $seekrApiKey,
@@ -12512,7 +12521,7 @@ private struct AboutSettingsView: View {
                 }
                 SettingsToggleRow(
                     title: L10n.string("release_update_check_toggle", fallback: "Check for Updates"),
-                    subtitle: L10n.string("release_update_check_toggle_subtitle", fallback: "Check GitHub for a newer NuvioTV release"),
+                    subtitle: L10n.string("release_update_check_toggle_subtitle", fallback: "Check GitHub for a newer Chao TV release"),
                     isOn: Binding(
                         get: { releaseUpdateService.isEnabled },
                         set: {
@@ -12560,7 +12569,7 @@ private struct AboutSettingsView: View {
 
             SettingsGroup(
                 title: L10n.string("announcements_title", fallback: "Announcements"),
-                subtitle: L10n.string("announcements_settings_subtitle", fallback: "Messages from the NuvioTV maintainers")
+                subtitle: L10n.string("announcements_settings_subtitle", fallback: "Messages from the Chao TV maintainers")
             ) {
                 SettingsInfoRow(
                     title: L10n.string("announcements_status", fallback: "Message Status"),
@@ -12568,7 +12577,7 @@ private struct AboutSettingsView: View {
                 )
                 SettingsToggleRow(
                     title: L10n.string("announcements_check_toggle", fallback: "Check for Announcements"),
-                    subtitle: L10n.string("announcements_check_toggle_subtitle", fallback: "Check for notices from the NuvioTV maintainers"),
+                    subtitle: L10n.string("announcements_check_toggle_subtitle", fallback: "Check for notices from the Chao TV maintainers"),
                     isOn: Binding(
                         get: { announcementService.isEnabled },
                         set: {
@@ -12673,7 +12682,7 @@ private struct SideloadUpdatesSheet: View {
 
                         Text(L10n.string(
                             "sideload_updates_description",
-                            fallback: "Install new NuvioTV versions with atvloadly, the self-hosted signer on your network. NuvioTV has to be linked to a source there (More → Track updates)."
+                            fallback: "Install new Chao TV versions with atvloadly, the self-hosted signer on your network. Chao TV has to be linked to a source there (More → Track updates)."
                         ))
                         .font(.system(size: 20, weight: .medium))
                         .foregroundColor(.white.opacity(0.62))
@@ -12709,7 +12718,7 @@ private struct SideloadUpdatesSheet: View {
                                 title: L10n.string("atvloadly_auto_install", fallback: "Install Updates Automatically"),
                                 subtitle: L10n.string(
                                     "atvloadly_auto_install_subtitle",
-                                    fallback: "Off by default. Installs a new version from the Home screen after a 10-second countdown, never during playback. NuvioTV closes while it updates."
+                                    fallback: "Off by default. Installs a new version from the Home screen after a 10-second countdown, never during playback. Chao TV closes while it updates."
                                 ),
                                 isOn: Binding(
                                     get: { atvloadlyService.installsAutomatically },
@@ -12720,7 +12729,7 @@ private struct SideloadUpdatesSheet: View {
                             if atvloadlyService.entries.count > 1 {
                                 SettingsActionRow(
                                     title: L10n.string("atvloadly_device", fallback: "Apple TV"),
-                                    subtitle: L10n.string("atvloadly_device_subtitle", fallback: "atvloadly has NuvioTV for several Apple TVs"),
+                                    subtitle: L10n.string("atvloadly_device_subtitle", fallback: "atvloadly has Chao TV for several Apple TVs"),
                                     value: atvloadlyService.selectedEntry?.deviceLabel
                                         ?? L10n.string("atvloadly_device_choose", fallback: "Choose"),
                                     accentColor: accentColor
@@ -12851,7 +12860,7 @@ private struct LicensesAttributionsSheet: View {
         LicenseEntry(
             id: "aetherengine",
             title: "AetherEngine 6.72.0",
-            body: "Primary playback engine. Complete corresponding source and Nuvio's pinned changes: github.com/superuser404notfound/AetherEngine/tree/6.72.0 and the Vendor/AetherEngine directory in the NuvioTV source distribution.",
+            body: "Primary playback engine. Complete corresponding source and Chao TV's pinned changes: github.com/superuser404notfound/AetherEngine/tree/6.72.0 and the Vendor/AetherEngine directory in the Chao TV source distribution.",
             license: "LGPL-3.0 + App Store exception"
         ),
         LicenseEntry(
@@ -17858,7 +17867,7 @@ private struct ImportCollectionsSheet: View {
                     .font(.system(size: 40, weight: .bold))
                     .foregroundColor(.white)
 
-                Text(L10n.string("tvos_settings_import_a_nuvio_collections_json_export_s_e61b6e41", fallback: "Import a Nuvio collections JSON export (same format as Android). Use a prior Apple TV export, or host the JSON and fetch by URL."))
+                Text(L10n.string("tvos_settings_import_a_nuvio_collections_json_export_s_e61b6e41", fallback: "Import a Chao TV collections JSON export (same format as Android). Use a prior Apple TV export, or host the JSON and fetch by URL."))
                     .font(.system(size: 22, weight: .regular))
                     .foregroundColor(.white.opacity(0.6))
                     .fixedSize(horizontal: false, vertical: true)
@@ -19947,7 +19956,7 @@ private struct SettingsSearchGlassBackground<S: InsettableShape>: ViewModifier {
 
 #if DEBUG
 private struct SettingsViewPreviewHost: View {
-    @State private var selectedCategory: SettingsCategory = .account
+    @State private var selectedCategory: SettingsCategory = ChaoTV.showsAccountSettings ? .account : .integrations
 
     var body: some View {
         SettingsView(selectedCategory: $selectedCategory)
@@ -20072,10 +20081,10 @@ private struct UsenetSettingsSection: View {
             // Written only from the toggle: a profile that never chose leaves
             // the account's copy alone (see UsenetSettingsSync).
             SettingsToggleRow(
-                title: L10n.string("usenet_sync_title", fallback: "Save to Nuvio Account"),
+                title: L10n.string("usenet_sync_title", fallback: "Save to Chao TV Account"),
                 subtitle: L10n.string(
                     "usenet_sync_subtitle",
-                    fallback: "Keep these servers and their passwords in this profile of your Nuvio account, so a reinstall or another Apple TV gets them back. Passwords are stored like debrid keys. Turning it off removes them from the account."
+                    fallback: "Keep these servers and their passwords in this profile of your Chao TV account, so a reinstall or another Apple TV gets them back. Passwords are stored like debrid keys. Turning it off removes them from the account."
                 ),
                 isOn: Binding(
                     get: { syncToAccount },
@@ -20186,7 +20195,7 @@ private struct UsenetConnectionsGuide: View {
         [
             L10n.string(
                 "usenet_connections_guide_plan",
-                fallback: "Never more than your plan allows: the server turns the rest away and Nuvio keeps to the ones it accepted."
+                fallback: "Never more than your plan allows: the server turns the rest away and Chao TV keeps to the ones it accepted."
             ),
             L10n.string(
                 "usenet_connections_guide_line",
