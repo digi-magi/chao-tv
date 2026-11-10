@@ -1,0 +1,54 @@
+name: Build Android TV APK
+
+# Builds the Google TV app (android/, fork of NuvioMedia/NuvioTV) on GitHub's
+# hosted Linux runner, signed with the committed house key so updates install
+# over the previous version via adb.
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'android/**'
+      - '.github/workflows/build-android.yml'
+      - '!**.md'
+
+concurrency:
+  group: build-android
+  cancel-in-progress: true
+
+jobs:
+  apk:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    defaults:
+      run:
+        working-directory: android
+    env:
+      NUVIO_RELEASE_STORE_FILE: ${{ github.workspace }}/android/chao/chaotv-release.p12
+      NUVIO_RELEASE_KEY_ALIAS: chaotv
+      NUVIO_RELEASE_KEY_PASSWORD: chaotv-house
+      NUVIO_RELEASE_STORE_PASSWORD: chaotv-house
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+          cache: gradle
+
+      - name: Local properties (no Nuvio backend; placeholder so the client builds)
+        run: |
+          printf 'NUVIO_SUPABASE_URL=https://supabase.invalid\nNUVIO_SUPABASE_ANON_KEY=chao-tv-no-account\n' > local.properties
+          cp local.properties local.dev.properties
+
+      - name: Build fullRelease APK
+        run: ./gradlew :app:assembleFullRelease --stacktrace
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: chao-tv-apk
+          path: android/app/build/outputs/apk/full/release/*.apk
+          retention-days: 30
+          if-no-files-found: error
