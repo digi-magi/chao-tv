@@ -17,7 +17,7 @@ It plays from Stremio-compatible add-ons, mainly a self-hosted local-cache add-o
 | Streams | Only via the house cache add-on, whose upstream resolves through Real-Debrid; the in-app BitTorrent engine is hard-disabled |
 | Branding | Chao TV icon, Top Shelf and wordmark: the house agent's Chao drawn as green phosphor LED dots (the Chao is Sega's, from the Chao Adventure 2 VMU sprite sheet; fan use); "Nuvio" replaced by "Chao TV" in every UI string and all translations |
 | Playback | Auto Select Stream on by default, so play and resume start immediately |
-| Progress | **Chao Sync**: watch progress shared by every Chao TV in the house |
+| Sync | **Chao Sync**: watch progress, Library and watched marks shared by every Chao TV in the house (Apple TV and Google TV) |
 | Agent link | **ChaoLink**: the house agent can open, play, pause, seek and read state |
 | Updates | Update and announcement checks point at this repo, not upstream |
 
@@ -29,8 +29,8 @@ Chao Sync and ChaoLink talk to a small hub at `/chaotv` on the same server as th
 
 | Endpoint | Used by | Purpose |
 |---|---|---|
-| `GET /chaotv/progress?since=<ms>` | app | Pull progress changed since the last pull |
-| `PUT /chaotv/progress` | app | Push changed progress rows (newest `lastWatchedAt` wins; deletes are tombstones) |
+| `GET /chaotv/<table>?since=<ms>` | app | Pull rows changed since the last pull. Tables: `progress`, `library`, `watched`. `since` is the hub's receive time |
+| `PUT /chaotv/<table>` | app | Push changed rows (newest `updatedAt` wins; deletes are tombstones). Library keys are `type:id`; watched keys are `type:id` or `type:id:season:episode` |
 | `GET /chaotv/link/poll?device=<name>` | app | Long-poll (25 s) for agent commands |
 | `POST /chaotv/link/result` | app | Report a command's outcome |
 | `POST /chaotv/link/state` | app | Report what is on screen (after each command and every 15 s) |
@@ -89,7 +89,11 @@ The `upstream` remote is `bobsupra/NuvioTVOS`. Chao TV's changes are kept small 
 
 ## Changelog
 
-### Google TV build 1 (in progress)
+### Apple TV build 9 + Google TV build 3 (in progress)
+- **Library and watched-mark sync** between all Chao TVs. Adding, removing or marking something watched on one TV shows up on the others.
+- **Google TV:** the agent link always acts on the screen in front (a deep link no longer leaves a hidden second copy holding the link).
+
+### Google TV build 1
 - First Android TV build: NuvioTV dev with all the Chao changes.
   - Rename, plus icons and banners.
   - Omni-style **top tab bar** instead of the sidebar.

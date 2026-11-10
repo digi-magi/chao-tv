@@ -40,6 +40,8 @@ class ChaoSync @Inject constructor(
     private val progressPrefs: WatchProgressPreferences,
     private val profileManager: ProfileManager,
     private val addonRepository: AddonRepository,
+    private val libraryRepository: com.nuvio.tv.domain.repository.LibraryRepository,
+    private val watchedPrefs: com.nuvio.tv.data.local.WatchedItemsPreferences,
 ) {
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
     private val prefs = context.getSharedPreferences("chaotv_sync", Context.MODE_PRIVATE)
@@ -65,8 +67,20 @@ class ChaoSync @Inject constructor(
         if (watchJob?.isActive != true) {
             watchJob = scope.launch {
                 val profileId = profileManager.activeProfileId.value
-                progressPrefs.observeAllRawProgress(profileId).debounce(2_000).collect {
-                    if (!applyingRemote) runCatching { push() }
+                launch {
+                    progressPrefs.observeAllRawProgress(profileId).debounce(2_000).collect {
+                        if (!applyingRemote) runCatching { push() }
+                    }
+                }
+                launch {
+                    libraryRepository.libraryItems.debounce(2_000).collect {
+                        if (!applyingRemote) runCatching { mutex.withLock { resolveHub()?.let { syncTable(it, "library", pullFirst = false) } } }
+                    }
+                }
+                launch {
+                    watchedPrefs.observeAllItems(profileId).debounce(2_000).collect {
+                        if (!applyingRemote) runCatching { mutex.withLock { resolveHub()?.let { syncTable(it, "watched", pullFirst = false) } } }
+                    }
                 }
             }
         }
@@ -80,6 +94,116 @@ class ChaoSync @Inject constructor(
         val hub = resolveHub() ?: return@withLock
         pull(hub)
         pushLocked(hub)
+        syncTable(hub, "library")
+        syncTable(hub, "watched")
+    }
+
+    // ---- library + watched: same hub rules, keyed "type:id[:season:episode]"
+    private fun kind(type: String) = if (type == "movie") "movie" else "series"
+
+    private suspend fun localRows(table: String): Map<String, Pair<Long, JSONObject>> {
+        val rows = LinkedHashMap<String, Pair<Long, JSONObject>>()
+        if (table == "library") {
+            for (e in libraryRepository.libraryItems.first()) {
+                val type = kind(e.type); val stamp = if (e.listedAt > 0) e.listedAt else 1L
+                rows["$type:${e.id}"] = stamp to JSONObject().put("id", e.id).put("type", type)
+                    .put("name", e.name).put("poster", e.poster ?: JSONObject.NULL).put("addedAt", stamp)
+            }
+        } else {
+            for (w in watchedPrefs.observeAllItems(profileManager.activeProfileId.value).first()) {
+                val type = kind(w.contentType)
+                val key = if (w.season != null && w.episode != null) "$type:${w.contentId}:${w.season}:${w.episode}" else "$type:${w.contentId}"
+                val rec = JSONObject().put("id", w.contentId).put("type", type).put("name", w.title).put("watchedAt", w.watchedAt)
+                if (w.season != null && w.episode != null) rec.put("season", w.season).put("episode", w.episode)
+                rows[key] = w.watchedAt to rec
+            }
+        }
+        return rows
+    }
+
+    private fun loadTable(table: String): MutableMap<String, Long> {
+        val o = runCatching { JSONObject(prefs.getString("$table.pushed", null) ?: "{}") }.getOrNull() ?: JSONObject()
+        return o.keys().asSequence().associateWith { o.optLong(it) }.toMutableMap()
+    }
+
+    private fun saveTable(table: String, map: Map<String, Long>) {
+        val o = JSONObject(); map.forEach { (k, v) -> o.put(k, v) }
+        prefs.edit().putString("$table.pushed", o.toString()).apply()
+    }
+
+    private suspend fun syncTable(hub: String, table: String, pullFirst: Boolean = true) {
+        val sent = loadTable(table)
+        if (pullFirst) {
+            val cursor = prefs.getLong("$table.cursor", 0L)
+            val (code, text) = http("GET", "$hub/$table?since=$cursor", null, 10_000)
+            if (code == 200 && text != null) {
+                val obj = JSONObject(text)
+                val items = obj.optJSONArray("items") ?: JSONArray()
+                val local = localRows(table)
+                val profileId = profileManager.activeProfileId.value
+                applyingRemote = true
+                try {
+                    for (i in 0 until items.length()) {
+                        val item = items.optJSONObject(i) ?: continue
+                        val key = item.optString("key")
+                        if (key.isBlank()) continue
+                        val updatedAt = item.optLong("updatedAt")
+                        val mine = local[key]
+                        if (mine != null && mine.first > updatedAt) continue
+                        val parts = key.split(":")
+                        if (parts.size < 2) continue
+                        val type = parts[0]; val id = parts[1]
+                        val season = parts.getOrNull(2)?.toIntOrNull(); val episode = parts.getOrNull(3)?.toIntOrNull()
+                        if (item.optBoolean("deleted")) {
+                            if (mine != null) {
+                                if (table == "library") {
+                                    libraryRepository.toggleDefault(com.nuvio.tv.domain.model.LibraryEntryInput(itemId = id, itemType = type, title = mine.second.optString("name", id)))
+                                } else {
+                                    watchedPrefs.unmarkAsWatched(id, season, episode, profileId)
+                                }
+                            }
+                            sent.remove(key); continue
+                        }
+                        if (mine != null) { sent[key] = maxOf(sent[key] ?: 0L, updatedAt); continue }
+                        val meta = cinemeta(type, id)
+                        val name = item.optString("name").takeIf { it.isNotBlank() && it != "null" } ?: meta?.optString("name") ?: id
+                        val poster = item.optString("poster").takeIf { it.isNotBlank() && it != "null" } ?: meta?.optString("poster")
+                        if (table == "library") {
+                            libraryRepository.toggleDefault(com.nuvio.tv.domain.model.LibraryEntryInput(
+                                itemId = id, itemType = type, title = name, poster = poster,
+                                background = meta?.optString("background")?.takeIf { it.isNotBlank() },
+                                logo = meta?.optString("logo")?.takeIf { it.isNotBlank() },
+                                description = meta?.optString("description")?.takeIf { it.isNotBlank() },
+                                releaseInfo = meta?.optString("releaseInfo")?.takeIf { it.isNotBlank() }))
+                        } else {
+                            watchedPrefs.markAsWatched(com.nuvio.tv.domain.model.WatchedItem(
+                                contentId = id, contentType = type, title = name, season = season, episode = episode,
+                                watchedAt = item.optLong("watchedAt", updatedAt), poster = poster), profileId)
+                        }
+                        sent[key] = Long.MAX_VALUE / 2   // applied from the hub: never echo it back as new
+                    }
+                } finally {
+                    applyingRemote = false
+                }
+                prefs.edit().putLong("$table.cursor", obj.optLong("now", cursor)).apply()
+            }
+        }
+        val local = localRows(table)
+        val out = JSONArray()
+        for ((key, row) in local) {
+            if ((sent[key] ?: -1L) >= row.first) continue
+            out.put(JSONObject(row.second.toString()).put("key", key).put("updatedAt", row.first))
+            sent[key] = row.first
+        }
+        val now = System.currentTimeMillis()
+        for (key in sent.keys.toList()) {
+            if (!local.containsKey(key)) { out.put(JSONObject().put("key", key).put("updatedAt", now).put("deleted", true)); sent.remove(key) }
+        }
+        if (out.length() > 0) {
+            val (code, _) = http("PUT", "$hub/$table", JSONObject().put("device", ChaoLink.deviceName()).put("items", out).toString(), 15_000)
+            if (code != 200) return
+        }
+        saveTable(table, sent)
     }
 
     // ---- hub discovery: the origin of whichever installed add-on answers /chaotv/devices
