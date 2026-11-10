@@ -78,7 +78,7 @@ The `upstream` remote is `bobsupra/NuvioTVOS`. Chao TV's changes are kept small 
 ## Changelog
 
 ### Build 7 (in progress)
-- **New icon:** the house Chao in green LED dots, matching the rack-panel face (App Icon, Top Shelf, wordmark).
+- **New icon:** the house Chao in green LED dots, matching the rack-panel face (App Icon, Top Shelf, wordmark, and the launch screen, which still flashed the Nuvio logo).
 - **Appearance:** the Sidebar section (Calendar and Watch Party toggles) is gone.
 - **Server side, no app change needed:**
   - "Popular Anime" and "Top Rated Anime" Home rows from the hub's Chao Anime catalog.
