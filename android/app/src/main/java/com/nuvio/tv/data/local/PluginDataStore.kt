@@ -1,0 +1,312 @@
+package com.nuvio.tv.data.local
+
+import android.content.Context
+import androidx.datastore.preferences.core.booleanPreferencesKey
+import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.stringPreferencesKey
+import com.nuvio.tv.core.plugin.PluginProviderPlayStat
+import com.nuvio.tv.core.plugin.pluginProviderPlayStats
+import com.nuvio.tv.core.profile.ProfileManager
+import com.nuvio.tv.domain.model.PluginRepository
+import com.nuvio.tv.domain.model.ScraperInfo
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.Types
+import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.emitAll
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.map
+import java.io.File
+import javax.inject.Inject
+import javax.inject.Singleton
+
+@Singleton
+@OptIn(ExperimentalCoroutinesApi::class)
+class PluginDataStore @Inject constructor(
+    @ApplicationContext private val context: Context,
+    private val moshi: Moshi,
+    private val factory: ProfileDataStoreFactory,
+    private val profileManager: ProfileManager
+) {
+    companion object {
+        internal const val FEATURE = "plugin_settings"
+        internal const val GROUP_STREAMS_BY_REPOSITORY = "group_streams_by_repository"
+        private const val MAX_PLUGIN_PROVIDER_PLAYS = 40
+    }
+
+    private fun effectiveProfileId(): Int {
+        PluginSyncProfile.current()?.let { return it }
+        val active = profileManager.activeProfile
+        return effectivePluginProfileId(
+            usesPrimaryPlugins = active?.usesPrimaryPlugins == true,
+            activeProfileId = profileManager.activeProfileId.value
+        )
+    }
+
+    private fun store(profileId: Int = effectiveProfileId()) =
+        factory.get(profileId, FEATURE)
+
+    /** A pinned sync writes the profile it started for, including after the active profile changes. */
+    private fun sharedPluginWriteBlocked(): Boolean {
+        if (PluginSyncProfile.current() != null) return false
+        val active = profileManager.activeProfile
+        return active != null && !active.isPrimary && active.usesPrimaryPlugins
+    }
+
+    private fun <T> profileState(read: (Int) -> Flow<T>): Flow<T> = flow {
+        val pinned = PluginSyncProfile.current()
+        if (pinned != null) {
+            emitAll(read(pinned))
+        } else {
+            emitAll(effectiveProfileIdFlow.flatMapLatest(read))
+        }
+    }
+
+    private val effectiveProfileIdFlow: Flow<Int> = combine(
+        profileManager.activeProfileId,
+        profileManager.profiles
+    ) { activeProfileId, profiles ->
+        val activeProfile = profiles.firstOrNull { it.id == activeProfileId }
+        if (activeProfile?.usesPrimaryPlugins == true) 1 else activeProfileId
+    }.distinctUntilChanged()
+
+    private val repositoriesKey = stringPreferencesKey("repositories")
+    private val scrapersKey = stringPreferencesKey("scrapers")
+    private val pluginsEnabledKey = booleanPreferencesKey("plugins_enabled")
+    private val groupStreamsByRepositoryKey = booleanPreferencesKey(GROUP_STREAMS_BY_REPOSITORY)
+    private val pluginProviderPlaysKey = stringPreferencesKey("plugin_provider_plays")
+    private val scraperSettingsKey = stringPreferencesKey("scraper_settings")
+    private val pluginProviderPlaysAdapter = moshi.adapter<List<String>>(
+        Types.newParameterizedType(List::class.java, String::class.java)
+    )
+
+    private val repoListType = Types.newParameterizedType(List::class.java, PluginRepository::class.java)
+    private val scraperListType = Types.newParameterizedType(List::class.java, ScraperInfo::class.java)
+    private val settingsMapType = Types.newParameterizedType(
+        Map::class.java,
+        String::class.java,
+        Types.newParameterizedType(Map::class.java, String::class.java, Any::class.java)
+    )
+
+    // Plugin code directory - per-profile
+    val codeDir: File
+        get() {
+            val pid = effectiveProfileId()
+            val dirName = if (pid == 1) "plugin_code" else "plugin_code_p${pid}"
+            return File(context.filesDir, dirName)
+        }
+
+    private suspend fun ensureCodeDir(): File = kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) {
+        codeDir.also { it.mkdirs() }
+    }
+
+    // Repositories
+    val repositories: Flow<List<PluginRepository>> = profileState { pid ->
+        factory.get(pid, FEATURE).data.map { prefs ->
+            prefs[repositoriesKey]?.let { json ->
+                try {
+                    moshi.adapter<List<PluginRepository>>(repoListType).fromJson(json) ?: emptyList()
+                } catch (e: Exception) {
+                    emptyList()
+                }
+            } ?: emptyList()
+        }
+    }
+
+    suspend fun saveRepositories(repos: List<PluginRepository>) {
+            if (sharedPluginWriteBlocked()) return
+        val json = moshi.adapter<List<PluginRepository>>(repoListType).toJson(repos)
+        store().edit { prefs ->
+            prefs[repositoriesKey] = json
+        }
+    }
+
+    suspend fun addRepository(repo: PluginRepository) {
+            if (sharedPluginWriteBlocked()) return
+        val current = repositories.first().toMutableList()
+        current.removeAll { it.id == repo.id }
+        current.add(repo)
+        saveRepositories(current)
+    }
+
+    suspend fun removeRepository(repoId: String) {
+            if (sharedPluginWriteBlocked()) return
+        val current = repositories.first().toMutableList()
+        current.removeAll { it.id == repoId }
+        saveRepositories(current)
+    }
+
+    suspend fun updateRepository(repo: PluginRepository) {
+        val current = repositories.first().toMutableList()
+        val index = current.indexOfFirst { it.id == repo.id }
+        if (index >= 0) {
+            current[index] = repo
+            val json = moshi.adapter<List<PluginRepository>>(repoListType).toJson(current)
+            store().edit { prefs ->
+                prefs[repositoriesKey] = json
+            }
+        }
+    }
+
+    // Scrapers
+    val scrapers: Flow<List<ScraperInfo>> = profileState { pid ->
+        factory.get(pid, FEATURE).data.map { prefs ->
+            prefs[scrapersKey]?.let { json ->
+                try {
+                    moshi.adapter<List<ScraperInfo>>(scraperListType).fromJson(json) ?: emptyList()
+                } catch (e: Exception) {
+                    emptyList()
+                }
+            } ?: emptyList()
+        }
+    }
+
+    suspend fun saveScrapers(scrapers: List<ScraperInfo>) {
+            if (sharedPluginWriteBlocked()) return
+        val json = moshi.adapter<List<ScraperInfo>>(scraperListType).toJson(scrapers)
+        store().edit { prefs ->
+            prefs[scrapersKey] = json
+        }
+    }
+
+    suspend fun setScraperEnabled(scraperId: String, enabled: Boolean) {
+        val current = scrapers.first().toMutableList()
+        val index = current.indexOfFirst { it.id == scraperId }
+        if (index >= 0) {
+            val scraper = current[index]
+            // Only enable if manifest allows
+            if (enabled && !scraper.manifestEnabled) return
+            current[index] = scraper.copy(enabled = enabled)
+            saveScrapers(current)
+        }
+    }
+
+    // Plugins enabled global toggle
+    val pluginsEnabled: Flow<Boolean> = profileState { pid ->
+        factory.get(pid, FEATURE).data.map { prefs ->
+            prefs[pluginsEnabledKey] ?: true
+        }
+    }
+
+    suspend fun setPluginsEnabled(enabled: Boolean) {
+            if (sharedPluginWriteBlocked()) return
+        store().edit { prefs ->
+            prefs[pluginsEnabledKey] = enabled
+        }
+    }
+
+    val groupStreamsByRepository: Flow<Boolean> = profileState { pid ->
+        factory.get(pid, FEATURE).data.map { prefs ->
+            prefs[groupStreamsByRepositoryKey] ?: false
+        }
+    }
+
+    suspend fun setGroupStreamsByRepository(enabled: Boolean) {
+            if (sharedPluginWriteBlocked()) return
+        store().edit { prefs ->
+            prefs[groupStreamsByRepositoryKey] = enabled
+        }
+    }
+
+    // Scraper code storage
+    fun getScraperCodeFile(scraperId: String): File {
+        return File(codeDir, "$scraperId.js")
+    }
+
+    suspend fun saveScraperCode(scraperId: String, code: String) {
+        val dir = ensureCodeDir()
+        kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) {
+            File(dir, "$scraperId.js").writeText(code)
+        }
+    }
+
+    suspend fun getScraperCode(scraperId: String): String? {
+        return kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) {
+            val file = File(codeDir, "$scraperId.js")
+            if (file.exists()) file.readText() else null
+        }
+    }
+
+    suspend fun deleteScraperCode(scraperId: String) {
+        kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) {
+            File(codeDir, "$scraperId.js").delete()
+        }
+    }
+
+    suspend fun clearAllScraperCode() {
+        kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) {
+            codeDir.listFiles()?.forEach { it.delete() }
+        }
+    }
+
+    // Per-scraper settings
+    suspend fun getScraperSettings(scraperId: String): Map<String, Any> {
+        val prefs = store().data.first()
+        val allSettings = prefs[scraperSettingsKey]?.let { json ->
+            try {
+                @Suppress("UNCHECKED_CAST")
+                moshi.adapter<Map<String, Map<String, Any>>>(settingsMapType).fromJson(json) ?: emptyMap()
+            } catch (e: Exception) {
+                emptyMap()
+            }
+        } ?: emptyMap()
+
+        @Suppress("UNCHECKED_CAST")
+        return allSettings[scraperId] as? Map<String, Any> ?: emptyMap()
+    }
+
+    suspend fun setScraperSettings(scraperId: String, settings: Map<String, Any>) {
+        val prefs = store().data.first()
+        val allSettings = prefs[scraperSettingsKey]?.let { json ->
+            try {
+                @Suppress("UNCHECKED_CAST")
+                moshi.adapter<Map<String, Map<String, Any>>>(settingsMapType).fromJson(json)?.toMutableMap()
+                    ?: mutableMapOf()
+            } catch (e: Exception) {
+                mutableMapOf()
+            }
+        } ?: mutableMapOf()
+
+        allSettings[scraperId] = settings
+
+        val json = moshi.adapter<Map<String, Map<String, Any>>>(settingsMapType).toJson(allSettings)
+        store().edit { p ->
+            p[scraperSettingsKey] = json
+        }
+    }
+
+    /**
+     * Play history follows the viewer, not the profile that owns the plugin list.
+     * A recent window keeps a newly preferred provider able to move to the front.
+     */
+    suspend fun recordPluginProviderPlay(scraperId: String) {
+        val id = scraperId.trim()
+        if (id.isEmpty()) return
+        viewerStore().edit { prefs ->
+            val updated = (decodePluginProviderPlays(prefs[pluginProviderPlaysKey]) + id)
+                .takeLast(MAX_PLUGIN_PROVIDER_PLAYS)
+            prefs[pluginProviderPlaysKey] = pluginProviderPlaysAdapter.toJson(updated)
+        }
+    }
+
+    suspend fun pluginProviderPlayStats(): Map<String, PluginProviderPlayStat> {
+        val json = viewerStore().data.first()[pluginProviderPlaysKey]
+        return pluginProviderPlayStats(decodePluginProviderPlays(json))
+    }
+
+    private fun viewerStore() = factory.get(profileManager.activeProfileId.value, FEATURE)
+
+    private fun decodePluginProviderPlays(json: String?): List<String> {
+        if (json.isNullOrBlank()) return emptyList()
+        return try {
+            pluginProviderPlaysAdapter.fromJson(json).orEmpty()
+        } catch (_: Exception) {
+            emptyList()
+        }
+    }
+}
