@@ -13,7 +13,7 @@ It plays from Stremio-compatible add-ons, mainly a self-hosted local-cache add-o
 | Accounts | No sign-in screen; one shared household profile, entered automatically |
 | Removed | Watch Party, Calendar, profile picker, Account settings, third-party integrations (Simkl, MDBList, WeTrakr, Trakt, AI subtitles, metadata providers, Debrid, P2P, SMB, Usenet, Jellyfin) |
 | Streams | Only via the house cache add-on, whose upstream resolves through Real-Debrid; the in-app BitTorrent engine is hard-disabled |
-| Branding | Original Chao TV icon, Top Shelf and wordmark; "Nuvio" replaced by "Chao TV" in every UI string and all translations |
+| Branding | Chao TV icon, Top Shelf and wordmark: the house agent's Chao drawn as green phosphor LED dots (the Chao is Sega's, from the Chao Adventure 2 VMU sprite sheet; fan use); "Nuvio" replaced by "Chao TV" in every UI string and all translations |
 | Playback | Auto Select Stream on by default, so play and resume start immediately |
 | Progress | **Chao Sync**: watch progress shared by every Chao TV in the house |
 | Agent link | **ChaoLink**: the house agent can open, play, pause, seek and read state |
@@ -77,7 +77,15 @@ The `upstream` remote is `bobsupra/NuvioTVOS`. Chao TV's changes are kept small 
 
 ## Changelog
 
-### Build 6 (in progress)
+### Build 7 (in progress)
+- **New icon:** the house Chao in green LED dots, matching the rack-panel face (App Icon, Top Shelf, wordmark).
+- **Appearance:** the Sidebar section (Calendar and Watch Party toggles) is gone.
+- **Server side, no app change needed:**
+  - "Popular Anime" and "Top Rated Anime" Home rows from the hub's Chao Anime catalog.
+  - The Omni library and history were imported.
+  - Hub progress sync now delivers late-arriving history.
+
+### Build 6
 - **Do-it commands on "this":** add to or remove from Library, mark the title, episode, season or "up to here" watched or unwatched, remove from Continue Watching. These act on whatever is open or playing, with no button pressing.
 - **Player control:** list and switch audio and subtitle tracks (including subtitles off) and skip to the next episode.
 - **On-TV popups:** every agent action shows a short confirmation in the top corner.
