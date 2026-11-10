@@ -89,6 +89,9 @@ The `upstream` remote is `bobsupra/NuvioTVOS`. Chao TV's changes are kept small 
 
 ## Changelog
 
+### Google TV build 4
+- **Skip Intro works on Google TV.** The intro, recap and credits timestamps now come from IntroDB, the same source the Apple TV uses (the Android build had it switched off). Chapter-named intros in the file still work too.
+
 ### Apple TV build 9 + Google TV build 3 (in progress)
 - **Library and watched-mark sync** between all Chao TVs. Adding, removing or marking something watched on one TV shows up on the others.
 - **Google TV:** the agent link always acts on the screen in front (a deep link no longer leaves a hidden second copy holding the link).
