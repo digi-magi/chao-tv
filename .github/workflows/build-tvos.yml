@@ -20,9 +20,9 @@ jobs:
     runs-on: xcode-27
     timeout-minutes: 90
     steps:
+      # No submodules: MPVKit and the vendored engines are in-tree, and the
+      # android/ subtree carries a dangling libmpv-android gitlink.
       - uses: actions/checkout@v4
-        with:
-          submodules: recursive
 
       - name: Install Tuist (version pinned in mise.toml)
         run: |
