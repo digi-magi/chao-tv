@@ -106,6 +106,10 @@ class PlayerViewModel @Inject constructor(
 ) : ViewModel() {
 
     init {
+        com.nuvio.tv.chao.ChaoLink.player = java.lang.ref.WeakReference(this)  // Chao TV agent link
+    }
+
+    init {
         // Release trailer player codec resources so the full-screen player can
         // claim hardware decoders without contention (prevents black screen).
         trailerPlayerPool.yield()
@@ -309,6 +313,7 @@ class PlayerViewModel @Inject constructor(
     }
 
     override fun onCleared() {
+        if (com.nuvio.tv.chao.ChaoLink.player?.get() === this) com.nuvio.tv.chao.ChaoLink.player = null
         postPlayRecommendationController.stop()
         controller.onCleared()
         // Allow the trailer player to be re-created when returning to home screen.

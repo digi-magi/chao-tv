@@ -38,7 +38,8 @@ internal enum class PlaybackSection(
 
 internal fun visiblePlaybackSections(settings: PlayerSettings): List<PlaybackSection> =
     PlaybackSection.entries.filter { section ->
-        section != PlaybackSection.BUFFER_NETWORK || settings.usesExoPlayerEngine
+        (section != PlaybackSection.BUFFER_NETWORK || settings.usesExoPlayerEngine) &&
+            (section != PlaybackSection.P2P || com.nuvio.tv.chao.ChaoTv.ALLOWS_P2P)  // Chao TV: never P2P
     }
 
 internal val PlayerSettings.usesExoPlayerEngine: Boolean

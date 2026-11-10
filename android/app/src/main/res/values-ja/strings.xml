@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Nuvio</string>
+    <string name="app_name">Chao TV</string>
     <string name="tv_channel_continue_watching">視聴を続ける</string>
     <string name="type_movie">映画</string>
     <string name="type_movies">映画</string>
@@ -434,14 +434,14 @@
     <string name="about_licenses_attributions">ライセンス &amp; 帰属</string>
     <string name="about_licenses_attributions_subtitle">データソース、謝辞、Androidライセンス</string>
     <string name="licenses_attributions_title">ライセンス &amp; 帰属</string>
-    <string name="licenses_attributions_subtitle">Nuvio TVが使用するデータプロバイダー、サービス、Android再生ライセンス</string>
+    <string name="licenses_attributions_subtitle">Chao TVが使用するデータプロバイダー、サービス、Android再生ライセンス</string>
     <string name="licenses_attributions_section_app">アプリライセンス</string>
     <string name="licenses_attributions_section_data">データ &amp; サービス</string>
     <string name="licenses_attributions_section_playback">Android再生ライセンス</string>
     <string name="licenses_attributions_section_ui">UIライブラリ</string>
     <string name="licenses_attributions_haze_title">Haze 1.7.2</string>
     <string name="licenses_attributions_haze_body">背景ぼかしエフェクトに使用。Chris Banes作。Apache License, Version 2.0 の下でライセンスされています。</string>
-    <string name="licenses_attributions_nuvio_title">Nuvio TV</string>
+    <string name="licenses_attributions_nuvio_title">Chao TV</string>
     <string name="licenses_attributions_nuvio_body">ソースコードとライセンス条項はプロジェクトリポジトリで入手可能です。GNU General Public License v3.0 の下でライセンスされています。</string>
     <string name="licenses_attributions_tmdb_title">The Movie Database (TMDB)</string>
     <string name="licenses_attributions_tmdb_body">Nuvioは映画・TVのメタデータ、アートワーク、予告編、キャスト、制作詳細、コレクション、レコメンドにTMDB APIを使用しています。この製品はTMDB APIを使用していますが、TMDBによって承認または認定されていません。</string>
@@ -805,7 +805,7 @@
     <string name="playback_player_auto">自動(コンテンツに最適化)</string>
     <string name="playback_player_auto_desc">映画やドラマにはExoPlayer・アニメにはMPV</string>
     <string name="playback_engine_exoplayer_desc">現在のNuvio機能との互換性が最も高い。</string>
-    <string name="playback_engine_mvplayer_desc">Nuvio OSDコントロール付きのlibmpvを使用。実験的。</string>
+    <string name="playback_engine_mvplayer_desc">Chao TV OSDコントロール付きのlibmpvを使用。実験的。</string>
 
     <string name="video_section">映像</string>
     <string name="playback_true_black_letterbox">完全な黒いバー</string>
@@ -1527,7 +1527,7 @@
     <string name="trakt_watch_progress_dialog_title">視聴進行状況</string>
     <string name="trakt_watch_progress_dialog_subtitle">Traktのスクロブルが有効な間、再開と視聴を続けるにTraktとNuvio Syncのどちらを使用するか選択してください</string>
     <string name="trakt_watch_progress_source_trakt">Trakt</string>
-    <string name="trakt_watch_progress_source_nuvio">Nuvio Sync</string>
+    <string name="trakt_watch_progress_source_nuvio">Chao TV Sync</string>
     <string name="trakt_library_source_title">ライブラリソース</string>
     <string name="trakt_library_source_subtitle">コレクションの保存と表示に使用するライブラリを選択</string>
     <string name="trakt_library_source_dialog_title">ライブラリソース</string>
@@ -2592,7 +2592,7 @@
     <string name="cd_trailer_controls">予告編コントロール</string>
     <string name="cd_seek_bar">シークバー</string>
     <string name="cd_unlink">リンク解除</string>
-    <string name="cd_nuvio_logo">NuvioTV</string>
+    <string name="cd_nuvio_logo">Chao TV</string>
     <string name="cd_trakt_logo">Traktロゴ</string>
     <string name="cd_trakt_qr">Trakt認証QR</string>
     <string name="cd_imdb">IMDb</string>
@@ -2604,7 +2604,7 @@
     <string name="cd_expand">%1$sを展開</string>
     <string name="cd_collapse">%1$sを折りたたむ</string>
     <string name="cd_qr_login">QRログインコード</string>
-    <string name="cd_nuvio">Nuvio</string>
+    <string name="cd_nuvio">Chao TV</string>
 
     <string name="debug_signin_success">サインイン成功</string>
     <string name="debug_generate_description">デバッグ生成 %1$s アイテム #%2$d</string>
@@ -2929,7 +2929,7 @@
     <string name="autoplay_regex_preset_no_remux_hdr">REMUX/HDRなし</string>
 
     <!-- Playback settings sections -->
-    <string name="playback_player_internal_desc">NuvioTVの内蔵プレーヤーを使用</string>
+    <string name="playback_player_internal_desc">Chao TVの内蔵プレーヤーを使用</string>
 
     <!-- Player runtime: torrent overlay + tracks -->
     <string name="player_torrent_peer_info">%1$dシード · %2$dピア</string>

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Nuvio</string>
+    <string name="app_name">Chao TV</string>
     <string name="tv_channel_continue_watching">Verder kijken</string>
     <string name="type_movie">Film</string>
     <string name="type_movies">Films</string>
@@ -98,7 +98,7 @@
 
     <string name="home_no_addons">Er zijn geen add-ons geïnstalleerd. Voeg er één toe om te beginnen.</string>
     <string name="home_no_catalog_addons">Er zijn geen catalogus-add-ons geïnstalleerd. Installeer een catalogus-add-on om de inhoud te bekijken.</string>
-    <string name="auth_notice_nuvio_logged_out">Je bent afgemeld bij Nuvio. Meld je opnieuw aan.</string>
+    <string name="auth_notice_nuvio_logged_out">Je bent afgemeld bij Chao TV. Meld je opnieuw aan.</string>
     <string name="auth_notice_trakt_logged_out">Je bent afgemeld bij Trakt. Maak opnieuw verbinding.</string>
     <string name="error_generic">Er is een fout opgetreden</string>
 
@@ -369,7 +369,7 @@
     <string name="appearance_settings_style">Stijl van instellingen</string>
     <string name="appearance_settings_style_subtitle">Kies hoe de instellingenschermen worden weergegeven</string>
     <string name="appearance_launcher_artwork">Launcher-illustratie</string>
-    <string name="appearance_launcher_artwork_subtitle">Kies hoe Nuvio op je tv-startscherm verschijnt</string>
+    <string name="appearance_launcher_artwork_subtitle">Kies hoe Chao TV op je tv-startscherm verschijnt</string>
     <string name="ambient_mode_title">Ambient-modus</string>
     <string name="ambient_mode_subtitle">Toon illustraties uit je catalogi wanneer de tv niet wordt gebruikt</string>
     <string name="ambient_mode_enabled_subtitle">Vul het scherm met achtergronden als de afstandsbediening een tijd niet is gebruikt</string>
@@ -389,7 +389,7 @@
     <string name="appearance_app_icon_picker_title">Kies app-icoon &amp; banner</string>
     <string name="appearance_app_icon_picker_subtitle">Elke stijl bevat een bijpassend vierkant icoon en tv-banner</string>
     <string name="appearance_app_icon_confirmation_title">App-icoon wijzigen?</string>
-    <string name="appearance_app_icon_confirmation_message">Wijzigen naar %1$s sluit Nuvio af. Mogelijk moet je het apparaat opnieuw opstarten voordat de tv-banner wordt bijgewerkt. Kies OK om door te gaan.</string>
+    <string name="appearance_app_icon_confirmation_message">Wijzigen naar %1$s sluit Chao TV af. Mogelijk moet je het apparaat opnieuw opstarten voordat de tv-banner wordt bijgewerkt. Kies OK om door te gaan.</string>
     <string name="appearance_app_icon_change_failed">Het icoon en de banner konden niet worden gewijzigd. Probeer het opnieuw.</string>
     <string name="appearance_app_icon_original">Origineel</string>
     <string name="appearance_app_icon_arctic_blue">Arctisch blauw</string>
@@ -428,37 +428,37 @@
     <string name="update_channel_beta_description">Vroege updates die fouten kunnen bevatten, functies kunnen breken of zich onverwacht kunnen gedragen.</string>
     <string name="about_privacy_policy">Privacybeleid</string>
     <string name="about_privacy_policy_subtitle">Bekijk ons privacybeleid</string>
-    <string name="support_nuvio_name">Steun Nuvio</string>
-    <string name="about_supporters_contributors">Steun Nuvio</string>
+    <string name="support_nuvio_name">Steun Chao TV</string>
+    <string name="about_supporters_contributors">Steun Chao TV</string>
     <string name="about_supporters_contributors_subtitle">Steun het project en bekijk de community-credits</string>
     <string name="about_licenses_attributions">Licenties &amp; naamsvermelding</string>
     <string name="about_licenses_attributions_subtitle">Gegevensbronnen, dankbetuigingen en Android-licenties</string>
     <string name="licenses_attributions_title">Licenties &amp; naamsvermelding</string>
-    <string name="licenses_attributions_subtitle">Gegevensleveranciers, service-credits en Android-afspeellicenties die door Nuvio TV worden gebruikt.</string>
+    <string name="licenses_attributions_subtitle">Gegevensleveranciers, service-credits en Android-afspeellicenties die door Chao TV worden gebruikt.</string>
     <string name="licenses_attributions_section_app">APP-LICENTIE</string>
     <string name="licenses_attributions_section_data">GEGEVENS &amp; SERVICES</string>
     <string name="licenses_attributions_section_playback">ANDROID-AFSPEELLICENTIES</string>
     <string name="licenses_attributions_section_ui">UI-BIBLIOTHEKEN</string>
     <string name="licenses_attributions_haze_title">Haze 1.7.2</string>
     <string name="licenses_attributions_haze_body">Gebruikt voor vervagingseffecten op de achtergrond. Gemaakt door Chris Banes. Gelicentieerd onder de Apache License, versie 2.0.</string>
-    <string name="licenses_attributions_nuvio_title">Nuvio TV</string>
+    <string name="licenses_attributions_nuvio_title">Chao TV</string>
     <string name="licenses_attributions_nuvio_body">De broncode en licentievoorwaarden zijn beschikbaar in de projectrepository. Gelicentieerd onder de GNU General Public License v3.0.</string>
     <string name="licenses_attributions_tmdb_title">The Movie Database (TMDB)</string>
-    <string name="licenses_attributions_tmdb_body">Nuvio gebruikt de TMDB-API voor metadata, illustraties, trailers, cast, productiedetails, collecties en aanbevelingen van films en series. Dit product gebruikt de TMDB-API, maar wordt niet onderschreven of gecertificeerd door TMDB.</string>
+    <string name="licenses_attributions_tmdb_body">Chao TV gebruikt de TMDB-API voor metadata, illustraties, trailers, cast, productiedetails, collecties en aanbevelingen van films en series. Dit product gebruikt de TMDB-API, maar wordt niet onderschreven of gecertificeerd door TMDB.</string>
     <string name="licenses_attributions_trakt_title">Trakt</string>
-    <string name="licenses_attributions_trakt_body">Nuvio maakt verbinding met Trakt voor accountverificatie, kijkgeschiedenis, voortgangssynchronisatie, bibliotheekgegevens, beoordelingen, lijsten en reacties. Nuvio is niet verbonden aan of onderschreven door Trakt.</string>
+    <string name="licenses_attributions_trakt_body">Chao TV maakt verbinding met Trakt voor accountverificatie, kijkgeschiedenis, voortgangssynchronisatie, bibliotheekgegevens, beoordelingen, lijsten en reacties. Chao TV is niet verbonden aan of onderschreven door Trakt.</string>
     <string name="licenses_attributions_simkl_title">Simkl</string>
-    <string name="licenses_attributions_simkl_body">Nuvio maakt verbinding met Simkl voor accountverificatie, kijklijsten, kijkgeschiedenis, afspeelvoortgang en scrobbelen. Trackinggegevens voor films, series en anime worden geleverd door Simkl. Nuvio is niet verbonden aan of onderschreven door Simkl.</string>
+    <string name="licenses_attributions_simkl_body">Chao TV maakt verbinding met Simkl voor accountverificatie, kijklijsten, kijkgeschiedenis, afspeelvoortgang en scrobbelen. Trackinggegevens voor films, series en anime worden geleverd door Simkl. Chao TV is niet verbonden aan of onderschreven door Simkl.</string>
     <string name="licenses_attributions_premiumize_title">Premiumize</string>
-    <string name="licenses_attributions_premiumize_body">Nuvio maakt verbinding met Premiumize voor accountverificatie, toegang tot de cloudbibliotheek, cachecontroles en cloudafspeelfuncties. Nuvio is niet verbonden aan of onderschreven door Premiumize.</string>
+    <string name="licenses_attributions_premiumize_body">Chao TV maakt verbinding met Premiumize voor accountverificatie, toegang tot de cloudbibliotheek, cachecontroles en cloudafspeelfuncties. Chao TV is niet verbonden aan of onderschreven door Premiumize.</string>
     <string name="licenses_attributions_torbox_title">TorBox</string>
-    <string name="licenses_attributions_torbox_body">Nuvio maakt verbinding met TorBox voor accountverificatie, toegang tot de cloudbibliotheek, cachecontroles en cloudafspeelfuncties. Nuvio is niet verbonden aan of onderschreven door TorBox.</string>
+    <string name="licenses_attributions_torbox_body">Chao TV maakt verbinding met TorBox voor accountverificatie, toegang tot de cloudbibliotheek, cachecontroles en cloudafspeelfuncties. Chao TV is niet verbonden aan of onderschreven door TorBox.</string>
     <string name="licenses_attributions_mdblist_title">MDBList</string>
-    <string name="licenses_attributions_mdblist_body">Nuvio gebruikt MDBList voor beoordelingen, kijkgeschiedenis en het bijhouden van afspeelvoortgang. Nuvio is niet verbonden aan of onderschreven door MDBList.</string>
+    <string name="licenses_attributions_mdblist_body">Chao TV gebruikt MDBList voor beoordelingen, kijkgeschiedenis en het bijhouden van afspeelvoortgang. Chao TV is niet verbonden aan of onderschreven door MDBList.</string>
     <string name="licenses_attributions_introdb_title">IntroDB</string>
-    <string name="licenses_attributions_introdb_body">Nuvio gebruikt de IntroDB-API voor door de community aangeleverde tijdstempels van intro\'s, samenvattingen, aftitelingen en previews die worden gebruikt door de overslaanknoppen. Nuvio is niet verbonden aan of onderschreven door IntroDB.</string>
+    <string name="licenses_attributions_introdb_body">Chao TV gebruikt de IntroDB-API voor door de community aangeleverde tijdstempels van intro\'s, samenvattingen, aftitelingen en previews die worden gebruikt door de overslaanknoppen. Chao TV is niet verbonden aan of onderschreven door IntroDB.</string>
     <string name="licenses_attributions_imdb_title">Niet-commerciële IMDb-datasets</string>
-    <string name="licenses_attributions_imdb_body">Nuvio gebruikt niet-commerciële IMDb-datasets, waaronder title.ratings.tsv.gz, voor IMDb-beoordelingen en het aantal stemmen. Informatie met dank aan IMDb (https://www.imdb.com). Gebruikt met toestemming. IMDb-gegevens zijn bestemd voor persoonlijk en niet-commercieel gebruik onder de IMDb-voorwaarden.</string>
+    <string name="licenses_attributions_imdb_body">Chao TV gebruikt niet-commerciële IMDb-datasets, waaronder title.ratings.tsv.gz, voor IMDb-beoordelingen en het aantal stemmen. Informatie met dank aan IMDb (https://www.imdb.com). Gebruikt met toestemming. IMDb-gegevens zijn bestemd voor persoonlijk en niet-commercieel gebruik onder de IMDb-voorwaarden.</string>
     <string name="licenses_attributions_exoplayer_title">AndroidX Media3 ExoPlayer 1.8.0</string>
     <string name="licenses_attributions_exoplayer_body">Gebruikt als Android-afspeelengine. Gelicentieerd onder de Apache License, versie 2.0.</string>
     <string name="licenses_attributions_libmpv_title">libmpv / libmpv-android</string>
@@ -483,7 +483,7 @@
     <string name="tracking_accounts_title">Accounts</string>
     <string name="tracking_accounts_subtitle">Trackingservices verbinden en beheren</string>
     <string name="tracking_sources_title">Bronnen</string>
-    <string name="tracking_sources_subtitle">Kies waar Nuvio je bibliotheek en kijkvoortgang uitleest. Tijdens het afspelen wordt naar elke verbonden service gescrobbeld.</string>
+    <string name="tracking_sources_subtitle">Kies waar Chao TV je bibliotheek en kijkvoortgang uitleest. Tijdens het afspelen wordt naar elke verbonden service gescrobbeld.</string>
     <string name="tracking_trakt_features_title">Trakt-functies</string>
     <string name="tracking_trakt_features_subtitle">Trakt-specifieke geschiedenis, recensies en aanbevelingen</string>
     <string name="tracking_simkl_features_title">Simkl-functies</string>
@@ -500,8 +500,8 @@
     <string name="tracking_status_connecting">Verbinden</string>
     <string name="tracking_finish_connection">Goedkeuring van verbinding voltooien</string>
     <string name="tracking_connecting_provider">%1$s-verbinding starten…</string>
-    <string name="tracking_watch_progress_dialog_subtitle">Kies de service die Nuvio uitleest voor hervatten en Verder kijken. Scrobbelen blijft actief voor elke verbonden service.</string>
-    <string name="tracking_library_source_dialog_subtitle">Kies de service die Nuvio uitleest voor je bibliotheek. Tijdens het afspelen wordt naar elke verbonden service gescrobbeld.</string>
+    <string name="tracking_watch_progress_dialog_subtitle">Kies de service die Chao TV uitleest voor hervatten en Verder kijken. Scrobbelen blijft actief voor elke verbonden service.</string>
+    <string name="tracking_library_source_dialog_subtitle">Kies de service die Chao TV uitleest voor je bibliotheek. Tijdens het afspelen wordt naar elke verbonden service gescrobbeld.</string>
     <string name="tracking_trakt_progress_required">Beschikbaar wanneer Trakt de bron voor kijkvoortgang is</string>
     <string name="trakt_name">Trakt</string>
     <string name="simkl_name">Simkl</string>
@@ -511,7 +511,7 @@
     <string name="settings_advanced_subtitle">Prestaties, navigatie, cache en diagnostiek</string>
     <string name="experience_mode_essential">Essentieel</string>
     <string name="experience_mode_advanced">Geavanceerd</string>
-    <string name="experience_mode_choose_title">Kies je Nuvio-ervaring</string>
+    <string name="experience_mode_choose_title">Kies je Chao TV-ervaring</string>
     <string name="experience_mode_choose_subtitle">Begin eenvoudig of ontgrendel elke aanpassing. Je kunt altijd wisselen.</string>
     <string name="experience_mode_essential_card_subtitle">Gerichte installatie, add-ons, afspeelbasis, Trakt en accountinstellingen.</string>
     <string name="experience_mode_advanced_card_subtitle">Volledige instellingen, indelingsopties, catalogusvolgorde, collecties, plug-ins en diagnostiek.</string>
@@ -620,8 +620,8 @@
     <string name="buffer_safe_status">Veilig: binnen de aanbevolen limiet voor je apparaat.</string>
     <string name="buffer_unsafe_warning">Waarschuwing: overschrijdt de aanbevolen veilige limiet (%1$d MB) voor je %2$s-apparaat. Kan crashes van de app veroorzaken.</string>
     <string name="buffer_auto_limit_active">Automatisch geschaalde veilige limiet: %d MB</string>
-    <string name="advanced_nuvio_focus_scroll">Nuvio-focusscrollen</string>
-    <string name="advanced_nuvio_focus_scroll_subtitle">Gebruik de eigen globale focus-scrollanimatie en -positionering van Nuvio.</string>
+    <string name="advanced_nuvio_focus_scroll">Chao TV-focusscrollen</string>
+    <string name="advanced_nuvio_focus_scroll_subtitle">Gebruik de eigen globale focus-scrollanimatie en -positionering van Chao TV.</string>
     <string name="advanced_rgb565">RGB565-beelddecodering</string>
     <string name="advanced_rgb565_subtitle">Gebruik 16-bits kleur met minder geheugengebruik voor geschikte ondoorzichtige afbeeldingen. Bij wijziging wordt de app opnieuw gestart.</string>
     <string name="advanced_memory_only_vertical_scroll">Verticaal scrollen alleen uit geheugen</string>
@@ -663,21 +663,21 @@
     <string name="action_back">Terug</string>
     <string name="action_close">Sluiten</string>
 
-    <string name="supporters_contributors_title">Steun Nuvio</string>
-    <string name="supporters_contributors_subtitle">De mensen die Nuvio steunen en de bijdragers die eraan bouwen voor tv en mobiel.</string>
+    <string name="supporters_contributors_title">Steun Chao TV</string>
+    <string name="supporters_contributors_subtitle">De mensen die Chao TV steunen en de bijdragers die eraan bouwen voor tv en mobiel.</string>
     <string name="supporters_contributors_supporters_copy">Ondersteuners en donateurs houden het project in beweging, financieren de infrastructuur en maken ruimte voor ambitieuze functies.</string>
-    <string name="supporters_contributors_donate_copy">Nuvio blijft gratis en opensource. Wil je het project steunen, dan kun je helpen de tijd en infrastructuur erachter te dekken.</string>
+    <string name="supporters_contributors_donate_copy">Chao TV blijft gratis en opensource. Wil je het project steunen, dan kun je helpen de tijd en infrastructuur erachter te dekken.</string>
     <string name="supporters_contributors_donation_progress_title">Server &amp; onderhoud van deze maand</string>
     <string name="supporters_contributors_donation_progress_complete">Gedekt. Extra steun gaat nu naar de ontwikkeling.</string>
     <string name="supporters_contributors_donation_progress_remaining">Na 100% gaat extra steun naar de ontwikkeling.</string>
     <string name="supporters_contributors_loading_donation_progress">Financieringsvoortgang laden...</string>
-    <string name="supporters_contributors_donate_button">Steun Nuvio</string>
+    <string name="supporters_contributors_donate_button">Steun Chao TV</string>
     <string name="supporters_contributors_qr_title">Scan om te steunen</string>
-    <string name="supporters_contributors_qr_subtitle">Open de link op je telefoon om Nuvio te steunen.</string>
+    <string name="supporters_contributors_qr_subtitle">Open de link op je telefoon om Chao TV te steunen.</string>
     <string name="supporters_contributors_qr_hint">Richt je camera op de QR-code of gebruik de knop hieronder.</string>
     <string name="supporters_contributors_back_button">Terug naar details</string>
-    <string name="supporter_membership_title">Nuvio-ondersteunerslidmaatschap</string>
-    <string name="supporter_membership_description">Nuvio steunen helpt de infrastructuur en doorlopende ontwikkeling te dekken, terwijl de kernervaring gratis blijft voor iedereen.</string>
+    <string name="supporter_membership_title">Chao TV-ondersteunerslidmaatschap</string>
+    <string name="supporter_membership_description">Chao TV steunen helpt de infrastructuur en doorlopende ontwikkeling te dekken, terwijl de kernervaring gratis blijft voor iedereen.</string>
     <string name="supporter_membership_view">Lidmaatschap bekijken</string>
     <string name="supporter_membership_manage">Lidmaatschap beheren</string>
     <string name="supporter_membership_refresh">Vernieuwen</string>
@@ -690,7 +690,7 @@
     <string name="supporter_membership_tier_supporter">Ondersteuner</string>
     <string name="supporter_membership_tier_supporter_plus">Ondersteuner Plus</string>
     <string name="supporter_membership_connected_title">Patreon is verbonden</string>
-    <string name="supporter_membership_connected_description">Er is geen actieve Nuvio-tier gevonden op dit Patreon-account. Bekijk de beschikbare opties of vernieuw nadat je je Patreon-lidmaatschap hebt gewijzigd.</string>
+    <string name="supporter_membership_connected_description">Er is geen actieve Chao TV-tier gevonden op dit Patreon-account. Bekijk de beschikbare opties of vernieuw nadat je je Patreon-lidmaatschap hebt gewijzigd.</string>
     <string name="supporter_membership_scan_support">Scan om lidmaatschap te bekijken</string>
     <string name="supporter_membership_scan_support_description">Open de pagina Ondersteunerslidmaatschap op je telefoon.</string>
     <string name="supporter_membership_scan_manage">Scan om lidmaatschap te beheren</string>
@@ -705,13 +705,13 @@
     <string name="supporters_no_message">Geen bericht gedeeld.</string>
     <string name="supporters_level_supporter">Ondersteuner</string>
     <string name="supporters_level_supporter_plus">Ondersteuner+</string>
-    <string name="supporters_since">Steunt Nuvio sinds %1$s</string>
-    <string name="supporters_since_unknown">Steunt Nuvio met trots</string>
+    <string name="supporters_since">Steunt Chao TV sinds %1$s</string>
+    <string name="supporters_since_unknown">Steunt Chao TV met trots</string>
     <string name="supporters_open_donations">Steunpagina openen</string>
     <string name="sponsors_loading">Sponsors laden…</string>
     <string name="sponsors_empty">Nog geen sponsors gevonden.</string>
     <string name="sponsors_error_title">Kon sponsors niet laden</string>
-    <string name="sponsors_detail_copy">Sponsors helpen Nuvio vooruit door steun aan de verschillende onderdelen van de ontwikkeling.</string>
+    <string name="sponsors_detail_copy">Sponsors helpen Chao TV vooruit door steun aan de verschillende onderdelen van de ontwikkeling.</string>
     <string name="sponsors_channel_unavailable">Sponsorkanaal niet beschikbaar.</string>
     <string name="sponsors_open_channel">Sponsorkanaal openen</string>
     <string name="contributors_loading">GitHub-bijdragers laden…</string>
@@ -776,7 +776,7 @@
     <string name="playback_auto_switch_internal_player_on_error">Engine automatisch wisselen bij opstartfout</string>
     <string name="playback_auto_switch_internal_player_on_error_sub">Als het starten van een stream mislukt, wissel dan automatisch tussen ExoPlayer en libmpv.</string>
     <string name="playback_release_decoder_on_background">Decoder vrijgeven op de achtergrond</string>
-    <string name="playback_release_decoder_on_background_sub">Geef de videodecoder vrij wanneer Nuvio naar de achtergrond gaat. Schakel dit in als het afspelen na terugkeer naar de app mislukt met een decoderfout. De speler laadt opnieuw bij terugkeer, ook na de screensaver</string>
+    <string name="playback_release_decoder_on_background_sub">Geef de videodecoder vrij wanneer Chao TV naar de achtergrond gaat. Schakel dit in als het afspelen na terugkeer naar de app mislukt met een decoderfout. De speler laadt opnieuw bij terugkeer, ook na de screensaver</string>
     <string name="playback_external_forward_subtitles">Ondertiteling doorsturen naar externe speler</string>
     <string name="playback_external_forward_subtitles_sub">Haal ondertiteling in je voorkeurstaal op bij add-ons en geef die door aan de externe speler.</string>
     <string name="playback_external_send_skip_segments">Tijdstempels van intro en outro versturen</string>
@@ -803,8 +803,8 @@
     <string name="playback_player_ask_desc">Kies elke keer een speler</string>
     <string name="playback_player_auto">Automatisch (Beste voor inhoud)</string>
     <string name="playback_player_auto_desc">ExoPlayer voor films en series · MPV voor anime</string>
-    <string name="playback_engine_exoplayer_desc">Beste compatibiliteit met de huidige Nuvio-functies.</string>
-    <string name="playback_engine_mvplayer_desc">Gebruikt libmpv met de OSD-bediening van Nuvio. Experimenteel.</string>
+    <string name="playback_engine_exoplayer_desc">Beste compatibiliteit met de huidige Chao TV-functies.</string>
+    <string name="playback_engine_mvplayer_desc">Gebruikt libmpv met de OSD-bediening van Chao TV. Experimenteel.</string>
 
     <string name="video_section">Video</string>
     <string name="playback_true_black_letterbox">Puur zwarte balken</string>
@@ -1310,7 +1310,7 @@
     <string name="debrid_disconnect">Loskoppelen</string>
     <string name="debrid_device_auth_connected">%1$s is verbonden op dit apparaat.</string>
     <string name="debrid_device_auth_starting">Beveiligde aanmelding starten...</string>
-    <string name="debrid_device_auth_instructions">Scan de QR-code en voer deze code in om Nuvio goed te keuren.</string>
+    <string name="debrid_device_auth_instructions">Scan de QR-code en voer deze code in om Chao TV goed te keuren.</string>
     <string name="debrid_device_auth_code_copied">Code gekopieerd.</string>
     <string name="debrid_device_auth_waiting">Wachten op goedkeuring...</string>
     <string name="debrid_device_auth_failed">Kon de aanmelding niet starten.</string>
@@ -1505,21 +1505,21 @@
     <string name="trakt_watch_progress_title">Kijkvoortgang</string>
     <string name="trakt_watch_progress_subtitle">Kies welke voortgangsbron hervatten en Verder kijken aanstuurt</string>
     <string name="trakt_watch_progress_dialog_title">Kijkvoortgang</string>
-    <string name="trakt_watch_progress_dialog_subtitle">Kies of hervatten en Verder kijken Trakt of Nuvio Sync gebruiken, terwijl Trakt-scrobbelen actief blijft.</string>
+    <string name="trakt_watch_progress_dialog_subtitle">Kies of hervatten en Verder kijken Trakt of Chao TV Sync gebruiken, terwijl Trakt-scrobbelen actief blijft.</string>
     <string name="trakt_watch_progress_source_trakt">Trakt</string>
-    <string name="trakt_watch_progress_source_nuvio">Nuvio Sync</string>
+    <string name="trakt_watch_progress_source_nuvio">Chao TV Sync</string>
     <string name="trakt_library_source_title">Bibliotheekbron</string>
-    <string name="trakt_library_source_subtitle">Kies welke bron Nuvio uitleest voor je bibliotheek</string>
+    <string name="trakt_library_source_subtitle">Kies welke bron Chao TV uitleest voor je bibliotheek</string>
     <string name="trakt_library_source_dialog_title">Bibliotheekbron</string>
     <string name="trakt_library_source_dialog_subtitle">Kies waar je bibliotheekitems worden opgeslagen en beheerd</string>
     <string name="trakt_library_source_trakt">Trakt</string>
-    <string name="trakt_library_source_nuvio">Nuvio-bibliotheek</string>
+    <string name="trakt_library_source_nuvio">Chao TV-bibliotheek</string>
     <string name="trakt_library_source_trakt_selected">Trakt-bibliotheek geselecteerd</string>
-    <string name="trakt_library_source_nuvio_selected">Nuvio-bibliotheek geselecteerd</string>
+    <string name="trakt_library_source_nuvio_selected">Chao TV-bibliotheek geselecteerd</string>
     <string name="trakt_setting_on">Aan</string>
     <string name="trakt_setting_off">Uit</string>
     <string name="trakt_watch_progress_trakt_selected">Bron voor kijkvoortgang ingesteld op Trakt</string>
-    <string name="trakt_watch_progress_nuvio_selected">Bron voor kijkvoortgang ingesteld op Nuvio Sync</string>
+    <string name="trakt_watch_progress_nuvio_selected">Bron voor kijkvoortgang ingesteld op Chao TV Sync</string>
     <string name="trakt_continue_watching_window">Verder kijken-venster</string>
     <string name="trakt_continue_watching_subtitle">Trakt-geschiedenis die wordt meegenomen voor Verder kijken</string>
     <string name="trakt_unaired_next_up">Nog niet uitgezonden afleveringen in Volgende</string>
@@ -1548,7 +1548,7 @@
     <string name="trakt_stat_watched_hours">Gekeken uren</string>
     <string name="trakt_disconnect">Verbinding verbreken</string>
     <string name="trakt_disconnect_title">Verbinding met Trakt verbreken?</string>
-    <string name="trakt_disconnect_subtitle">Dit verbreekt de verbinding tussen je Trakt-account en Nuvio.</string>
+    <string name="trakt_disconnect_subtitle">Dit verbreekt de verbinding tussen je Trakt-account en Chao TV.</string>
     <string name="trakt_login">Aanmelden</string>
     <string name="trakt_retry">Opnieuw proberen</string>
     <string name="trakt_back">Terug</string>
@@ -1625,11 +1625,11 @@
     <string name="profile_addons">add-ons</string>
     <string name="profile_plugins">plug-ins</string>
     <string name="profile_choose_avatar">Avatar kiezen</string>
-    <string name="profile_custom_avatar_web_panel_note">Eigen avatar-URL\'s kunnen worden ingesteld via het Nuvio-webpaneel.</string>
+    <string name="profile_custom_avatar_web_panel_note">Eigen avatar-URL\'s kunnen worden ingesteld via het Chao TV-webpaneel.</string>
     <string name="profile_editor_tab_avatar">Avatar</string>
     <string name="profile_editor_tab_background">Achtergrond</string>
     <string name="profile_choose_background">Profielachtergrond kiezen</string>
-    <string name="profile_background_member_note">Eigen achtergrond-URL\'s kunnen worden ingesteld via het Nuvio-webpaneel.</string>
+    <string name="profile_background_member_note">Eigen achtergrond-URL\'s kunnen worden ingesteld via het Chao TV-webpaneel.</string>
     <string name="profile_background_normal">Normaal</string>
     <string name="profile_background_custom">Aangepast</string>
     <string name="profile_avatar_none_selected">Geen avatar geselecteerd</string>
@@ -1697,7 +1697,7 @@
     <string name="profile_pin_overlay_set_support">Deze pincode is vereist voordat dit profiel wordt geopend.</string>
     <string name="profile_pin_overlay_confirm_support">Voer dezelfde 4 cijfers nogmaals in om het instellen te voltooien.</string>
     <string name="profile_pin_overlay_mismatch">De pincodes kwamen niet overeen. Voer opnieuw een nieuwe pincode in.</string>
-    <string name="profile_pin_overlay_forgot_hint">Pincode vergeten? Stel deze opnieuw in via je Nuvio-account op de Nuvio-website.</string>
+    <string name="profile_pin_overlay_forgot_hint">Pincode vergeten? Stel deze opnieuw in via je Chao TV-account op de Chao TV-website.</string>
     <string name="profile_pin_overlay_back_hint">Druk op terug om te annuleren</string>
 
 
@@ -1780,7 +1780,7 @@
     <string name="stream_type_torrent">Torrent</string>
     <string name="stream_type_youtube">YouTube</string>
     <string name="p2p_consent_title">P2P-streaming</string>
-    <string name="p2p_consent_body">Deze stream gebruikt peer-to-peer-technologie (P2P). Door P2P in te schakelen erken je en ga je ermee akkoord dat:\n\n\u2022 Je IP-adres zichtbaar is voor andere peers in het netwerk\n\u2022 Jij als enige verantwoordelijk bent voor de inhoud die je opent\n\u2022 Je bevestigt dat je het wettelijke recht hebt om deze inhoud in jouw rechtsgebied te streamen\n\u2022 Nuvio geen P2P-inhoud host, verspreidt of beheert\n\u2022 Nuvio geen aansprakelijkheid draagt voor juridische gevolgen van jouw gebruik van P2P-streaming\n\nJe gebruikt deze functie volledig op eigen risico. P2P kan altijd worden uitgeschakeld in de instellingen.</string>
+    <string name="p2p_consent_body">Deze stream gebruikt peer-to-peer-technologie (P2P). Door P2P in te schakelen erken je en ga je ermee akkoord dat:\n\n\u2022 Je IP-adres zichtbaar is voor andere peers in het netwerk\n\u2022 Jij als enige verantwoordelijk bent voor de inhoud die je opent\n\u2022 Je bevestigt dat je het wettelijke recht hebt om deze inhoud in jouw rechtsgebied te streamen\n\u2022 Chao TV geen P2P-inhoud host, verspreidt of beheert\n\u2022 Chao TV geen aansprakelijkheid draagt voor juridische gevolgen van jouw gebruik van P2P-streaming\n\nJe gebruikt deze functie volledig op eigen risico. P2P kan altijd worden uitgeschakeld in de instellingen.</string>
     <string name="p2p_consent_enable">P2P inschakelen</string>
     <string name="p2p_consent_cancel">Annuleren</string>
     <string name="settings_p2p_title">P2P-streaming</string>
@@ -2377,7 +2377,7 @@
     <string name="catalog_see_all_empty_title">Geen items beschikbaar</string>
     <string name="catalog_see_all_empty_subtitle">Probeer een andere catalogus of kom later terug</string>
 
-    <string name="layout_selection_welcome">Welkom bij Nuvio</string>
+    <string name="layout_selection_welcome">Welkom bij Chao TV</string>
     <string name="layout_selection_subtitle">Kies je startschermindeling</string>
     <string name="layout_selection_continue">Doorgaan</string>
 
@@ -2394,7 +2394,7 @@
     <string name="update_unknown_sources">Sta installaties van onbekende bronnen toe om door te gaan.</string>
     <!-- AccountScreen -->
     <string name="account_title">Account</string>
-    <string name="account_sign_in_description">Meld je aan om je bibliotheek, kijkvoortgang, add-ons en plug-ins op al je apparaten te synchroniseren. Bibliotheeksynchronisatie gebruikt Nuvio Sync wanneer Trakt niet is verbonden. Voor kijkvoortgang kan Trakt of Nuvio Sync worden gebruikt.</string>
+    <string name="account_sign_in_description">Meld je aan om je bibliotheek, kijkvoortgang, add-ons en plug-ins op al je apparaten te synchroniseren. Bibliotheeksynchronisatie gebruikt Chao TV Sync wanneer Trakt niet is verbonden. Voor kijkvoortgang kan Trakt of Chao TV Sync worden gebruikt.</string>
     <string name="account_sync_code_title">Synchronisatiecode</string>
     <string name="account_sync_code_description">Synchroniseer apparaten zonder account aan te maken.</string>
     <string name="account_linked_devices">Verbonden apparaten (%1$d)</string>
@@ -2572,7 +2572,7 @@
     <string name="cd_trailer_controls">Trailerbediening</string>
     <string name="cd_seek_bar">Voortgangsbalk</string>
     <string name="cd_unlink">Ontkoppelen</string>
-    <string name="cd_nuvio_logo">NuvioTV</string>
+    <string name="cd_nuvio_logo">Chao TV</string>
     <string name="cd_trakt_logo">Trakt-logo</string>
     <string name="cd_trakt_qr">QR-code voor Trakt-activering</string>
     <string name="cd_imdb">IMDb</string>
@@ -2584,7 +2584,7 @@
     <string name="cd_expand">%1$s uitvouwen</string>
     <string name="cd_collapse">%1$s samenvouwen</string>
     <string name="cd_qr_login">QR-aanmeldcode</string>
-    <string name="cd_nuvio">Nuvio</string>
+    <string name="cd_nuvio">Chao TV</string>
 
     <string name="debug_signin_success">Aanmelden gelukt</string>
     <string name="debug_generate_description">Door debug gegenereerd %1$s-item #%2$d</string>
@@ -2727,7 +2727,7 @@
     <string name="collections_editor_tmdb_list_helper">Voorbeeld: https://www.themoviedb.org/list/8504994 of 8504994.</string>
     <string name="collections_editor_tmdb_person_id">Persoon-ID</string>
     <string name="collections_editor_tmdb_person_helper">Voorbeeld: https://www.themoviedb.org/person/31-tom-hanks of 31.</string>
-    <string name="collections_editor_tmdb_title_helper">Wordt getoond als naam van de rij/het tabblad. Bij leeg laten maakt Nuvio er zelf een op basis van de bron.</string>
+    <string name="collections_editor_tmdb_title_helper">Wordt getoond als naam van de rij/het tabblad. Bij leeg laten maakt Chao TV er zelf een op basis van de bron.</string>
     <string name="collections_editor_tmdb_quick_genres">Snelle genres</string>
     <string name="collections_editor_tmdb_quick_languages">Snelle talen</string>
     <string name="collections_editor_tmdb_quick_countries">Snelle landen</string>
@@ -2909,7 +2909,7 @@
     <string name="autoplay_regex_preset_no_remux_hdr">Geen REMUX/HDR</string>
 
     <!-- Playback settings sections -->
-    <string name="playback_player_internal_desc">Gebruik de ingebouwde speler van NuvioTV</string>
+    <string name="playback_player_internal_desc">Gebruik de ingebouwde speler van Chao TV</string>
 
     <!-- Player runtime: torrent overlay + tracks -->
     <string name="player_torrent_peer_info">%1$d seeds · %2$d peers</string>
@@ -3014,9 +3014,9 @@
     <string name="simkl_visit">Simkl bezoeken</string>
     <string name="simkl_sync_info_action">Zo werkt synchroniseren</string>
     <string name="simkl_sync_info_title">Zo werkt synchroniseren met Simkl</string>
-    <string name="simkl_sync_info_description">Nuvio controleert Simkl automatisch hooguit eens per %1$d minuten. Wijzigingen die je via een andere app of de Simkl-website maakt, kunnen dus zo lang duren voordat ze zichtbaar zijn.</string>
+    <string name="simkl_sync_info_description">Chao TV controleert Simkl automatisch hooguit eens per %1$d minuten. Wijzigingen die je via een andere app of de Simkl-website maakt, kunnen dus zo lang duren voordat ze zichtbaar zijn.</string>
     <string name="simkl_sync_info_activity">Bij elke vernieuwing wordt eerst gecontroleerd of Simkl wijzigingen meldt, waarna alleen de updates worden gedownload. Dit volgt de API-regels van Simkl, beperkt onnodig dataverbruik en houdt de dienst stabiel.</string>
-    <string name="simkl_sync_info_manual">Wijzigingen die je in Nuvio maakt, worden direct naar Simkl gestuurd. Gebruik Nu synchroniseren wanneer je wilt dat Nuvio eerder op wijzigingen elders controleert.</string>
+    <string name="simkl_sync_info_manual">Wijzigingen die je in Chao TV maakt, worden direct naar Simkl gestuurd. Gebruik Nu synchroniseren wanneer je wilt dat Chao TV eerder op wijzigingen elders controleert.</string>
     <string name="simkl_sync_info_library_statuses">Series die in de Simkl-lijsten On Hold of Dropped staan, worden verborgen in Verder kijken. Ze blijven verborgen zolang ze in een van beide lijsten staan.</string>
     <string name="simkl_sync_info_docs">Lees de handleiding voor Simkl-synchronisatie</string>
     <string name="error_open_browser_failed">Kon de browser niet openen</string>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Nuvio</string>
+    <string name="app_name">Chao TV</string>
     <string name="tv_channel_continue_watching">Nastavi gledati</string>
     <string name="type_movie">Film</string>
     <string name="type_movies">Filmovi</string>
@@ -372,13 +372,13 @@
     <string name="appearance_settings_style">Stil postavki</string>
     <string name="appearance_settings_style_subtitle">Odaberi kako se prikazuju zasloni postavki</string>
     <string name="appearance_launcher_artwork">Grafika pokretača</string>
-    <string name="appearance_launcher_artwork_subtitle">Odaberi kako se Nuvio prikazuje na početnom zaslonu TV-a</string>
+    <string name="appearance_launcher_artwork_subtitle">Odaberi kako se Chao TV prikazuje na početnom zaslonu TV-a</string>
     <string name="appearance_app_icon_and_banner">Ikona i baner aplikacije</string>
     <string name="appearance_app_icon_and_banner_subtitle">Promijeni ikonu i baner aplikacije</string>
     <string name="appearance_app_icon_picker_title">Odaberi ikonu i baner aplikacije</string>
     <string name="appearance_app_icon_picker_subtitle">Svaki stil uključuje odgovarajuću kvadratnu ikonu i TV baner</string>
     <string name="appearance_app_icon_confirmation_title">Promijeniti ikonu aplikacije?</string>
-    <string name="appearance_app_icon_confirmation_message">Promjena na %1$s zatvorit će Nuvio. TV baner možda će zahtijevati ponovno pokretanje uređaja da se ažurira. Odaberi OK za nastavak.</string>
+    <string name="appearance_app_icon_confirmation_message">Promjena na %1$s zatvorit će Chao TV. TV baner možda će zahtijevati ponovno pokretanje uređaja da se ažurira. Odaberi OK za nastavak.</string>
     <string name="appearance_app_icon_change_failed">Ikonu i baner nije moguće promijeniti. Pokušaj ponovno.</string>
     <string name="appearance_app_icon_original">Izvorno</string>
     <string name="appearance_app_icon_arctic_blue">Arktičko plava</string>
@@ -413,37 +413,37 @@
     <string name="update_channel_beta_description">Rana ažuriranja koja mogu sadržavati greške, pokvariti značajke ili se ponašati neočekivano.</string>
     <string name="about_privacy_policy">Pravila o privatnosti</string>
     <string name="about_privacy_policy_subtitle">Pogledaj naša pravila o privatnosti</string>
-    <string name="support_nuvio_name">Podrži Nuvio</string>
-    <string name="about_supporters_contributors">Podrži Nuvio</string>
+    <string name="support_nuvio_name">Podrži Chao TV</string>
+    <string name="about_supporters_contributors">Podrži Chao TV</string>
     <string name="about_supporters_contributors_subtitle">Podrži projekt i pogledaj zasluge zajednice</string>
     <string name="about_licenses_attributions">Licence i atribucije</string>
     <string name="about_licenses_attributions_subtitle">Izvori podataka, zahvale i Android licence</string>
     <string name="licenses_attributions_title">Licence i atribucije</string>
-    <string name="licenses_attributions_subtitle">Pružatelji podataka, zasluge za usluge i Android licence za reprodukciju koje koristi Nuvio TV.</string>
+    <string name="licenses_attributions_subtitle">Pružatelji podataka, zasluge za usluge i Android licence za reprodukciju koje koristi Chao TV.</string>
     <string name="licenses_attributions_section_app">LICENCA APLIKACIJE</string>
     <string name="licenses_attributions_section_data">PODACI I USLUGE</string>
     <string name="licenses_attributions_section_playback">ANDROID LICENCE ZA REPRODUKCIJU</string>
     <string name="licenses_attributions_section_ui">UI BIBLIOTEKE</string>
     <string name="licenses_attributions_haze_title">Haze 1.7.2</string>
     <string name="licenses_attributions_haze_body">Koristi se za efekte zamućenja pozadine. Autor: Chris Banes. Licencirano pod Apache licencom, verzija 2.0.</string>
-    <string name="licenses_attributions_nuvio_title">Nuvio TV</string>
+    <string name="licenses_attributions_nuvio_title">Chao TV</string>
     <string name="licenses_attributions_nuvio_body">Izvorni kôd i uvjeti licence dostupni su u repozitoriju projekta. Licencirano pod GNU General Public License v3.0.</string>
     <string name="licenses_attributions_tmdb_title">The Movie Database (TMDB)</string>
-    <string name="licenses_attributions_tmdb_body">Nuvio koristi TMDB API za metapodatke o filmovima i serijama, grafike, trailere, glumce, produkcijske detalje, kolekcije i preporuke. Ovaj proizvod koristi TMDB API, ali ga TMDB ne podržava niti certificira.</string>
+    <string name="licenses_attributions_tmdb_body">Chao TV koristi TMDB API za metapodatke o filmovima i serijama, grafike, trailere, glumce, produkcijske detalje, kolekcije i preporuke. Ovaj proizvod koristi TMDB API, ali ga TMDB ne podržava niti certificira.</string>
     <string name="licenses_attributions_trakt_title">Trakt</string>
-    <string name="licenses_attributions_trakt_body">Nuvio se povezuje s Traktom radi autentifikacije računa, povijesti gledanja, sinkronizacije napretka, podataka biblioteke, ocjena, popisa i komentara. Nuvio nije povezan s Traktom niti ga Trakt podržava.</string>
+    <string name="licenses_attributions_trakt_body">Chao TV se povezuje s Traktom radi autentifikacije računa, povijesti gledanja, sinkronizacije napretka, podataka biblioteke, ocjena, popisa i komentara. Chao TV nije povezan s Traktom niti ga Trakt podržava.</string>
     <string name="licenses_attributions_simkl_title">Simkl</string>
-    <string name="licenses_attributions_simkl_body">Nuvio se povezuje sa Simklom radi autentifikacije računa, popisa za gledanje, povijesti gledanja, napretka reprodukcije i scrobblanja. Podatke o praćenju filmova, serija i animea pruža Simkl. Nuvio nije povezan sa Simklom niti ga Simkl podržava.</string>
+    <string name="licenses_attributions_simkl_body">Chao TV se povezuje sa Simklom radi autentifikacije računa, popisa za gledanje, povijesti gledanja, napretka reprodukcije i scrobblanja. Podatke o praćenju filmova, serija i animea pruža Simkl. Chao TV nije povezan sa Simklom niti ga Simkl podržava.</string>
     <string name="licenses_attributions_premiumize_title">Premiumize</string>
-    <string name="licenses_attributions_premiumize_body">Nuvio se povezuje s Premiumizeom radi autentifikacije računa, pristupa biblioteci u oblaku, provjere predmemorije i reprodukcije iz oblaka. Nuvio nije povezan s Premiumizeom niti ga Premiumize podržava.</string>
+    <string name="licenses_attributions_premiumize_body">Chao TV se povezuje s Premiumizeom radi autentifikacije računa, pristupa biblioteci u oblaku, provjere predmemorije i reprodukcije iz oblaka. Chao TV nije povezan s Premiumizeom niti ga Premiumize podržava.</string>
     <string name="licenses_attributions_torbox_title">TorBox</string>
-    <string name="licenses_attributions_torbox_body">Nuvio se povezuje s TorBoxom radi autentifikacije računa, pristupa biblioteci u oblaku, provjere predmemorije i reprodukcije iz oblaka. Nuvio nije povezan s TorBoxom niti ga TorBox podržava.</string>
+    <string name="licenses_attributions_torbox_body">Chao TV se povezuje s TorBoxom radi autentifikacije računa, pristupa biblioteci u oblaku, provjere predmemorije i reprodukcije iz oblaka. Chao TV nije povezan s TorBoxom niti ga TorBox podržava.</string>
     <string name="licenses_attributions_mdblist_title">MDBList</string>
-    <string name="licenses_attributions_mdblist_body">Nuvio koristi MDBList za ocjene, povijest gledanja i praćenje reprodukcije. Nuvio nije povezan s MDBListom niti ga MDBList podržava.</string>
+    <string name="licenses_attributions_mdblist_body">Chao TV koristi MDBList za ocjene, povijest gledanja i praćenje reprodukcije. Chao TV nije povezan s MDBListom niti ga MDBList podržava.</string>
     <string name="licenses_attributions_introdb_title">IntroDB</string>
-    <string name="licenses_attributions_introdb_body">Nuvio koristi IntroDB API za vremenske oznake uvoda, sažetaka, odjavne špice i pretpregleda koje pruža zajednica, a koriste ih kontrole preskakanja. Nuvio nije povezan s IntroDB-om niti ga IntroDB podržava.</string>
+    <string name="licenses_attributions_introdb_body">Chao TV koristi IntroDB API za vremenske oznake uvoda, sažetaka, odjavne špice i pretpregleda koje pruža zajednica, a koriste ih kontrole preskakanja. Chao TV nije povezan s IntroDB-om niti ga IntroDB podržava.</string>
     <string name="licenses_attributions_imdb_title">IMDb nekomercijalni skupovi podataka</string>
-    <string name="licenses_attributions_imdb_body">Nuvio koristi IMDb nekomercijalne skupove podataka, uključujući title.ratings.tsv.gz, za IMDb ocjene i broj glasova. Informacije ljubaznošću IMDb-a (https://www.imdb.com). Korišteno uz dopuštenje. IMDb podaci namijenjeni su osobnoj i nekomercijalnoj upotrebi prema IMDb uvjetima.</string>
+    <string name="licenses_attributions_imdb_body">Chao TV koristi IMDb nekomercijalne skupove podataka, uključujući title.ratings.tsv.gz, za IMDb ocjene i broj glasova. Informacije ljubaznošću IMDb-a (https://www.imdb.com). Korišteno uz dopuštenje. IMDb podaci namijenjeni su osobnoj i nekomercijalnoj upotrebi prema IMDb uvjetima.</string>
     <string name="licenses_attributions_exoplayer_title">AndroidX Media3 ExoPlayer 1.8.0</string>
     <string name="licenses_attributions_exoplayer_body">Koristi se kao Android pogon za reprodukciju. Licencirano pod Apache licencom, verzija 2.0.</string>
     <string name="licenses_attributions_libmpv_title">libmpv / libmpv-android</string>
@@ -468,7 +468,7 @@
     <string name="tracking_accounts_title">Računi</string>
     <string name="tracking_accounts_subtitle">Poveži i upravljaj uslugama praćenja</string>
     <string name="tracking_sources_title">Izvori</string>
-    <string name="tracking_sources_subtitle">Odaberi odakle Nuvio čita tvoju biblioteku i napredak gledanja. Reprodukcija se scrobbla na sve povezane usluge.</string>
+    <string name="tracking_sources_subtitle">Odaberi odakle Chao TV čita tvoju biblioteku i napredak gledanja. Reprodukcija se scrobbla na sve povezane usluge.</string>
     <string name="tracking_trakt_features_title">Trakt značajke</string>
     <string name="tracking_trakt_features_subtitle">Povijest, recenzije i preporuke specifične za Trakt</string>
     <string name="tracking_simkl_features_title">Simkl značajke</string>
@@ -485,8 +485,8 @@
     <string name="tracking_status_connecting">Povezivanje</string>
     <string name="tracking_finish_connection">Dovrši odobrenje povezivanja</string>
     <string name="tracking_connecting_provider">Pokretanje povezivanja s uslugom %1$s…</string>
-    <string name="tracking_watch_progress_dialog_subtitle">Odaberi uslugu koju Nuvio čita za nastavak reprodukcije i Nastavi gledati. Scrobblanje ostaje aktivno za sve povezane usluge.</string>
-    <string name="tracking_library_source_dialog_subtitle">Odaberi uslugu koju Nuvio čita za tvoju biblioteku. Reprodukcija se scrobbla na sve povezane usluge.</string>
+    <string name="tracking_watch_progress_dialog_subtitle">Odaberi uslugu koju Chao TV čita za nastavak reprodukcije i Nastavi gledati. Scrobblanje ostaje aktivno za sve povezane usluge.</string>
+    <string name="tracking_library_source_dialog_subtitle">Odaberi uslugu koju Chao TV čita za tvoju biblioteku. Reprodukcija se scrobbla na sve povezane usluge.</string>
     <string name="tracking_trakt_progress_required">Dostupno kada je Trakt izvor napretka gledanja</string>
     <string name="trakt_name">Trakt</string>
     <string name="simkl_name">Simkl</string>
@@ -496,7 +496,7 @@
     <string name="settings_advanced_subtitle">Performanse, navigacija, predmemorija i dijagnostika</string>
     <string name="experience_mode_essential">Osnovno</string>
     <string name="experience_mode_advanced">Napredno</string>
-    <string name="experience_mode_choose_title">Odaberi svoje Nuvio iskustvo</string>
+    <string name="experience_mode_choose_title">Odaberi svoje Chao TV iskustvo</string>
     <string name="experience_mode_choose_subtitle">Kreni jednostavno ili otključaj sve prilagodbe. Možeš promijeniti bilo kada.</string>
     <string name="experience_mode_essential_card_subtitle">Usmjereno postavljanje, dodaci, osnove reprodukcije, Trakt i postavke računa.</string>
     <string name="experience_mode_advanced_card_subtitle">Sve postavke, kontrole izgleda, redoslijed kataloga, kolekcije, pluginovi i dijagnostika.</string>
@@ -605,8 +605,8 @@
     <string name="buffer_safe_status">Sigurno: unutar preporučenog ograničenja za tvoj uređaj.</string>
     <string name="buffer_unsafe_warning">Upozorenje: premašuje preporučeno sigurno ograničenje (%1$d MB) za tvoj uređaj (%2$s). Može uzrokovati rušenje aplikacije.</string>
     <string name="buffer_auto_limit_active">Automatski prilagođeno sigurno ograničenje: %d MB</string>
-    <string name="advanced_nuvio_focus_scroll">Nuvio fokus pomicanje</string>
-    <string name="advanced_nuvio_focus_scroll_subtitle">Koristi Nuvio prilagođenu globalnu animaciju pomicanja i pozicioniranje fokusa.</string>
+    <string name="advanced_nuvio_focus_scroll">Chao TV fokus pomicanje</string>
+    <string name="advanced_nuvio_focus_scroll_subtitle">Koristi Chao TV prilagođenu globalnu animaciju pomicanja i pozicioniranje fokusa.</string>
     <string name="advanced_rgb565">RGB565 dekodiranje slika</string>
     <string name="advanced_rgb565_subtitle">Koristi 16-bitne boje s manjom potrošnjom memorije za prikladne neprozirne slike. Promjena ponovno pokreće aplikaciju.</string>
     <string name="advanced_memory_only_vertical_scroll">Okomito pomicanje samo iz memorije</string>
@@ -648,20 +648,20 @@
     <string name="action_back">Natrag</string>
     <string name="action_close">Zatvori</string>
 
-    <string name="supporters_contributors_title">Podrži Nuvio</string>
-    <string name="supporters_contributors_subtitle">Ljudi koji podržavaju Nuvio i suradnici koji ga razvijaju na TV-u i mobitelima.</string>
+    <string name="supporters_contributors_title">Podrži Chao TV</string>
+    <string name="supporters_contributors_subtitle">Ljudi koji podržavaju Chao TV i suradnici koji ga razvijaju na TV-u i mobitelima.</string>
     <string name="supporters_contributors_supporters_copy">Podupiratelji i donatori pomažu da projekt napreduje, financiraju infrastrukturu i omogućuju ambiciozne značajke.</string>
-    <string name="supporters_contributors_donate_copy">Nuvio će ostati besplatan i otvorenog koda. Ako želiš podržati projekt, možeš pomoći pokriti vrijeme i infrastrukturu iza njega.</string>
+    <string name="supporters_contributors_donate_copy">Chao TV će ostati besplatan i otvorenog koda. Ako želiš podržati projekt, možeš pomoći pokriti vrijeme i infrastrukturu iza njega.</string>
     <string name="supporters_contributors_donation_progress_title">Poslužitelji i održavanje ovog mjeseca</string>
     <string name="supporters_contributors_donation_progress_complete">Pokriveno. Dodatna podrška sada ide u razvoj.</string>
     <string name="supporters_contributors_donation_progress_remaining">Nakon 100%, dodatna podrška ide u razvoj.</string>
     <string name="supporters_contributors_loading_donation_progress">Učitavanje napretka financiranja...</string>
-    <string name="supporters_contributors_donate_button">Podrži Nuvio</string>
+    <string name="supporters_contributors_donate_button">Podrži Chao TV</string>
     <string name="supporters_contributors_qr_title">Skeniraj za podršku</string>
-    <string name="supporters_contributors_qr_subtitle">Otvori poveznicu na mobitelu i podrži Nuvio.</string>
+    <string name="supporters_contributors_qr_subtitle">Otvori poveznicu na mobitelu i podrži Chao TV.</string>
     <string name="supporters_contributors_qr_hint">Usmjeri kameru prema QR kodu ili koristi gumb ispod.</string>
     <string name="supporters_contributors_back_button">Natrag na detalje</string>
-    <string name="supporter_membership_title">Nuvio članstvo za podupiratelje</string>
+    <string name="supporter_membership_title">Chao TV članstvo za podupiratelje</string>
     <string name="supporter_membership_description">Podrška Nuviju pomaže pokriti infrastrukturu i kontinuirani razvoj, a osnovno iskustvo ostaje besplatno za sve.</string>
     <string name="supporter_membership_view">Pogledaj članstvo</string>
     <string name="supporter_membership_manage">Upravljaj članstvom</string>
@@ -675,7 +675,7 @@
     <string name="supporter_membership_tier_supporter">Podupiratelj</string>
     <string name="supporter_membership_tier_supporter_plus">Podupiratelj Plus</string>
     <string name="supporter_membership_connected_title">Patreon je povezan</string>
-    <string name="supporter_membership_connected_description">Na ovom Patreon računu nije pronađena aktivna Nuvio razina. Pogledaj dostupne opcije ili osvježi nakon promjene Patreon članstva.</string>
+    <string name="supporter_membership_connected_description">Na ovom Patreon računu nije pronađena aktivna Chao TV razina. Pogledaj dostupne opcije ili osvježi nakon promjene Patreon članstva.</string>
     <string name="supporter_membership_scan_support">Skeniraj za prikaz članstva</string>
     <string name="supporter_membership_scan_support_description">Otvori stranicu članstva za podupiratelje na mobitelu.</string>
     <string name="supporter_membership_scan_manage">Skeniraj za upravljanje članstvom</string>
@@ -690,8 +690,8 @@
     <string name="supporters_no_message">Poruka nije podijeljena.</string>
     <string name="supporters_level_supporter">Podupiratelj</string>
     <string name="supporters_level_supporter_plus">Podupiratelj+</string>
-    <string name="supporters_since">Podržava Nuvio od %1$s</string>
-    <string name="supporters_since_unknown">Ponosno podržava Nuvio</string>
+    <string name="supporters_since">Podržava Chao TV od %1$s</string>
+    <string name="supporters_since_unknown">Ponosno podržava Chao TV</string>
     <string name="supporters_open_donations">Otvori stranicu za podršku</string>
     <string name="sponsors_loading">Učitavanje sponzora…</string>
     <string name="sponsors_empty">Još nisu pronađeni sponzori.</string>
@@ -786,8 +786,8 @@
     <string name="playback_player_ask_desc">Odaberi player svaki put</string>
     <string name="playback_player_auto">Automatski (najbolje za sadržaj)</string>
     <string name="playback_player_auto_desc">ExoPlayer za filmove i serije · MPV za anime</string>
-    <string name="playback_engine_exoplayer_desc">Najbolja kompatibilnost s trenutnim Nuvio značajkama.</string>
-    <string name="playback_engine_mvplayer_desc">Koristi libmpv s Nuvio OSD kontrolama. Eksperimentalno.</string>
+    <string name="playback_engine_exoplayer_desc">Najbolja kompatibilnost s trenutnim Chao TV značajkama.</string>
+    <string name="playback_engine_mvplayer_desc">Koristi libmpv s Chao TV OSD kontrolama. Eksperimentalno.</string>
 
     <string name="video_section">Video</string>
     <string name="playback_true_black_letterbox">Prave crne trake</string>
@@ -1440,21 +1440,21 @@
     <string name="trakt_watch_progress_title">Napredak gledanja</string>
     <string name="trakt_watch_progress_subtitle">Odaberi koji izvor napretka pokreće nastavak reprodukcije i Nastavi gledati</string>
     <string name="trakt_watch_progress_dialog_title">Napredak gledanja</string>
-    <string name="trakt_watch_progress_dialog_subtitle">Odaberi trebaju li nastavak reprodukcije i Nastavi gledati koristiti Trakt ili Nuvio Sync, dok Trakt scrobblanje ostaje aktivno.</string>
+    <string name="trakt_watch_progress_dialog_subtitle">Odaberi trebaju li nastavak reprodukcije i Nastavi gledati koristiti Trakt ili Chao TV Sync, dok Trakt scrobblanje ostaje aktivno.</string>
     <string name="trakt_watch_progress_source_trakt">Trakt</string>
-    <string name="trakt_watch_progress_source_nuvio">Nuvio Sync</string>
+    <string name="trakt_watch_progress_source_nuvio">Chao TV Sync</string>
     <string name="trakt_library_source_title">Izvor biblioteke</string>
-    <string name="trakt_library_source_subtitle">Odaberi koji izvor Nuvio čita za tvoju biblioteku</string>
+    <string name="trakt_library_source_subtitle">Odaberi koji izvor Chao TV čita za tvoju biblioteku</string>
     <string name="trakt_library_source_dialog_title">Izvor biblioteke</string>
     <string name="trakt_library_source_dialog_subtitle">Odaberi gdje spremati i upravljati stavkama biblioteke</string>
     <string name="trakt_library_source_trakt">Trakt</string>
-    <string name="trakt_library_source_nuvio">Nuvio biblioteka</string>
+    <string name="trakt_library_source_nuvio">Chao TV biblioteka</string>
     <string name="trakt_library_source_trakt_selected">Odabrana Trakt biblioteka</string>
-    <string name="trakt_library_source_nuvio_selected">Odabrana Nuvio biblioteka</string>
+    <string name="trakt_library_source_nuvio_selected">Odabrana Chao TV biblioteka</string>
     <string name="trakt_setting_on">Uključeno</string>
     <string name="trakt_setting_off">Isključeno</string>
     <string name="trakt_watch_progress_trakt_selected">Izvor napretka gledanja postavljen na Trakt</string>
-    <string name="trakt_watch_progress_nuvio_selected">Izvor napretka gledanja postavljen na Nuvio Sync</string>
+    <string name="trakt_watch_progress_nuvio_selected">Izvor napretka gledanja postavljen na Chao TV Sync</string>
     <string name="trakt_continue_watching_window">Razdoblje za Nastavi gledati</string>
     <string name="trakt_continue_watching_subtitle">Trakt povijest koja se uzima u obzir za Nastavi gledati</string>
     <string name="trakt_unaired_next_up">Neemitirane sljedeće epizode</string>
@@ -1560,11 +1560,11 @@
     <string name="profile_addons">dodaci</string>
     <string name="profile_plugins">pluginovi</string>
     <string name="profile_choose_avatar">Odaberi avatar</string>
-    <string name="profile_custom_avatar_web_panel_note">Prilagođeni URL-ovi avatara mogu se konfigurirati na Nuvio web ploči.</string>
+    <string name="profile_custom_avatar_web_panel_note">Prilagođeni URL-ovi avatara mogu se konfigurirati na Chao TV web ploči.</string>
     <string name="profile_editor_tab_avatar">Avatar</string>
     <string name="profile_editor_tab_background">Pozadina</string>
     <string name="profile_choose_background">Odaberi pozadinu profila</string>
-    <string name="profile_background_member_note">Prilagođeni URL-ovi pozadine mogu se konfigurirati na Nuvio web ploči.</string>
+    <string name="profile_background_member_note">Prilagođeni URL-ovi pozadine mogu se konfigurirati na Chao TV web ploči.</string>
     <string name="profile_background_normal">Obična</string>
     <string name="profile_background_custom">Prilagođena</string>
     <string name="profile_avatar_none_selected">Nije odabran avatar</string>
@@ -1632,7 +1632,7 @@
     <string name="profile_pin_overlay_set_support">Ovaj PIN bit će potreban prije otvaranja ovog profila.</string>
     <string name="profile_pin_overlay_confirm_support">Ponovno unesi iste 4 znamenke za dovršetak postavljanja.</string>
     <string name="profile_pin_overlay_mismatch">PIN-ovi se nisu podudarali. Ponovno unesi novi PIN.</string>
-    <string name="profile_pin_overlay_forgot_hint">Zaboravljen PIN? Poništi ga putem svog Nuvio računa na Nuvio web stranici.</string>
+    <string name="profile_pin_overlay_forgot_hint">Zaboravljen PIN? Poništi ga putem svog Chao TV računa na Chao TV web stranici.</string>
     <string name="profile_pin_overlay_back_hint">Pritisni natrag za odustajanje</string>
 
 
@@ -1715,7 +1715,7 @@
     <string name="stream_type_torrent">Torrent</string>
     <string name="stream_type_youtube">YouTube</string>
     <string name="p2p_consent_title">P2P streamanje</string>
-    <string name="p2p_consent_body">Ovaj stream koristi peer-to-peer (P2P) tehnologiju. Omogućavanjem P2P-a potvrđuješ i prihvaćaš sljedeće:\n\n\u2022 Tvoja IP adresa bit će vidljiva ostalim sudionicima u mreži\n\u2022 Odgovornost za sadržaj kojem pristupaš isključivo je tvoja\n\u2022 Potvrđuješ da imaš zakonsko pravo streamati ovaj sadržaj u svojoj jurisdikciji\n\u2022 Nuvio ne hostira, ne distribuira niti kontrolira bilo kakav P2P sadržaj\n\u2022 Nuvio ne snosi odgovornost za bilo kakve pravne posljedice koje proizlaze iz tvog korištenja P2P streamanja\n\nOvu značajku koristiš u potpunosti na vlastiti rizik. P2P se može isključiti bilo kada u Postavkama.</string>
+    <string name="p2p_consent_body">Ovaj stream koristi peer-to-peer (P2P) tehnologiju. Omogućavanjem P2P-a potvrđuješ i prihvaćaš sljedeće:\n\n\u2022 Tvoja IP adresa bit će vidljiva ostalim sudionicima u mreži\n\u2022 Odgovornost za sadržaj kojem pristupaš isključivo je tvoja\n\u2022 Potvrđuješ da imaš zakonsko pravo streamati ovaj sadržaj u svojoj jurisdikciji\n\u2022 Chao TV ne hostira, ne distribuira niti kontrolira bilo kakav P2P sadržaj\n\u2022 Chao TV ne snosi odgovornost za bilo kakve pravne posljedice koje proizlaze iz tvog korištenja P2P streamanja\n\nOvu značajku koristiš u potpunosti na vlastiti rizik. P2P se može isključiti bilo kada u Postavkama.</string>
     <string name="p2p_consent_enable">Omogući P2P</string>
     <string name="p2p_consent_cancel">Odustani</string>
     <string name="settings_p2p_title">P2P streamanje</string>
@@ -2300,7 +2300,7 @@
     <string name="catalog_see_all_empty_title">Nema dostupnih stavki</string>
     <string name="catalog_see_all_empty_subtitle">Isprobaj drugi katalog ili provjeri kasnije</string>
 
-    <string name="layout_selection_welcome">Dobrodošli u Nuvio</string>
+    <string name="layout_selection_welcome">Dobrodošli u Chao TV</string>
     <string name="layout_selection_subtitle">Odaberi izgled početnog zaslona</string>
     <string name="layout_selection_continue">Nastavi</string>
 
@@ -2317,7 +2317,7 @@
     <string name="update_unknown_sources">Dopusti instalacije iz nepoznatih izvora za nastavak.</string>
     <!-- AccountScreen -->
     <string name="account_title">Račun</string>
-    <string name="account_sign_in_description">Prijavi se za sinkronizaciju biblioteke, napretka gledanja, dodataka i pluginova na svim uređajima. Sinkronizacija biblioteke koristi Nuvio Sync kada Trakt nije povezan, a napredak gledanja može koristiti Trakt ili Nuvio Sync.</string>
+    <string name="account_sign_in_description">Prijavi se za sinkronizaciju biblioteke, napretka gledanja, dodataka i pluginova na svim uređajima. Sinkronizacija biblioteke koristi Chao TV Sync kada Trakt nije povezan, a napredak gledanja može koristiti Trakt ili Chao TV Sync.</string>
     <string name="account_sync_code_title">Kôd za sinkronizaciju</string>
     <string name="account_sync_code_description">Sinkroniziraj uređaje bez stvaranja računa.</string>
     <string name="account_linked_devices">Povezani uređaji (%1$d)</string>
@@ -2469,7 +2469,7 @@
     <string name="cd_preview">Pretpregled</string>
     <string name="cd_test">Testiraj</string>
     <string name="cd_unlink">Odspoji</string>
-    <string name="cd_nuvio_logo">NuvioTV</string>
+    <string name="cd_nuvio_logo">Chao TV</string>
     <string name="cd_trakt_logo">Trakt logo</string>
     <string name="cd_trakt_qr">QR za aktivaciju Trakta</string>
     <string name="cd_imdb">IMDb</string>
@@ -2481,7 +2481,7 @@
     <string name="cd_expand">Proširi %1$s</string>
     <string name="cd_collapse">Sažmi %1$s</string>
     <string name="cd_qr_login">QR kôd za prijavu</string>
-    <string name="cd_nuvio">Nuvio</string>
+    <string name="cd_nuvio">Chao TV</string>
 
     <string name="debug_signin_success">Prijava uspješna</string>
     <string name="debug_generate_description">Debug-generirana stavka %1$s #%2$d</string>
@@ -2624,7 +2624,7 @@
     <string name="collections_editor_tmdb_list_helper">Primjer: https://www.themoviedb.org/list/8504994 ili 8504994.</string>
     <string name="collections_editor_tmdb_person_id">ID osobe</string>
     <string name="collections_editor_tmdb_person_helper">Primjer: https://www.themoviedb.org/person/31-tom-hanks ili 31.</string>
-    <string name="collections_editor_tmdb_title_helper">Prikazuje se kao naziv reda/kartice. Ako je prazno, Nuvio ga stvara iz izvora.</string>
+    <string name="collections_editor_tmdb_title_helper">Prikazuje se kao naziv reda/kartice. Ako je prazno, Chao TV ga stvara iz izvora.</string>
     <string name="collections_editor_tmdb_quick_genres">Brzi žanrovi</string>
     <string name="collections_editor_tmdb_quick_languages">Brzi jezici</string>
     <string name="collections_editor_tmdb_quick_countries">Brze države</string>
@@ -2806,7 +2806,7 @@
     <string name="autoplay_regex_preset_no_remux_hdr">Bez REMUX/HDR</string>
 
     <!-- Odjeljci postavki reprodukcije -->
-    <string name="playback_player_internal_desc">Koristi ugrađeni player NuvioTV-a</string>
+    <string name="playback_player_internal_desc">Koristi ugrađeni player Chao TV-a</string>
 
     <!-- Player: torrent sloj + zapisi -->
     <string name="player_torrent_peer_info">%1$d seedova · %2$d peerova</string>
@@ -2911,9 +2911,9 @@
     <string name="simkl_visit">Posjeti Simkl</string>
     <string name="simkl_sync_info_action">Kako funkcionira sinkronizacija</string>
     <string name="simkl_sync_info_title">Kako funkcionira Simkl sinkronizacija</string>
-    <string name="simkl_sync_info_description">Nuvio automatski provjerava Simkl najviše jednom svakih %1$d minuta. Promjene napravljene u drugoj aplikaciji ili na Simkl web stranici mogu se pojaviti tek nakon tog vremena.</string>
+    <string name="simkl_sync_info_description">Chao TV automatski provjerava Simkl najviše jednom svakih %1$d minuta. Promjene napravljene u drugoj aplikaciji ili na Simkl web stranici mogu se pojaviti tek nakon tog vremena.</string>
     <string name="simkl_sync_info_activity">Svako osvježavanje najprije provjerava prijavljuje li Simkl ikakve promjene i preuzima samo ažuriranja. To poštuje pravila Simkl API-ja, smanjuje nepotrebnu potrošnju podataka i pomaže održati uslugu stabilnom.</string>
-    <string name="simkl_sync_info_manual">Promjene napravljene u Nuviju odmah se šalju na Simkl. Koristi Sinkroniziraj sada kad god želiš da Nuvio ranije provjeri udaljene promjene.</string>
+    <string name="simkl_sync_info_manual">Promjene napravljene u Nuviju odmah se šalju na Simkl. Koristi Sinkroniziraj sada kad god želiš da Chao TV ranije provjeri udaljene promjene.</string>
     <string name="simkl_sync_info_library_statuses">Serije stavljene na Simkl popise Na čekanju ili Odustajem skrivene su iz Nastavi gledati. Ostaju skrivene dok god su na nekom od tih popisa.</string>
     <string name="simkl_sync_info_docs">Pročitaj vodič za Simkl sinkronizaciju</string>
     <string name="error_open_browser_failed">Otvaranje preglednika nije uspjelo</string>

@@ -31,9 +31,16 @@ internal fun visibleSettingsCategories(
     isWatchPartyAvailable: Boolean = false
 ): List<SettingsCategory> = SettingsCategory.entries.filter { category ->
     when (category) {
+        // Chao TV: no accounts or profiles; streams come from the house cache
+        // add-on (Real-Debrid upstream), so no third-party services either.
         SettingsCategory.ACCOUNT,
-        SettingsCategory.PROFILES -> isPrimaryProfile
-        SettingsCategory.WATCH_PARTY -> isWatchPartyAvailable
+        SettingsCategory.PROFILES,
+        SettingsCategory.WATCH_PARTY,
+        SettingsCategory.INTEGRATION,
+        SettingsCategory.TRACKING -> com.nuvio.tv.chao.ChaoTv.SHOWS_THIRD_PARTY_INTEGRATIONS && when (category) {
+            SettingsCategory.WATCH_PARTY -> isWatchPartyAvailable
+            else -> isPrimaryProfile
+        }
         SettingsCategory.DEBUG -> isDebugBuild && !isEssentialMode
         SettingsCategory.EXPERIENCE -> false
         else -> true

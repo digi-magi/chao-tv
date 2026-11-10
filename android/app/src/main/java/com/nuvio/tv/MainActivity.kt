@@ -275,6 +275,15 @@ open class MainActivity : ComponentActivity() {
     lateinit var layoutPreferenceDataStore: LayoutPreferenceDataStore
 
     @Inject
+    lateinit var chaoPlayerSettingsDataStore: com.nuvio.tv.data.local.PlayerSettingsDataStore
+
+    @Inject
+    lateinit var chaoSync: com.nuvio.tv.chao.ChaoSync
+
+    @Inject
+    lateinit var chaoLink: com.nuvio.tv.chao.ChaoLink
+
+    @Inject
     lateinit var experienceModeDataStore: ExperienceModeDataStore
 
     @Inject
@@ -366,6 +375,12 @@ open class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen()
         super.onCreate(savedInstanceState)
+        lifecycleScope.launch {
+            com.nuvio.tv.chao.ChaoTv.applyFirstRunDefaults(
+                this@MainActivity, appOnboardingDataStore, experienceModeDataStore,
+                layoutPreferenceDataStore, chaoPlayerSettingsDataStore
+            )
+        }
         isFirstResumeAfterCreate = true
         window?.setBackgroundDrawable(ColorDrawable(android.graphics.Color.TRANSPARENT))
 
@@ -741,6 +756,7 @@ open class MainActivity : ComponentActivity() {
                     if (!surfaceContentReady) {
                         // Still loading auth state; nothing to show yet.
                     } else if (
+                        !com.nuvio.tv.chao.ChaoTv.SKIPS_LOGIN &&
                         hasSeenAuthQrOnFirstLaunch == false &&
                         authState !is AuthState.FullAccount &&
                         !onboardingCompletedThisSession
@@ -1307,6 +1323,8 @@ open class MainActivity : ComponentActivity() {
 
     override fun onResume() {
         super.onResume()
+        chaoSync.start()   // Chao TV: shared progress with the Apple TV
+        chaoLink.start()   // Chao TV: agent link
         ambientIdleController.dismiss()
         if (::jankStats.isInitialized) jankStats.isTrackingEnabled = true
         memberAccessRepository.refreshIfStale()
@@ -1399,6 +1417,7 @@ open class MainActivity : ComponentActivity() {
     override fun onStop() {
         externalPlaybackTracker.onExternalPlayerCoveredApp()
         super.onStop()
+        chaoLink.stop()
         startupSyncService.stopPeriodicSurfacePulls()
         // App going to background (e.g. user returning to the launcher): reconcile the
         // Continue Watching channel once so Projectivy repaints it with fresh progress.

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Nuvio</string>
+    <string name="app_name">Chao TV</string>
     <string name="type_movie">Filmas</string>
     <string name="type_series">Serialas</string>
     <string name="type_unknown">Nežinoma</string>
@@ -176,7 +176,7 @@
     <string name="about_check_updates_subtitle">Atsisiųsti naujausią versiją</string>
     <string name="about_privacy_policy">Privatumo politika</string>
     <string name="about_privacy_policy_subtitle">Peržiūrėti mūsų privatumo politiką</string>
-    <string name="about_supporters_contributors">Paremti „Nuvio“</string>
+    <string name="about_supporters_contributors">Paremti „Chao TV“</string>
     <string name="about_supporters_contributors_subtitle">Paremkite projektą ir peržiūrėkite bendruomenės narius</string>
 
     <!-- SettingsScreen categories -->
@@ -212,13 +212,13 @@
     <string name="action_close">Uždaryti</string>
 
     <!-- SupportersContributorsScreen -->
-    <string name="supporters_contributors_title">Paremkite „Nuvio“</string>
-    <string name="supporters_contributors_subtitle">Žmonės, palaikantys „Nuvio“, ir pagalbininkai, kuriantys ją televizijai ir mobiliesiems įrenginiams.</string>
+    <string name="supporters_contributors_title">Paremkite „Chao TV“</string>
+    <string name="supporters_contributors_subtitle">Žmonės, palaikantys „Chao TV“, ir pagalbininkai, kuriantys ją televizijai ir mobiliesiems įrenginiams.</string>
     <string name="supporters_contributors_supporters_copy">Rėmėjai ir aukotojai padeda projektui judėti į priekį, finansuoja infrastruktūrą ir suteikia vietos ambicingoms funkcijoms.</string>
-    <string name="supporters_contributors_donate_copy">„Nuvio“ išliks nemokama ir atviro kodo sistema. Jei norite paremti projektą, galite padėti padengti kūrimo ir infrastruktūros išlaidas.</string>
-    <string name="supporters_contributors_donate_button">Paremti „Nuvio“</string>
+    <string name="supporters_contributors_donate_copy">„Chao TV“ išliks nemokama ir atviro kodo sistema. Jei norite paremti projektą, galite padėti padengti kūrimo ir infrastruktūros išlaidas.</string>
+    <string name="supporters_contributors_donate_button">Paremti „Chao TV“</string>
     <string name="supporters_contributors_qr_title">Nuskaitykite, kad paremtumėte</string>
-    <string name="supporters_contributors_qr_subtitle">Atidarykite nuorodą telefone ir paremkite „Nuvio“.</string>
+    <string name="supporters_contributors_qr_subtitle">Atidarykite nuorodą telefone ir paremkite „Chao TV“.</string>
     <string name="supporters_contributors_qr_hint">Nukreipkite kamerą į QR kodą arba naudokite žemiau esantį mygtuką.</string>
     <string name="supporters_contributors_back_button">Grįžti į informaciją</string>
     <string name="supporters_tab">Rėmėjai</string>
@@ -531,11 +531,11 @@
     <string name="trakt_watch_progress_title">Žiūrėjimo pažanga</string>
     <string name="trakt_watch_progress_subtitle">Pasirinkite, kuris pažangos šaltinis valdys atkūrimo tęsimą ir „Tęsti žiūrėjimą“</string>
     <string name="trakt_watch_progress_dialog_title">Žiūrėjimo pažanga</string>
-    <string name="trakt_watch_progress_dialog_subtitle">Pasirinkite, ar tęsimui ir „Tęsti žiūrėjimą“ naudoti „Trakt“, ar „Nuvio Sync“. „Trakt“ peržiūrų registravimas (scrobbling) vis tiek išliks aktyvus.</string>
+    <string name="trakt_watch_progress_dialog_subtitle">Pasirinkite, ar tęsimui ir „Tęsti žiūrėjimą“ naudoti „Trakt“, ar „Chao TV Sync“. „Trakt“ peržiūrų registravimas (scrobbling) vis tiek išliks aktyvus.</string>
     <string name="trakt_watch_progress_source_trakt">Trakt</string>
-    <string name="trakt_watch_progress_source_nuvio">Nuvio Sync</string>
+    <string name="trakt_watch_progress_source_nuvio">Chao TV Sync</string>
     <string name="trakt_watch_progress_trakt_selected">Žiūrėjimo pažangos šaltinis nustatytas į „Trakt“</string>
-    <string name="trakt_watch_progress_nuvio_selected">Žiūrėjimo pažangos šaltinis nustatytas į „Nuvio Sync“</string>
+    <string name="trakt_watch_progress_nuvio_selected">Žiūrėjimo pažangos šaltinis nustatytas į „Chao TV Sync“</string>
     <string name="trakt_continue_watching_window">„Tęsti žiūrėjimą“ langas</string>
     <string name="trakt_continue_watching_subtitle">„Trakt“ istorija, naudojama „Tęsti žiūrėjimą“ skilčiai</string>
     <string name="trakt_unaired_next_up">Neišleistos „Kitas“ serijos</string>
@@ -551,7 +551,7 @@
     <string name="trakt_stat_watched_hours">Žiūrėta valandų</string>
     <string name="trakt_disconnect">Atsijungti</string>
     <string name="trakt_disconnect_title">Atsijungti nuo „Trakt“?</string>
-    <string name="trakt_disconnect_subtitle">Tai atsies jūsų „Trakt“ paskyrą nuo „Nuvio“.</string>
+    <string name="trakt_disconnect_subtitle">Tai atsies jūsų „Trakt“ paskyrą nuo „Chao TV“.</string>
     <string name="trakt_login">Prisijungti</string>
     <string name="trakt_retry">Bandyti dar kartą</string>
     <string name="trakt_back">Atgal</string>
@@ -921,7 +921,7 @@
     <string name="catalog_see_all_empty_subtitle">Išbandykite kitą katalogą arba patikrinkite vėliau</string>
 
     <!-- LayoutSelectionScreen -->
-    <string name="layout_selection_welcome">Sveiki atvykę į Nuvio</string>
+    <string name="layout_selection_welcome">Sveiki atvykę į Chao TV</string>
     <string name="layout_selection_subtitle">Pasirinkite, kaip norite matyti pradinį ekraną</string>
     <string name="layout_selection_continue">Tęsti</string>
 
@@ -933,7 +933,7 @@
     <string name="update_unknown_sources">Leisti diegti iš nežinomų šaltinių</string>
     <!-- AccountScreen -->
     <string name="account_title">Paskyra</string>
-    <string name="account_sign_in_description">Prisijunkite, kad sinchronizuotumėte biblioteką, žiūrėjimo pažangą, priedus ir įskiepius tarp įrenginių. Kai „Trakt“ neprijungta, biblioteka sinchronizuojama per „Nuvio Sync“. Žiūrėjimo pažangą galima sinchronizuoti per „Trakt“ arba „Nuvio Sync“.</string>
+    <string name="account_sign_in_description">Prisijunkite, kad sinchronizuotumėte biblioteką, žiūrėjimo pažangą, priedus ir įskiepius tarp įrenginių. Kai „Trakt“ neprijungta, biblioteka sinchronizuojama per „Chao TV Sync“. Žiūrėjimo pažangą galima sinchronizuoti per „Trakt“ arba „Chao TV Sync“.</string>
     <string name="account_sync_code_title">Sinchronizavimo kodas</string>
     <string name="account_sync_code_description">Sinchronizuokite įrenginius nesukurdami paskyros.</string>
     <string name="account_linked_devices">Susieti įrenginiai (%1$d)</string>
@@ -1070,7 +1070,7 @@
     <string name="web_import_expected_array">Tikėtasi JSON kolekcijų masyvo</string>
     <string name="web_import_empty_array">Tuščias masyvas: kolekcijų nerasta</string>
     <string name="web_import_invalid_json">Netinkamas JSON</string>
-    <string name="auth_notice_nuvio_logged_out">Atsijungėte nuo „Nuvio“. Prisijunkite dar kartą.</string>
+    <string name="auth_notice_nuvio_logged_out">Atsijungėte nuo „Chao TV“. Prisijunkite dar kartą.</string>
     <string name="auth_notice_trakt_logged_out">Atsijungėte nuo „Trakt“. Prisijunkite dar kartą.</string>
     <string name="cw_next_up_short">Kitas</string>
     <string name="cw_new_episode">Nauja serija</string>
@@ -1207,7 +1207,7 @@
     <string name="appearance_settings_style">Nustatymų stilius</string>
     <string name="appearance_settings_style_subtitle">Pasirinkite nustatymų ekranų išvaizdą</string>
     <string name="appearance_launcher_artwork">Paleidyklės iliustracija</string>
-    <string name="appearance_launcher_artwork_subtitle">Pasirinkite, kaip „Nuvio“ atrodys televizoriaus pradžios ekrane</string>
+    <string name="appearance_launcher_artwork_subtitle">Pasirinkite, kaip „Chao TV“ atrodys televizoriaus pradžios ekrane</string>
     <string name="ambient_mode_title">Aplinkos režimas</string>
     <string name="ambient_mode_subtitle">Nenaudojant televizoriaus rodyti katalogų iliustracijas</string>
     <string name="ambient_mode_enabled_subtitle">Kurį laiką nenaudojant pulto užpildyti ekraną fono vaizdais</string>
@@ -1223,7 +1223,7 @@
     <string name="appearance_app_icon_picker_title">Pasirinkite programos piktogramą ir reklamjuostę</string>
     <string name="appearance_app_icon_picker_subtitle">Kiekvienas stilius turi derančią kvadratinę piktogramą ir televizoriaus reklamjuostę</string>
     <string name="appearance_app_icon_confirmation_title">Keisti programos piktogramą?</string>
-    <string name="appearance_app_icon_confirmation_message">Pritaikius stilių „%1$s“, „Nuvio“ bus uždaryta. Kad televizoriaus reklamjuostė atsinaujintų, gali reikėti iš naujo paleisti įrenginį. Pasirinkite OK, kad tęstumėte.</string>
+    <string name="appearance_app_icon_confirmation_message">Pritaikius stilių „%1$s“, „Chao TV“ bus uždaryta. Kad televizoriaus reklamjuostė atsinaujintų, gali reikėti iš naujo paleisti įrenginį. Pasirinkite OK, kad tęstumėte.</string>
     <string name="appearance_app_icon_change_failed">Nepavyko pakeisti piktogramos ir reklamjuostės. Bandykite dar kartą.</string>
     <string name="appearance_app_icon_original">Originali</string>
     <string name="appearance_app_icon_arctic_blue">Arkties mėlyna</string>
@@ -1252,35 +1252,35 @@
     <string name="update_channel_dialog_subtitle">Pasirinkite gaunamų atnaujinimų tipą</string>
     <string name="update_channel_stable_description">Skirtas kasdieniam naudojimui.</string>
     <string name="update_channel_beta_description">Ankstyvi atnaujinimai, kuriuose gali būti klaidų, neveikti funkcijos arba pasitaikyti netikėto veikimo.</string>
-    <string name="support_nuvio_name">Paremti „Nuvio“</string>
+    <string name="support_nuvio_name">Paremti „Chao TV“</string>
     <string name="about_licenses_attributions">Licencijos ir šaltiniai</string>
     <string name="about_licenses_attributions_subtitle">Duomenų šaltiniai, padėkos ir „Android“ licencijos</string>
     <string name="licenses_attributions_title">Licencijos ir šaltiniai</string>
-    <string name="licenses_attributions_subtitle">„Nuvio TV“ naudojami duomenų teikėjai, paslaugų šaltiniai ir „Android“ atkūrimo licencijos.</string>
+    <string name="licenses_attributions_subtitle">„Chao TV“ naudojami duomenų teikėjai, paslaugų šaltiniai ir „Android“ atkūrimo licencijos.</string>
     <string name="licenses_attributions_section_app">PROGRAMOS LICENCIJA</string>
     <string name="licenses_attributions_section_data">DUOMENYS IR PASLAUGOS</string>
     <string name="licenses_attributions_section_playback">„ANDROID“ ATKŪRIMO LICENCIJOS</string>
     <string name="licenses_attributions_section_ui">SĄSAJOS BIBLIOTEKOS</string>
     <string name="licenses_attributions_haze_title">Haze 1.7.2</string>
     <string name="licenses_attributions_haze_body">Naudojama fono suliejimo efektams. Sukūrė Chris Banes. Licencijuota pagal „Apache License“, 2.0 versiją.</string>
-    <string name="licenses_attributions_nuvio_title">Nuvio TV</string>
+    <string name="licenses_attributions_nuvio_title">Chao TV</string>
     <string name="licenses_attributions_nuvio_body">Pirminis kodas ir licencijos sąlygos pateikiami projekto repozitorijoje. Licencijuota pagal „GNU General Public License v3.0“.</string>
     <string name="licenses_attributions_tmdb_title">The Movie Database (TMDB)</string>
-    <string name="licenses_attributions_tmdb_body">„Nuvio“ naudoja TMDB API filmų ir televizijos metaduomenims, iliustracijoms, anonsams, aktoriams, gamybos informacijai, kolekcijoms ir rekomendacijoms. Šis produktas naudoja TMDB API, tačiau nėra TMDB patvirtintas ar sertifikuotas.</string>
+    <string name="licenses_attributions_tmdb_body">„Chao TV“ naudoja TMDB API filmų ir televizijos metaduomenims, iliustracijoms, anonsams, aktoriams, gamybos informacijai, kolekcijoms ir rekomendacijoms. Šis produktas naudoja TMDB API, tačiau nėra TMDB patvirtintas ar sertifikuotas.</string>
     <string name="licenses_attributions_trakt_title">Trakt</string>
-    <string name="licenses_attributions_trakt_body">„Nuvio“ jungiasi prie „Trakt“ paskyros autentifikavimui, žiūrėjimo istorijai, progreso sinchronizavimui, bibliotekos duomenims, įvertinimams, sąrašams ir komentarams. „Nuvio“ nėra susijusi su „Trakt“ ar jos patvirtinta.</string>
+    <string name="licenses_attributions_trakt_body">„Chao TV“ jungiasi prie „Trakt“ paskyros autentifikavimui, žiūrėjimo istorijai, progreso sinchronizavimui, bibliotekos duomenims, įvertinimams, sąrašams ir komentarams. „Chao TV“ nėra susijusi su „Trakt“ ar jos patvirtinta.</string>
     <string name="licenses_attributions_simkl_title">Simkl</string>
-    <string name="licenses_attributions_simkl_body">„Nuvio“ jungiasi prie „Simkl“ paskyros autentifikavimui, žiūrėjimo sąrašams, istorijai, atkūrimo progresui ir peržiūrų registravimui. Filmų, televizijos ir animė stebėjimo duomenis teikia „Simkl“. „Nuvio“ nėra susijusi su „Simkl“ ar jos patvirtinta.</string>
+    <string name="licenses_attributions_simkl_body">„Chao TV“ jungiasi prie „Simkl“ paskyros autentifikavimui, žiūrėjimo sąrašams, istorijai, atkūrimo progresui ir peržiūrų registravimui. Filmų, televizijos ir animė stebėjimo duomenis teikia „Simkl“. „Chao TV“ nėra susijusi su „Simkl“ ar jos patvirtinta.</string>
     <string name="licenses_attributions_premiumize_title">Premiumize</string>
-    <string name="licenses_attributions_premiumize_body">„Nuvio“ jungiasi prie „Premiumize“ paskyros autentifikavimui, prieigai prie debesijos bibliotekos, podėlio patikroms ir atkūrimui iš debesijos. „Nuvio“ nėra susijusi su „Premiumize“ ar jos patvirtinta.</string>
+    <string name="licenses_attributions_premiumize_body">„Chao TV“ jungiasi prie „Premiumize“ paskyros autentifikavimui, prieigai prie debesijos bibliotekos, podėlio patikroms ir atkūrimui iš debesijos. „Chao TV“ nėra susijusi su „Premiumize“ ar jos patvirtinta.</string>
     <string name="licenses_attributions_torbox_title">TorBox</string>
-    <string name="licenses_attributions_torbox_body">„Nuvio“ jungiasi prie „TorBox“ paskyros autentifikavimui, prieigai prie debesijos bibliotekos, podėlio patikroms ir atkūrimui iš debesijos. „Nuvio“ nėra susijusi su „TorBox“ ar jos patvirtinta.</string>
+    <string name="licenses_attributions_torbox_body">„Chao TV“ jungiasi prie „TorBox“ paskyros autentifikavimui, prieigai prie debesijos bibliotekos, podėlio patikroms ir atkūrimui iš debesijos. „Chao TV“ nėra susijusi su „TorBox“ ar jos patvirtinta.</string>
     <string name="licenses_attributions_mdblist_title">MDBList</string>
-    <string name="licenses_attributions_mdblist_body">„Nuvio“ naudoja „MDBList“ įvertinimams, žiūrėjimo istorijai ir atkūrimui sekti. „Nuvio“ nėra susijusi su „MDBList“ ar jos patvirtinta.</string>
+    <string name="licenses_attributions_mdblist_body">„Chao TV“ naudoja „MDBList“ įvertinimams, žiūrėjimo istorijai ir atkūrimui sekti. „Chao TV“ nėra susijusi su „MDBList“ ar jos patvirtinta.</string>
     <string name="licenses_attributions_introdb_title">IntroDB</string>
-    <string name="licenses_attributions_introdb_body">„Nuvio“ naudoja „IntroDB“ API bendruomenės pateiktoms pradžios, santraukos, titrų ir peržiūros laiko žymoms, naudojamoms praleidimo valdikliuose. „Nuvio“ nėra susijusi su „IntroDB“ ar jos patvirtinta.</string>
+    <string name="licenses_attributions_introdb_body">„Chao TV“ naudoja „IntroDB“ API bendruomenės pateiktoms pradžios, santraukos, titrų ir peržiūros laiko žymoms, naudojamoms praleidimo valdikliuose. „Chao TV“ nėra susijusi su „IntroDB“ ar jos patvirtinta.</string>
     <string name="licenses_attributions_imdb_title">IMDb Non-Commercial Datasets</string>
-    <string name="licenses_attributions_imdb_body">„Nuvio“ naudoja IMDb nekomercinius duomenų rinkinius, įskaitant title.ratings.tsv.gz, IMDb įvertinimams ir balsų skaičiui. Informaciją suteikė IMDb (https://www.imdb.com). Naudojama gavus leidimą. Pagal IMDb sąlygas duomenys skirti asmeniniam ir nekomerciniam naudojimui.</string>
+    <string name="licenses_attributions_imdb_body">„Chao TV“ naudoja IMDb nekomercinius duomenų rinkinius, įskaitant title.ratings.tsv.gz, IMDb įvertinimams ir balsų skaičiui. Informaciją suteikė IMDb (https://www.imdb.com). Naudojama gavus leidimą. Pagal IMDb sąlygas duomenys skirti asmeniniam ir nekomerciniam naudojimui.</string>
     <string name="licenses_attributions_exoplayer_title">AndroidX Media3 ExoPlayer 1.8.0</string>
     <string name="licenses_attributions_exoplayer_body">Naudojamas kaip „Android“ atkūrimo variklis. Licencijuotas pagal „Apache License“, 2.0 versiją.</string>
     <string name="licenses_attributions_libmpv_title">libmpv / libmpv-android</string>
@@ -1295,7 +1295,7 @@
     <string name="tracking_accounts_title">Paskyros</string>
     <string name="tracking_accounts_subtitle">Prijungti ir tvarkyti stebėjimo paslaugas</string>
     <string name="tracking_sources_title">Šaltiniai</string>
-    <string name="tracking_sources_subtitle">Pasirinkite, iš kur „Nuvio“ gauna biblioteką ir žiūrėjimo progresą. Atkūrimas registruojamas visose prijungtose paslaugose.</string>
+    <string name="tracking_sources_subtitle">Pasirinkite, iš kur „Chao TV“ gauna biblioteką ir žiūrėjimo progresą. Atkūrimas registruojamas visose prijungtose paslaugose.</string>
     <string name="tracking_trakt_features_title">„Trakt“ funkcijos</string>
     <string name="tracking_trakt_features_subtitle">„Trakt“ istorija, apžvalgos ir rekomendacijos</string>
     <string name="tracking_simkl_features_title">„Simkl“ funkcijos</string>
@@ -1312,8 +1312,8 @@
     <string name="tracking_status_connecting">Jungiamasi</string>
     <string name="tracking_finish_connection">Užbaikite ryšio patvirtinimą</string>
     <string name="tracking_connecting_provider">Pradedamas ryšys su %1$s…</string>
-    <string name="tracking_watch_progress_dialog_subtitle">Pasirinkite paslaugą, iš kurios „Nuvio“ gauna duomenis atkūrimui tęsti ir „Tęsti žiūrėjimą“. Peržiūros registruojamos visose prijungtose paslaugose.</string>
-    <string name="tracking_library_source_dialog_subtitle">Pasirinkite paslaugą, iš kurios „Nuvio“ gauna biblioteką. Atkūrimas registruojamas visose prijungtose paslaugose.</string>
+    <string name="tracking_watch_progress_dialog_subtitle">Pasirinkite paslaugą, iš kurios „Chao TV“ gauna duomenis atkūrimui tęsti ir „Tęsti žiūrėjimą“. Peržiūros registruojamos visose prijungtose paslaugose.</string>
+    <string name="tracking_library_source_dialog_subtitle">Pasirinkite paslaugą, iš kurios „Chao TV“ gauna biblioteką. Atkūrimas registruojamas visose prijungtose paslaugose.</string>
     <string name="tracking_trakt_progress_required">Prieinama, kai žiūrėjimo progreso šaltinis yra „Trakt“</string>
     <string name="trakt_name">Trakt</string>
     <string name="simkl_name">Simkl</string>
@@ -1323,7 +1323,7 @@
     <string name="settings_advanced_subtitle">Našumas, naršymas, podėlis ir diagnostika</string>
     <string name="experience_mode_essential">Pagrindinis</string>
     <string name="experience_mode_advanced">Išplėstinis</string>
-    <string name="experience_mode_choose_title">Pasirinkite „Nuvio“ naudojimo režimą</string>
+    <string name="experience_mode_choose_title">Pasirinkite „Chao TV“ naudojimo režimą</string>
     <string name="experience_mode_choose_subtitle">Pradėkite nuo paprastų nustatymų arba įjunkite visas tinkinimo galimybes. Režimą galėsite pakeisti bet kada.</string>
     <string name="experience_mode_essential_card_subtitle">Pagrindiniai nustatymai, priedai, atkūrimas, „Trakt“ ir paskyra.</string>
     <string name="experience_mode_advanced_card_subtitle">Visi nustatymai, išdėstymas, katalogų tvarka, kolekcijos, įskiepiai ir diagnostika.</string>
@@ -1441,8 +1441,8 @@
     <string name="buffer_safe_status">Saugu: neviršija įrenginiui rekomenduojamos ribos.</string>
     <string name="buffer_unsafe_warning">Įspėjimas: viršija jūsų %2$s įrenginiui rekomenduojamą saugią ribą (%1$d MB). Programa gali užstrigti.</string>
     <string name="buffer_auto_limit_active">Automatiškai parinkta saugi riba: %d MB</string>
-    <string name="advanced_nuvio_focus_scroll">„Nuvio“ fokusavimo slinkimas</string>
-    <string name="advanced_nuvio_focus_scroll_subtitle">Naudoti pasirinktinę „Nuvio“ bendro fokusavimo slinkimo animaciją ir padėtį.</string>
+    <string name="advanced_nuvio_focus_scroll">„Chao TV“ fokusavimo slinkimas</string>
+    <string name="advanced_nuvio_focus_scroll_subtitle">Naudoti pasirinktinę „Chao TV“ bendro fokusavimo slinkimo animaciją ir padėtį.</string>
     <string name="advanced_rgb565">RGB565 vaizdų dekodavimas</string>
     <string name="advanced_rgb565_subtitle">Tinkamiems nepermatomiems vaizdams naudoti mažiau atminties užimančias 16 bitų spalvas. Pakeitus programa paleidžiama iš naujo.</string>
     <string name="advanced_memory_only_vertical_scroll">Vertikalus slinkimas tik iš atminties</string>
@@ -1466,8 +1466,8 @@
     <string name="supporters_contributors_donation_progress_complete">Padengta. Papildoma parama skiriama kūrimui.</string>
     <string name="supporters_contributors_donation_progress_remaining">Pasiekus 100%, papildoma parama skiriama kūrimui.</string>
     <string name="supporters_contributors_loading_donation_progress">Įkeliama finansavimo eiga...</string>
-    <string name="supporter_membership_title">„Nuvio“ rėmėjo narystė</string>
-    <string name="supporter_membership_description">Parama „Nuvio“ padeda padengti infrastruktūros ir tolesnio kūrimo išlaidas, o pagrindinės funkcijos visiems lieka nemokamos.</string>
+    <string name="supporter_membership_title">„Chao TV“ rėmėjo narystė</string>
+    <string name="supporter_membership_description">Parama „Chao TV“ padeda padengti infrastruktūros ir tolesnio kūrimo išlaidas, o pagrindinės funkcijos visiems lieka nemokamos.</string>
     <string name="supporter_membership_view">Peržiūrėti narystę</string>
     <string name="supporter_membership_manage">Tvarkyti narystę</string>
     <string name="supporter_membership_refresh">Atnaujinti</string>
@@ -1480,7 +1480,7 @@
     <string name="supporter_membership_tier_supporter">Rėmėjas</string>
     <string name="supporter_membership_tier_supporter_plus">Rėmėjas Plus</string>
     <string name="supporter_membership_connected_title">„Patreon“ prijungta</string>
-    <string name="supporter_membership_connected_description">Šioje „Patreon“ paskyroje aktyvaus „Nuvio“ narystės lygio nerasta. Peržiūrėkite galimus pasirinkimus arba atnaujinkite pakeitę „Patreon“ narystę.</string>
+    <string name="supporter_membership_connected_description">Šioje „Patreon“ paskyroje aktyvaus „Chao TV“ narystės lygio nerasta. Peržiūrėkite galimus pasirinkimus arba atnaujinkite pakeitę „Patreon“ narystę.</string>
     <string name="supporter_membership_scan_support">Nuskaitykite norėdami peržiūrėti narystę</string>
     <string name="supporter_membership_scan_support_description">Atidarykite rėmėjo narystės puslapį telefone.</string>
     <string name="supporter_membership_scan_manage">Nuskaitykite norėdami tvarkyti narystę</string>
@@ -1489,12 +1489,12 @@
     <string name="sponsors_tab">Paramos teikėjai</string>
     <string name="supporters_level_supporter">Rėmėjas</string>
     <string name="supporters_level_supporter_plus">Rėmėjas+</string>
-    <string name="supporters_since">Remia „Nuvio“ nuo %1$s</string>
-    <string name="supporters_since_unknown">Remia „Nuvio“</string>
+    <string name="supporters_since">Remia „Chao TV“ nuo %1$s</string>
+    <string name="supporters_since_unknown">Remia „Chao TV“</string>
     <string name="sponsors_loading">Įkeliami paramos teikėjai…</string>
     <string name="sponsors_empty">Paramos teikėjų dar nerasta.</string>
     <string name="sponsors_error_title">Nepavyko įkelti paramos teikėjų</string>
-    <string name="sponsors_detail_copy">Paramos teikėjai padeda „Nuvio“ projektui remdami įvairias jo kūrimo sritis.</string>
+    <string name="sponsors_detail_copy">Paramos teikėjai padeda „Chao TV“ projektui remdami įvairias jo kūrimo sritis.</string>
     <string name="sponsors_channel_unavailable">Paramos teikėjo kanalas nepasiekiamas.</string>
     <string name="sponsors_open_channel">Atidaryti paramos teikėjo kanalą</string>
     <string name="playback_section_player_title">Grotuvas</string>
@@ -1538,7 +1538,7 @@
     <string name="playback_auto_switch_internal_player_on_error">Automatiškai perjungti variklį įvykus paleidimo klaidai</string>
     <string name="playback_auto_switch_internal_player_on_error_sub">Jei nepavyksta paleisti srauto, automatiškai perjungti tarp ExoPlayer ir libmpv.</string>
     <string name="playback_release_decoder_on_background">Atlaisvinti dekoderį programai veikiant fone</string>
-    <string name="playback_release_decoder_on_background_sub">Atlaisvinti vaizdo dekoderį, kai „Nuvio“ veikia fone. Įjunkite, jei grįžus į programą atkūrimas nepavyksta dėl dekoderio klaidos. Grįžus grotuvas įkeliamas iš naujo, taip pat ir po ekrano užsklandos.</string>
+    <string name="playback_release_decoder_on_background_sub">Atlaisvinti vaizdo dekoderį, kai „Chao TV“ veikia fone. Įjunkite, jei grįžus į programą atkūrimas nepavyksta dėl dekoderio klaidos. Grįžus grotuvas įkeliamas iš naujo, taip pat ir po ekrano užsklandos.</string>
     <string name="playback_external_forward_subtitles">Persiųsti subtitrus išoriniam grotuvui</string>
     <string name="playback_external_forward_subtitles_sub">Gauti pageidaujamos kalbos subtitrus iš priedų ir perduoti juos išoriniam grotuvui.</string>
     <string name="playback_external_send_skip_segments">Siųsti įžangos ir pabaigos laiko žymas</string>
@@ -1551,8 +1551,8 @@
     <string name="playback_afr_capability_disable_button">Išjungti AFR</string>
     <string name="playback_afr_capability_disable_resolution_button">Išjungti skiriamosios gebos derinimą</string>
     <string name="playback_afr_capability_disable_both_button">Išjungti abu</string>
-    <string name="playback_engine_exoplayer_desc">Geriausias suderinamumas su dabartinėmis „Nuvio“ funkcijomis.</string>
-    <string name="playback_engine_mvplayer_desc">Naudoja libmpv su „Nuvio“ ekraniniais valdikliais. Eksperimentinis.</string>
+    <string name="playback_engine_exoplayer_desc">Geriausias suderinamumas su dabartinėmis „Chao TV“ funkcijomis.</string>
+    <string name="playback_engine_mvplayer_desc">Naudoja libmpv su „Chao TV“ ekraniniais valdikliais. Eksperimentinis.</string>
     <string name="video_section">Vaizdas</string>
     <string name="playback_true_black_letterbox">Visiškai juodos juostos</string>
     <string name="playback_true_black_letterbox_sub">Palikti juostas aplink vaizdą neužpildytas, kad HDR juoda spalva išliktų tikrai juoda. Jei juostose matoma šviesi linija, šią funkciją išjunkite.</string>
@@ -1850,7 +1850,7 @@
     <string name="debrid_disconnect">Atjungti</string>
     <string name="debrid_device_auth_connected">%1$s prijungta šiame įrenginyje.</string>
     <string name="debrid_device_auth_starting">Pradedamas saugus prisijungimas...</string>
-    <string name="debrid_device_auth_instructions">Nuskaitykite QR kodą ir įveskite šį kodą, kad patvirtintumėte „Nuvio“.</string>
+    <string name="debrid_device_auth_instructions">Nuskaitykite QR kodą ir įveskite šį kodą, kad patvirtintumėte „Chao TV“.</string>
     <string name="debrid_device_auth_code_copied">Kodas nukopijuotas.</string>
     <string name="debrid_device_auth_waiting">Laukiama patvirtinimo...</string>
     <string name="debrid_device_auth_failed">Nepavyko pradėti prisijungimo.</string>
@@ -1988,13 +1988,13 @@
     <string name="qr_login_success">Prisijungta</string>
     <string name="qr_login_exchange_failed">Nepavyko užbaigti prisijungimo QR kodu</string>
     <string name="trakt_library_source_title">Bibliotekos šaltinis</string>
-    <string name="trakt_library_source_subtitle">Pasirinkite bibliotekos šaltinį, iš kurio Nuvio skaitys duomenis</string>
+    <string name="trakt_library_source_subtitle">Pasirinkite bibliotekos šaltinį, iš kurio Chao TV skaitys duomenis</string>
     <string name="trakt_library_source_dialog_title">Bibliotekos šaltinis</string>
     <string name="trakt_library_source_dialog_subtitle">Pasirinkite, kur išsaugoti ir tvarkyti bibliotekos elementus</string>
     <string name="trakt_library_source_trakt">Trakt</string>
-    <string name="trakt_library_source_nuvio">Nuvio biblioteka</string>
+    <string name="trakt_library_source_nuvio">Chao TV biblioteka</string>
     <string name="trakt_library_source_trakt_selected">Pasirinkta Trakt biblioteka</string>
-    <string name="trakt_library_source_nuvio_selected">Pasirinkta Nuvio biblioteka</string>
+    <string name="trakt_library_source_nuvio_selected">Pasirinkta Chao TV biblioteka</string>
     <string name="trakt_setting_on">Įjungta</string>
     <string name="trakt_setting_off">Išjungta</string>
     <string name="trakt_comments_title">Komentarai</string>
@@ -2032,11 +2032,11 @@
     <string name="debug_generate_library_button">Generuoti</string>
     <string name="debug_generating_library">Generuojama\u2026</string>
     <string name="profile_edit_header">Redaguoti profilį</string>
-    <string name="profile_custom_avatar_web_panel_note">Savo avataro URL galite nustatyti Nuvio žiniatinklio skydelyje.</string>
+    <string name="profile_custom_avatar_web_panel_note">Savo avataro URL galite nustatyti Chao TV žiniatinklio skydelyje.</string>
     <string name="profile_editor_tab_avatar">Avataras</string>
     <string name="profile_editor_tab_background">Fonas</string>
     <string name="profile_choose_background">Pasirinkite profilio foną</string>
-    <string name="profile_background_member_note">Savo fono URL galite nustatyti Nuvio žiniatinklio skydelyje.</string>
+    <string name="profile_background_member_note">Savo fono URL galite nustatyti Chao TV žiniatinklio skydelyje.</string>
     <string name="profile_background_normal">Įprastas</string>
     <string name="profile_background_custom">Pasirinktinis</string>
     <string name="profile_avatar_category_supporter">Rėmėjas</string>
@@ -2093,7 +2093,7 @@
     <string name="profile_pin_overlay_set_support">Šio PIN kodo reikės atidarant profilį.</string>
     <string name="profile_pin_overlay_confirm_support">Dar kartą įveskite tuos pačius 4 skaitmenis.</string>
     <string name="profile_pin_overlay_mismatch">PIN kodai nesutapo. Dar kartą įveskite naują PIN kodą.</string>
-    <string name="profile_pin_overlay_forgot_hint">Pamiršote PIN kodą? Atkurkite jį savo Nuvio paskyroje Nuvio svetainėje.</string>
+    <string name="profile_pin_overlay_forgot_hint">Pamiršote PIN kodą? Atkurkite jį savo Chao TV paskyroje Chao TV svetainėje.</string>
     <string name="profile_pin_overlay_back_hint">Paspauskite „Atgal“, kad atšauktumėte</string>
     <string name="essential_addon_setup_title">Nustatykite priedus</string>
     <string name="essential_addon_setup_subtitle">Įdiekite vieną priedą, kad galėtumėte žiūrėti. Daugiau priedų vėliau galėsite pridėti skiltyje „Priedai“.</string>
@@ -2129,7 +2129,7 @@
     <string name="youtube_resolution_failed">Nepavyko įkelti šio YouTube vaizdo įrašo.</string>
 
     <string name="p2p_consent_title">P2P srautai</string>
-    <string name="p2p_consent_body">Šis srautas naudoja lygiaverčių įrenginių (P2P) technologiją. Įjungdami P2P, patvirtinate ir sutinkate, kad:\n\n\u2022 Jūsų IP adresą matys kiti tinklo dalyviai\n\u2022 Už turinį, kurį pasiekiate, atsakote tik jūs\n\u2022 Patvirtinate, kad turite teisę žiūrėti šį turinį pagal jums taikomus įstatymus\n\u2022 Nuvio nesaugo, neplatina ir nekontroliuoja P2P turinio\n\u2022 Nuvio neatsako už teisines pasekmes, kylančias naudojant P2P srautus\n\nŠią funkciją naudojate savo rizika. P2P bet kada galite išjungti nustatymuose.</string>
+    <string name="p2p_consent_body">Šis srautas naudoja lygiaverčių įrenginių (P2P) technologiją. Įjungdami P2P, patvirtinate ir sutinkate, kad:\n\n\u2022 Jūsų IP adresą matys kiti tinklo dalyviai\n\u2022 Už turinį, kurį pasiekiate, atsakote tik jūs\n\u2022 Patvirtinate, kad turite teisę žiūrėti šį turinį pagal jums taikomus įstatymus\n\u2022 Chao TV nesaugo, neplatina ir nekontroliuoja P2P turinio\n\u2022 Chao TV neatsako už teisines pasekmes, kylančias naudojant P2P srautus\n\nŠią funkciją naudojate savo rizika. P2P bet kada galite išjungti nustatymuose.</string>
     <string name="p2p_consent_enable">Įjungti P2P</string>
     <string name="p2p_consent_cancel">Atšaukti</string>
     <string name="settings_p2p_title">P2P srautai</string>
@@ -2582,7 +2582,7 @@
     <string name="cd_trailer_controls">Anonso valdikliai</string>
     <string name="cd_seek_bar">Persukimo juosta</string>
     <string name="cd_unlink">Atsieti</string>
-    <string name="cd_nuvio_logo">NuvioTV</string>
+    <string name="cd_nuvio_logo">Chao TV</string>
     <string name="cd_trakt_logo">„Trakt“ logotipas</string>
     <string name="cd_trakt_qr">„Trakt“ aktyvavimo QR kodas</string>
     <string name="cd_imdb">IMDb</string>
@@ -2594,7 +2594,7 @@
     <string name="cd_expand">Išskleisti %1$s</string>
     <string name="cd_collapse">Suskleisti %1$s</string>
     <string name="cd_qr_login">Prisijungimo QR kodas</string>
-    <string name="cd_nuvio">Nuvio</string>
+    <string name="cd_nuvio">Chao TV</string>
     <string name="debug_signin_success">Sėkmingai prisijungta</string>
     <string name="debug_generate_description">Derinimo metu sukurtas %1$s elementas Nr. %2$d</string>
     <string name="debug_generate_result_failed">Nepavyko: %1$s</string>
@@ -2732,7 +2732,7 @@
     <string name="collections_editor_tmdb_list_helper">Pavyzdys: https://www.themoviedb.org/list/8504994 arba 8504994.</string>
     <string name="collections_editor_tmdb_person_id">Asmens ID</string>
     <string name="collections_editor_tmdb_person_helper">Pavyzdys: https://www.themoviedb.org/person/31-tom-hanks arba 31.</string>
-    <string name="collections_editor_tmdb_title_helper">Rodomas kaip eilutės arba skirtuko pavadinimas. Jei neįvesite, „Nuvio“ sukurs jį pagal šaltinį.</string>
+    <string name="collections_editor_tmdb_title_helper">Rodomas kaip eilutės arba skirtuko pavadinimas. Jei neįvesite, „Chao TV“ sukurs jį pagal šaltinį.</string>
     <string name="collections_editor_tmdb_quick_genres">Spartieji žanrai</string>
     <string name="collections_editor_tmdb_quick_languages">Sparčiosios kalbos</string>
     <string name="collections_editor_tmdb_quick_countries">Sparčiosios šalys</string>
@@ -2906,7 +2906,7 @@
     <string name="autoplay_regex_preset_english">Anglų</string>
     <string name="autoplay_regex_preset_no_cam_ts">Be CAM/TS</string>
     <string name="autoplay_regex_preset_no_remux_hdr">Be REMUX/HDR</string>
-    <string name="playback_player_internal_desc">Naudoti integruotą „NuvioTV“ grotuvą</string>
+    <string name="playback_player_internal_desc">Naudoti integruotą „Chao TV“ grotuvą</string>
     <string name="player_torrent_peer_info">Siuntėjų: %1$d · dalyvių: %2$d</string>
     <string name="player_torrent_buffered_status">Buferyje: %1$s · %2$s · %3$s</string>
     <string name="player_torrent_status">%1$s · %2$s</string>
@@ -2999,9 +2999,9 @@
     <string name="simkl_visit">Atidaryti SIMKL</string>
     <string name="simkl_sync_info_action">Kaip veikia sinchronizavimas</string>
     <string name="simkl_sync_info_title">Kaip veikia SIMKL sinchronizavimas</string>
-    <string name="simkl_sync_info_description">Nuvio automatiškai tikrina SIMKL ne dažniau kaip kas %1$d min. Kitoje programėlėje ar SIMKL svetainėje atlikti pakeitimai gali pasirodyti tik praėjus šiam laikui.</string>
+    <string name="simkl_sync_info_description">Chao TV automatiškai tikrina SIMKL ne dažniau kaip kas %1$d min. Kitoje programėlėje ar SIMKL svetainėje atlikti pakeitimai gali pasirodyti tik praėjus šiam laikui.</string>
     <string name="simkl_sync_info_activity">Kiekvieną kartą atnaujinant pirmiausia patikrinama, ar SIMKL praneša apie pakeitimus, ir atsisiunčiami tik jie. Taip laikomasi SIMKL API taisyklių, mažiau naudojama duomenų ir padedama palaikyti paslaugos stabilumą.</string>
-    <string name="simkl_sync_info_manual">Nuvio atlikti pakeitimai iškart siunčiami į SIMKL. Pasirinkite „Sinchronizuoti dabar“, jei norite anksčiau patikrinti nuotolinius pakeitimus.</string>
+    <string name="simkl_sync_info_manual">Chao TV atlikti pakeitimai iškart siunčiami į SIMKL. Pasirinkite „Sinchronizuoti dabar“, jei norite anksčiau patikrinti nuotolinius pakeitimus.</string>
     <string name="simkl_sync_info_library_statuses">Serialai, įtraukti į SIMKL sąrašus „On Hold“ arba „Dropped“, paslepiami iš skilties „Tęsti žiūrėjimą“. Jie lieka paslėpti, kol yra bent viename iš šių sąrašų.</string>
     <string name="simkl_sync_info_docs">Skaityti SIMKL sinchronizavimo vadovą</string>
     <string name="error_open_browser_failed">Nepavyko atidaryti naršyklės</string>

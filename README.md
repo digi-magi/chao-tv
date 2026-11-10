@@ -1,5 +1,7 @@
 # Chao TV
 
+A house-built streaming app for **Apple TV** (`tvosApp/`, fork of NuvioTVOS) and **Google TV** (`android/`, fork of [NuvioMedia/NuvioTV](https://github.com/NuvioMedia/NuvioTV), GPL-3.0). Both talk to the same house hub, so watch progress follows you between TVs.
+
 A house-built Apple TV streaming app: simple, Omni-style, and made for one household's setup. Chao TV is a fork of [NuvioTVOS](https://github.com/bobsupra/NuvioTVOS), which is GPL-3.0, so this fork is GPL-3.0 too. The upstream project's README is kept at [docs/UPSTREAM-README.md](docs/UPSTREAM-README.md).
 
 It plays from Stremio-compatible add-ons, mainly a self-hosted local-cache add-on. The house agent ("Chao") can drive it directly through a built-in agent link, with no remote-control button presses and no screenshots.
@@ -65,6 +67,16 @@ Send them as `{"cmd": "...", "args": {...}}`.
 
 Ids are IMDb ids (`tt...`); `type` is `movie` or `series`. "This" is the title on the open details page, or what is playing; any of those commands also accepts an explicit `id` and `type`. Every action shows a small "done" popup on the TV, such as "Added Blue Planet II to Library".
 
+## Google TV (android/)
+
+- **Source:** `android/` is NuvioMedia/NuvioTV (dev branch) added as a squashed git subtree. Update it with `git subtree pull --prefix=android https://github.com/NuvioMedia/NuvioTV.git dev --squash`.
+- **House changes:** live in `android/app/src/main/java/com/nuvio/tv/chao/`.
+  - `ChaoTv.kt`: switches and first-run defaults (no sign-in QR, Advanced mode, Modern layout, Auto Play on the first stream).
+  - `ChaoSync.kt`: the same `/chaotv/progress` wire format as tvOS. Seconds on the wire, milliseconds locally.
+  - `ChaoLink.kt`: the same agent commands.
+  - Elsewhere, edits are marked `Chao TV`: app id `com.digimagi.chaotv`, "Nuvio" renamed in all string resources, the account/profile/Watch Party/Integration/Tracking settings hidden, P2P forced off, and LED-Chao icons and banners.
+- **Build:** `.github/workflows/build-android.yml` runs on GitHub's Ubuntu runner and produces the `chao-tv-apk` artifact. It is signed with the committed house key `android/chao/chaotv-release.p12` (see `android/chao/README.md`), so updates install over the previous version with `adb install -r`.
+
 ## Building
 
 There is no local Mac. Every push to `main` that touches code builds an **unsigned IPA** on GitHub's hosted Xcode 27 runner ([`.github/workflows/build-tvos.yml`](.github/workflows/build-tvos.yml), about 18 minutes). The workflow runs [`scripts/build-ipa.sh`](scripts/build-ipa.sh) and uploads the IPA as the `chao-tv-ipa` artifact. The IPA is then signed for the Apple TV with a sideload-signing service and installed.
@@ -77,7 +89,10 @@ The `upstream` remote is `bobsupra/NuvioTVOS`. Chao TV's changes are kept small 
 
 ## Changelog
 
-### Build 7 (in progress)
+### Google TV build 1 (in progress)
+- First Android TV build: NuvioTV dev with the Chao changes (rename, icons and banners, no sign-in or onboarding screens, slim Settings, no P2P, Auto Play first stream, Chao Sync, agent link).
+
+### Build 7 (superseded by build 8: launch screen)
 - **New icon:** the house Chao in green LED dots, matching the rack-panel face (App Icon, Top Shelf, wordmark, and the launch screen, which still flashed the Nuvio logo).
 - **Appearance:** the Sidebar section (Calendar and Watch Party toggles) is gone.
 - **Server side, no app change needed:**
