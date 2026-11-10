@@ -47,7 +47,11 @@ class ChaoLink @Inject constructor(
 
     init { appContext = context.applicationContext }
 
-    fun start() {
+    private var users = 0
+
+    /** Paired with stop(): one call per started activity, so overlapping activities can't kill the link. */
+    @Synchronized fun start() {
+        users++
         if (loopJob?.isActive == true) return
         loopJob = scope.launch { runLoop() }
         heartbeatJob = scope.launch {
@@ -55,7 +59,9 @@ class ChaoLink @Inject constructor(
         }
     }
 
-    fun stop() {
+    @Synchronized fun stop() {
+        users = (users - 1).coerceAtLeast(0)
+        if (users > 0) return
         loopJob?.cancel(); loopJob = null
         heartbeatJob?.cancel(); heartbeatJob = null
     }
@@ -142,7 +148,7 @@ class ChaoLink @Inject constructor(
                     if (season != null) putExtra("season", season)
                     if (episode != null) putExtra("episode", episode)
                 }
-                withContext(Dispatchers.Main) { context.startActivity(intent) }
+                deliver(intent)
                 toast(if (season != null) "Playing S${season}E${episode}" else "Playing")
                 ok()
             }
@@ -257,9 +263,14 @@ class ChaoLink @Inject constructor(
         }
     }
 
-    private suspend fun openUri(uri: String) = withContext(Dispatchers.Main) {
-        context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(uri), context, MainActivity::class.java)
-            .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_SINGLE_TOP))
+    private suspend fun openUri(uri: String) =
+        deliver(Intent(Intent.ACTION_VIEW, Uri.parse(uri), context, MainActivity::class.java))
+
+    /** Hand an intent to the MainActivity in front; only start one if none is. */
+    private suspend fun deliver(intent: Intent) = withContext(Dispatchers.Main) {
+        val sink = intentSink
+        if (sink != null) sink(intent)
+        else context.startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_SINGLE_TOP))
     }
 
     private fun toast(text: String) = main.post { Toast.makeText(context, text, Toast.LENGTH_LONG).show() }
@@ -271,6 +282,7 @@ class ChaoLink @Inject constructor(
         @Volatile var currentDetails: Pair<String, String>? = null
         @Volatile var player: WeakReference<PlayerViewModel>? = null
         @Volatile var navigate: ((String) -> Unit)? = null
+        @Volatile var intentSink: ((Intent) -> Unit)? = null
         @Volatile private var appContext: Context? = null
 
         /** The TV's own name (Settings > System > About > Device name), e.g. "Master Bedroom". */

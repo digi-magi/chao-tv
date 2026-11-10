@@ -284,6 +284,9 @@ open class MainActivity : ComponentActivity() {
     @Inject
     lateinit var chaoLink: com.nuvio.tv.chao.ChaoLink
 
+    /** This activity's navigation for the agent link; published while it is in front. */
+    private var chaoNavigate: ((String) -> Unit)? = null
+
     @Inject
     lateinit var experienceModeDataStore: ExperienceModeDataStore
 
@@ -892,13 +895,16 @@ open class MainActivity : ComponentActivity() {
                     // Chao TV agent link: navigation for "home"/"tab"/"back", and what's on
                     // screen ("this" = the open details page).
                     DisposableEffect(navController) {
-                        com.nuvio.tv.chao.ChaoLink.navigate = { route ->
+                        chaoNavigate = { route ->
                             runOnUiThread {
                                 if (route == "back") navController.popBackStack()
                                 else navigateToDrawerRoute(navController, com.nuvio.tv.chao.ChaoLink.currentRoute, route)
                             }
                         }
-                        onDispose { com.nuvio.tv.chao.ChaoLink.navigate = null }
+                        if (lifecycle.currentState.isAtLeast(androidx.lifecycle.Lifecycle.State.RESUMED)) {
+                            com.nuvio.tv.chao.ChaoLink.navigate = chaoNavigate
+                        }
+                        onDispose { if (com.nuvio.tv.chao.ChaoLink.navigate === chaoNavigate) com.nuvio.tv.chao.ChaoLink.navigate = null }
                     }
                     LaunchedEffect(navBackStackEntry) {
                         com.nuvio.tv.chao.ChaoLink.currentRoute = actualRoute
@@ -1357,7 +1363,10 @@ open class MainActivity : ComponentActivity() {
     override fun onResume() {
         super.onResume()
         chaoSync.start()   // Chao TV: shared progress with the Apple TV
-        chaoLink.start()   // Chao TV: agent link
+        // Chao TV agent link: whichever MainActivity is in front receives its
+        // deep links / play intents and navigation (never a new instance).
+        com.nuvio.tv.chao.ChaoLink.intentSink = { intent -> runOnUiThread { onNewIntent(intent) } }
+        chaoNavigate?.let { com.nuvio.tv.chao.ChaoLink.navigate = it }
         ambientIdleController.dismiss()
         if (::jankStats.isInitialized) jankStats.isTrackingEnabled = true
         memberAccessRepository.refreshIfStale()
@@ -1443,6 +1452,7 @@ open class MainActivity : ComponentActivity() {
         // tracked; onActivityResult keeps it for a completion or dismisses it otherwise.
         externalPlaybackTracker.raiseAutoNextOverlayOnReturn()
         super.onStart()
+        chaoLink.start()   // Chao TV: agent link (ref-counted per started activity)
         startupSyncService.startPeriodicSurfacePulls()
         androidTvChannelSyncService.onForegroundChanged(true)
     }
