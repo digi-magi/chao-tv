@@ -2771,6 +2771,8 @@ private struct AppearanceSettingsView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 22) {
+            // Chao TV: top tab bar, no Calendar / Watch Party -> nothing to choose here.
+            if ChaoTV.showsCalendar || WatchPartyConfiguration.isEnabled {
             SettingsGroup(
                 title: L10n.string("settings_sidebar_tabs", fallback: "Sidebar"),
                 subtitle: L10n.string("settings_sidebar_tabs_subtitle", fallback: "Choose which sections appear in the sidebar")
@@ -2794,6 +2796,7 @@ private struct AppearanceSettingsView: View {
                     accentColor: accentColor
                 )
             }
+            }  // sidebar options
 
             SettingsGroup(
                 title: L10n.string("settings_poster_card_style", fallback: "Card & Poster Style"),
