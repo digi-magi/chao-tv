@@ -226,7 +226,7 @@ class ChaoSync @Inject constructor(
         )
     }
 
-    private fun cinemeta(type: String, id: String): JSONObject? = synchronized(metaCache) {
+    fun cinemeta(type: String, id: String): JSONObject? = synchronized(metaCache) {
         metaCache.getOrPut("$type/$id") {
             runCatching {
                 val (code, text) = http("GET", "https://v3-cinemeta.strem.io/meta/$type/$id.json", null, 8_000)

@@ -60,6 +60,7 @@ import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.mutableIntStateOf
@@ -888,6 +889,26 @@ open class MainActivity : ComponentActivity() {
                     val actualRoute = navBackStackEntry?.destination?.route
                     val currentRoute = optimisticRoute ?: actualRoute
                     startupDestination = startupDestinationForRoute(actualRoute ?: startDestination)
+                    // Chao TV agent link: navigation for "home"/"tab"/"back", and what's on
+                    // screen ("this" = the open details page).
+                    DisposableEffect(navController) {
+                        com.nuvio.tv.chao.ChaoLink.navigate = { route ->
+                            runOnUiThread {
+                                if (route == "back") navController.popBackStack()
+                                else navigateToDrawerRoute(navController, com.nuvio.tv.chao.ChaoLink.currentRoute, route)
+                            }
+                        }
+                        onDispose { com.nuvio.tv.chao.ChaoLink.navigate = null }
+                    }
+                    LaunchedEffect(navBackStackEntry) {
+                        com.nuvio.tv.chao.ChaoLink.currentRoute = actualRoute
+                        val args = navBackStackEntry?.arguments
+                        com.nuvio.tv.chao.ChaoLink.currentDetails =
+                            if (actualRoute?.startsWith("detail/") == true) {
+                                val id = args?.getString("itemId"); val type = args?.getString("itemType")
+                                if (!id.isNullOrBlank() && !type.isNullOrBlank()) id to type else null
+                            } else null
+                    }
 
                     LaunchedEffect(actualRoute) {
                         optimisticRoute = null
@@ -1197,7 +1218,19 @@ open class MainActivity : ComponentActivity() {
                         }
                         Box(modifier = Modifier.fillMaxSize()) {
                             CompositionLocalProvider(LocalNavViewModelStoreOwner provides navViewModelStoreOwner) {
-                                if (modernSidebarEnabled) {
+                                if (com.nuvio.tv.chao.ChaoTv.TOP_TABS) {
+                                    ChaoTopTabScaffold(
+                                        longPressBackHeld = longPressBackHeld,
+                                        navController = navController,
+                                        startDestination = startDestination,
+                                        currentRoute = currentRoute,
+                                        rootRoutes = rootRoutes,
+                                        drawerItems = drawerItems,
+                                        selectedDrawerRoute = selectedDrawerRoute,
+                                        onNavigate = { optimisticRoute = it },
+                                        onExitApp = handleExitApp
+                                    )
+                                } else if (modernSidebarEnabled) {
                                     ModernSidebarScaffold(
                                         longPressBackHeld = longPressBackHeld,
                                         navController = navController,
@@ -1448,6 +1481,105 @@ private fun SidebarFocusRecoveryEffect(
         val requester = drawerItemFocusRequesters[fallbackRoute] ?: return@LaunchedEffect
         repeat(2) { withFrameNanos { } }
         runCatching { requester.requestFocus() }
+    }
+}
+
+/**
+ * Chao TV: Omni-style top tab bar instead of the sidebar (same look as the
+ * Apple TV app). Back on a top-level screen first moves focus to the tabs,
+ * a second Back exits.
+ */
+@OptIn(ExperimentalTvMaterial3Api::class)
+@Composable
+private fun ChaoTopTabScaffold(
+    longPressBackHeld: MutableState<Boolean>,
+    navController: NavHostController,
+    startDestination: String,
+    currentRoute: String?,
+    rootRoutes: Set<String>,
+    drawerItems: List<DrawerItem>,
+    selectedDrawerRoute: String?,
+    onNavigate: (String) -> Unit,
+    onExitApp: () -> Unit
+) {
+    val showTabs = currentRoute in rootRoutes
+    val contentFocusRequester = remember { FocusRequester() }
+    val tabRequesters = remember(drawerItems) { drawerItems.associate { it.route to FocusRequester() } }
+    var tabsHaveFocus by remember { mutableStateOf(false) }
+    val keyboardController = androidx.compose.ui.platform.LocalSoftwareKeyboardController.current
+    LaunchedEffect(currentRoute) { longPressBackHeld.value = false }
+    BackHandler(enabled = showTabs && !tabsHaveFocus) {
+        val target = selectedDrawerRoute ?: drawerItems.firstOrNull()?.route
+        target?.let { runCatching { tabRequesters[it]?.requestFocus() } }
+    }
+    BackHandler(enabled = showTabs && tabsHaveFocus) {
+        if (!longPressBackHeld.value) onExitApp()
+    }
+    Column(modifier = Modifier.fillMaxSize().background(NuvioTheme.colors.Background)) {
+        if (showTabs) {
+            Box(
+                modifier = Modifier.fillMaxWidth().padding(top = 18.dp, bottom = 6.dp),
+                contentAlignment = Alignment.Center
+            ) {
+                Row(
+                    modifier = Modifier
+                        .background(Color(0xCC1C1C1E), RoundedCornerShape(50))
+                        .padding(horizontal = 6.dp, vertical = 5.dp)
+                        .onFocusChanged { tabsHaveFocus = it.hasFocus },
+                    horizontalArrangement = Arrangement.spacedBy(4.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    drawerItems.forEach { item ->
+                        key(item.route) {
+                            var focused by remember { mutableStateOf(false) }
+                            val selected = selectedDrawerRoute == item.route
+                            Box(
+                                modifier = Modifier
+                                    .focusRequester(tabRequesters.getValue(item.route))
+                                    .onFocusChanged { focused = it.isFocused }
+                                    .background(
+                                        when {
+                                            focused -> Color.White
+                                            selected -> Color(0x40FFFFFF)
+                                            else -> Color.Transparent
+                                        },
+                                        RoundedCornerShape(50)
+                                    )
+                                    .clickable {
+                                        keyboardController?.hide()
+                                        onNavigate(item.route)
+                                        navigateToDrawerRoute(
+                                            navController = navController,
+                                            currentRoute = currentRoute,
+                                            targetRoute = item.route
+                                        )
+                                    }
+                                    .padding(horizontal = 22.dp, vertical = 9.dp)
+                            ) {
+                                Text(
+                                    text = item.label,
+                                    color = if (focused) Color.Black else Color.White,
+                                    fontSize = 17.sp,
+                                    fontWeight = if (selected || focused) FontWeight.SemiBold else FontWeight.Medium
+                                )
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        Box(modifier = Modifier.fillMaxWidth().weight(1f)) {
+            CompositionLocalProvider(
+                LocalSidebarExpanded provides false,
+                LocalContentFocusRequester provides contentFocusRequester
+            ) {
+                NuvioNavHost(
+                    navController = navController,
+                    startDestination = startDestination,
+                    hideBuiltInHeaders = false
+                )
+            }
+        }
     }
 }
 

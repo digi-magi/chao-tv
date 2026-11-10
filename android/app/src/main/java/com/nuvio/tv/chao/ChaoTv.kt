@@ -19,6 +19,8 @@ object ChaoTv {
     const val SKIPS_LOGIN = true
     const val SHOWS_THIRD_PARTY_INTEGRATIONS = false
     const val ALLOWS_P2P = false
+    /** Omni-style top tab bar instead of the sidebar (like the Apple TV app). */
+    const val TOP_TABS = true
 
     private const val PREFS = "chaotv_house"
     private const val KEY_DEFAULTS = "first_run_defaults_v1"

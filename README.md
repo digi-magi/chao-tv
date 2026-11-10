@@ -90,7 +90,14 @@ The `upstream` remote is `bobsupra/NuvioTVOS`. Chao TV's changes are kept small 
 ## Changelog
 
 ### Google TV build 1 (in progress)
-- First Android TV build: NuvioTV dev with the Chao changes (rename, icons and banners, no sign-in or onboarding screens, slim Settings, no P2P, Auto Play first stream, Chao Sync, agent link).
+- First Android TV build: NuvioTV dev with all the Chao changes.
+  - Rename, plus icons and banners.
+  - Omni-style **top tab bar** instead of the sidebar.
+  - No sign-in or onboarding screens.
+  - Slim Settings, no P2P.
+  - Auto Play on the first stream.
+  - **Chao Sync** with the Apple TV.
+  - The **agent link**, with the same commands, including `library`, `watched`, `unwatched` and `forget` on "this", and on-screen confirmations.
 
 ### Build 7 (superseded by build 8: launch screen)
 - **New icon:** the house Chao in green LED dots, matching the rack-panel face (App Icon, Top Shelf, wordmark, and the launch screen, which still flashed the Nuvio logo).

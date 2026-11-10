@@ -19,6 +19,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.json.JSONArray
@@ -36,6 +37,8 @@ class ChaoLink @Inject constructor(
     @ApplicationContext private val context: Context,
     private val chaoSync: ChaoSync,
     private val deepLinkHandler: DeepLinkHandler,
+    private val libraryRepository: com.nuvio.tv.domain.repository.LibraryRepository,
+    private val progressRepository: com.nuvio.tv.domain.repository.WatchProgressRepository,
 ) {
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
     private var loopJob: Job? = null
@@ -113,7 +116,15 @@ class ChaoLink @Inject constructor(
         return when (cmd) {
             "status" -> ok(state())
             "toast" -> { toast(a.optString("text", "Done")); ok() }
-            "home", "tab" -> { openUri("nuvio://home"); ok() }
+            "home", "tab", "back" -> {
+                val nav = navigate ?: return fail("app not on screen")
+                val route = when (if (cmd == "tab") a.optString("name", "home").lowercase() else cmd) {
+                    "home" -> "home"; "search" -> "search"; "library" -> "library"; "settings" -> "settings"
+                    "back" -> "back"
+                    else -> return fail("unknown tab")
+                }
+                nav(route); ok()
+            }
             "open" -> {
                 val id = a.optString("id").ifBlank { return fail("id required") }
                 openUri("nuvio://meta?type=${Uri.encode(a.optString("type", "movie"))}&id=${Uri.encode(id)}"); ok()
@@ -185,7 +196,64 @@ class ChaoLink @Inject constructor(
                 toast("Add-on installed"); ok(JSONObject().put("message", r.message))
             }
             "sync" -> { chaoSync.syncNow(); ok() }
+            "library", "watched", "unwatched", "forget" -> thisAction(cmd, a)
             else -> fail("unknown command $cmd")
+        }
+    }
+
+    /** "This" = explicit id/type, else what's playing, else the open details page. */
+    private suspend fun thisAction(cmd: String, a: JSONObject): JSONObject {
+        val playing = player?.get()?.uiState?.value
+        val (id, type) = when {
+            a.optString("id").isNotBlank() -> a.optString("id") to a.optString("type", if (a.has("season")) "series" else "movie")
+            currentDetails != null -> currentDetails!!
+            else -> return fail("nothing on screen to act on - give id and type")
+        }
+        val kind = if (type == "movie") "movie" else "series"
+        val meta = withContext(Dispatchers.IO) { chaoSync.cinemeta(kind, id) }
+        val title = meta?.optString("name")?.takeIf { it.isNotBlank() } ?: playing?.contentName ?: id
+        when (cmd) {
+            "library" -> {
+                val inLib = libraryRepository.isInLibrary(id, kind).first()
+                val add = when (a.optString("action", "add")) { "remove" -> false; "toggle" -> !inLib; else -> true }
+                if (add != inLib) {
+                    libraryRepository.toggleDefault(com.nuvio.tv.domain.model.LibraryEntryInput(
+                        itemId = id, itemType = kind, title = title,
+                        poster = meta?.optString("poster")?.takeIf { it.isNotBlank() },
+                        background = meta?.optString("background")?.takeIf { it.isNotBlank() },
+                        logo = meta?.optString("logo")?.takeIf { it.isNotBlank() },
+                        description = meta?.optString("description")?.takeIf { it.isNotBlank() },
+                        releaseInfo = meta?.optString("releaseInfo")?.takeIf { it.isNotBlank() },
+                    ))
+                }
+                toast(if (add) "Added $title to Library" else "Removed $title from Library")
+                return ok(JSONObject().put("title", title).put("inLibrary", add))
+            }
+            "watched", "unwatched" -> {
+                val season = if (a.has("season")) a.optInt("season") else null
+                val episode = if (a.has("episode")) a.optInt("episode") else null
+                val videoId = if (season != null && episode != null) "$id:$season:$episode" else id
+                val what = if (season != null && episode != null) "$title S${season}E$episode" else title
+                if (cmd == "watched") {
+                    progressRepository.markAsCompleted(com.nuvio.tv.domain.model.WatchProgress(
+                        contentId = id, contentType = kind, name = title,
+                        poster = meta?.optString("poster")?.takeIf { it.isNotBlank() },
+                        backdrop = meta?.optString("background")?.takeIf { it.isNotBlank() },
+                        logo = meta?.optString("logo")?.takeIf { it.isNotBlank() },
+                        videoId = videoId, season = season, episode = episode, episodeTitle = null,
+                        position = 1L, duration = 1L, lastWatched = System.currentTimeMillis()
+                    ))
+                } else {
+                    progressRepository.removeFromHistory(id, videoId, season, episode)
+                }
+                toast(if (cmd == "watched") "Marked $what watched" else "Marked $what unwatched")
+                return ok(JSONObject().put("title", what))
+            }
+            else -> {
+                progressRepository.removeProgress(id)
+                toast("Removed $title from Continue Watching")
+                return ok(JSONObject().put("title", title))
+            }
         }
     }
 
@@ -202,6 +270,7 @@ class ChaoLink @Inject constructor(
         @Volatile var currentRoute: String? = null
         @Volatile var currentDetails: Pair<String, String>? = null
         @Volatile var player: WeakReference<PlayerViewModel>? = null
+        @Volatile var navigate: ((String) -> Unit)? = null
         @Volatile private var appContext: Context? = null
 
         /** The TV's own name (Settings > System > About > Device name), e.g. "Master Bedroom". */
