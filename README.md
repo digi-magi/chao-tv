@@ -89,6 +89,9 @@ The `upstream` remote is `bobsupra/NuvioTVOS`. Chao TV's changes are kept small 
 
 ## Changelog
 
+### Google TV build 5
+- **No more doubled audio with an audio-effects app.** The player told effect apps (RootlessJamesDSP on the projector) that its audio session was 0, because Media3 1.8 only creates the real session id a moment after the player starts. The effects app then played its processed copy on top of the unmuted original. The real id is now announced as soon as it exists, and session 0 is never announced.
+
 ### Google TV build 4
 - **Skip Intro works on Google TV.** The intro, recap and credits timestamps now come from IntroDB, the same source the Apple TV uses (the Android build had it switched off). Chapter-named intros in the file still work too.
 

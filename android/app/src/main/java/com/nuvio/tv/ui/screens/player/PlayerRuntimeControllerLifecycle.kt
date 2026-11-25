@@ -2,6 +2,7 @@ package com.nuvio.tv.ui.screens.player
 
 import android.content.Intent
 import android.media.audiofx.AudioEffect
+import androidx.media3.common.C
 import kotlinx.coroutines.flow.update
 
 internal fun PlayerRuntimeController.releasePlayer() {
@@ -124,6 +125,12 @@ internal fun PlayerRuntimeController.releasePlayer(
 
 internal fun PlayerRuntimeController.notifyAudioSessionUpdate(active: Boolean) {
     _exoPlayer?.let { player ->
+        // Chao: never announce session 0 (C.AUDIO_SESSION_ID_UNSET). Media3 1.8 generates the
+        // real id on a background thread, so it is still 0 right after the player is built; a
+        // 0 broadcast made RootlessJamesDSP on the projector skip our track and play the audio
+        // twice (its processed copy + our unmuted original). The real id is announced from
+        // onAudioSessionIdChanged instead.
+        if (player.audioSessionId == C.AUDIO_SESSION_ID_UNSET) return
         try {
             val intent = Intent(
                 if (active) AudioEffect.ACTION_OPEN_AUDIO_EFFECT_CONTROL_SESSION

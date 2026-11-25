@@ -1105,6 +1105,13 @@ internal fun PlayerRuntimeController.initializePlayer(
                 applyCenterMixLevel(_uiState.value.centerMixLevelDb)
 
                 notifyAudioSessionUpdate(true)
+                // Chao: the audio session id lands asynchronously (Media3 1.8); announce it to
+                // audio-effect apps (RootlessJamesDSP on the projector) once it exists.
+                addListener(object : Player.Listener {
+                    override fun onAudioSessionIdChanged(audioSessionId: Int) {
+                        if (!isReleasingPlayer) notifyAudioSessionUpdate(true)
+                    }
+                })
 
                 val preferred = playerSettings.subtitleStyle.preferredLanguage
                 val secondary = playerSettings.subtitleStyle.secondaryPreferredLanguage
